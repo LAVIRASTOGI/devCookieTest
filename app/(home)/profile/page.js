@@ -12,7 +12,15 @@ const ProfileDetails = dynamic(() => import("@/components/ProfileDetails"), {
 function ProfilePage() {
   const { user } = useUser();
 
-  return <>{user && <ProfileDetails userData={user} />}</>;
+  return (
+    <>
+      {user ? (
+        <ProfileDetails userData={user} />
+      ) : (
+        <div className="h-[30vh]  md:h-[82vh]"></div>
+      )}
+    </>
+  );
 }
 
 export default ProfilePage;
