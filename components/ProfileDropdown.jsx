@@ -1,4 +1,5 @@
 "use client";
+import Loading from "@/app/loading";
 import { useUser } from "@/contexts/userContext";
 import { signOutHandler } from "@/lib/action";
 
@@ -46,6 +47,7 @@ function ProfileDropdown() {
   };
   return (
     <>
+      {/* <Loading /> */}
       {/* Profile/Login Dropdown */}
       <div className="relative" ref={dropdownRef}>
         <button
