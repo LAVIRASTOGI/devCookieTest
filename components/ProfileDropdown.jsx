@@ -10,6 +10,7 @@ import toast from "react-hot-toast";
 
 function ProfileDropdown() {
   const [isProfileOpen, setIsProfileOpen] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
   const dropdownRef = useRef(null);
   const { user, logout } = useUser();
   const router = useRouter();
@@ -33,10 +34,13 @@ function ProfileDropdown() {
 
   const logoutHandler = async () => {
     try {
+      setIsLoading(true);
       await signOutHandler();
       router.push("/");
       logout();
       setIsProfileOpen(false);
+      setIsLoading(false);
+      toast.success("Successfully signed out! See you soon.");
     } catch (error) {
       console.error("Error submitting form:", error);
       toast.error(
@@ -47,7 +51,7 @@ function ProfileDropdown() {
   };
   return (
     <>
-      {/* <Loading /> */}
+      {isLoading && <Loading />}
       {/* Profile/Login Dropdown */}
       <div className="relative" ref={dropdownRef}>
         <button
