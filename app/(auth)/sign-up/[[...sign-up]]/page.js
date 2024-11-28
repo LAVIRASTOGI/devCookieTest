@@ -74,9 +74,8 @@ export default function SignUpPage() {
 
   return (
     <main className="min-h-screen flex flex-col lg:flex-row bg-gray-50">
-      <SignUpHeader />
-
       <Suspense fallback={<Loading />}>
+        <SignUpHeader />
         {/* Right Section with Form */}
         <div className="w-full lg:w-1/2 lg:ml-auto min-h-screen">
           <div className="w-full max-w-md mx-auto p-8">
