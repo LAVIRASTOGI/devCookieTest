@@ -32,6 +32,7 @@ export default function Home() {
   const closeModal = () => setIsOpen(false);
   return (
     <div className="min-h-screen bg-gradient-custom-2 mt-20">
+      {/* <PaymentRazorPay/> */}
       <Hero openModal={openModal} />
       <Features />
       <TechStack />
