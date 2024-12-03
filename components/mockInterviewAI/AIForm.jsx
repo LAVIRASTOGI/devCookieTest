@@ -9,9 +9,12 @@ import {
   experienceValidation,
 } from "@/utils/commonValidation";
 import { useUser } from "@/contexts/userContext";
+import { useRouter } from "next/navigation";
+import Button from "../uiComponents/Button";
 
 function AIForm() {
   const { user } = useUser();
+  const router = useRouter();
   const {
     register,
     handleSubmit,
@@ -34,10 +37,12 @@ function AIForm() {
       toast.error("Please select at least one skill");
       return;
     }
-
+    // router.push(`/mock-interview-ai/instructions`);
     setIsLoading(true);
     try {
       //   await mockInterviewInviteHandler(data, specializations);
+      await new Promise((resolve) => setTimeout(() => resolve("yes"), 2000));
+      router.push(`/mock-interview-ai/1234`);
       toast.success("Starting your interview...");
       //   onFormSubmit(data);
       reset();
@@ -95,17 +100,13 @@ function AIForm() {
           />
         </div>
 
-        <button
-          type="submit"
-          disabled={isLoading}
-          className="w-full py-3 px-4 bg-[#467ac0] text-white rounded-md hover:bg-[#3b69a8] transition-colors duration-200 disabled:opacity-50 disabled:cursor-not-allowed font-medium text-lg"
-        >
+        <Button type="submit" disabled={isLoading} className="w-full">
           {isLoading ? (
             <span>Starting Interview...</span>
           ) : (
             <span>Start Interview</span>
           )}
-        </button>
+        </Button>
       </form>
     </div>
   );
