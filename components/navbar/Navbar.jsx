@@ -1,5 +1,4 @@
 "use client";
-import Loading from "@/app/loading";
 import useScreenSize from "@/utils/useScreenSize";
 import MobileNavigation from "./MobileNavigation";
 import DesktopNav from "./DesktopNav";

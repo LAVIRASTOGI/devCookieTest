@@ -1,5 +1,6 @@
 import Dashboard from "@/components/mockInterviewAI/Dashboard";
 import React from "react";
+export const dynamic = "force-static";
 
 function AIMockInterviewPage() {
   return (
