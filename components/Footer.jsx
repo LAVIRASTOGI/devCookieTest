@@ -33,7 +33,9 @@ export default function Footer() {
 
           <FooterSection title="Quick Links">
             <ul className="text-sm">
-              <FooterLink href="/terms">Terms and Conditions</FooterLink>
+              <FooterLink href="/termsConditions">
+                Terms and Conditions
+              </FooterLink>
               <FooterLink href="/privacy">Privacy Policy</FooterLink>
               <FooterLink href="/refund">Refund Policy</FooterLink>
               <FooterLink href="/contact">Contact Us</FooterLink>
@@ -42,7 +44,7 @@ export default function Footer() {
 
           <FooterSection title="Contact Us">
             <p className="text-sm mb-2">Email: devreadyacademy@gmail.com</p>
-            {/* <p className="text-sm">Phone: 9742117416</p> */}
+            <p className="text-sm mb-2">Phone:+918468095857</p>
           </FooterSection>
 
           <FooterSection title="Follow Us">
