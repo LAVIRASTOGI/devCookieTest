@@ -24,6 +24,7 @@ export async function getResponse() {
   try {
     const message = await model.generateContent("hi");
     console.log("tetxt", message.response.text());
+    return message.response.text();
   } catch (err) {
     console.log("err", err);
   }
