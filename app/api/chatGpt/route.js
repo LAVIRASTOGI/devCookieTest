@@ -34,7 +34,7 @@ export async function POST(request) {
 
     console.log("messageContent", messageContent); // Output: "This is the
 
-    return NextResponse.json(response?.data?.choices[0].message.content;);
+    return NextResponse.json(response?.data?.choices[0].message.content);
   } catch (error) {
     console.error("Error in API route:", error.message);
     console.error("Error details:", error.response?.data || error.message);
