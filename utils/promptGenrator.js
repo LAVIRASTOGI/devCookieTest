@@ -2,7 +2,7 @@ export function generateInterviewPrompt({
   experienceYears,
   skillLevel,
   technologies,
-  questionCount = 30,
+  questionCount = 31,
 }) {
   const techStackValue = technologies ? technologies.join(", ") : "";
 

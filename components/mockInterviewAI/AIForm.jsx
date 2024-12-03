@@ -76,6 +76,7 @@ function AIForm() {
             name="skillFeild"
             label="Skill Level"
             options={SKILL_LEVELS}
+            disabled={isLoading}
             error={errors.skillFeild?.message}
           />
 
@@ -84,6 +85,7 @@ function AIForm() {
             name="specializations"
             label="Select Skills (Choose one or more) *"
             options={SPECIALIZATIONS}
+            disabled={isLoading}
             error={errors.specializations?.message}
             {...register("specializations", checkboxSkillValidation)}
           />
@@ -102,7 +104,7 @@ function AIForm() {
 
         <Button type="submit" disabled={isLoading} className="w-full">
           {isLoading ? (
-            <span>Starting Interview...</span>
+            <span>Hang tight! Your AI-generated question is on the way...</span>
           ) : (
             <span>Start Interview</span>
           )}

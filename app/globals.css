@@ -9,3 +9,7 @@ body {
 .radio:checked {
   background-color: #467ac0;
 }
+.radio:disabled {
+  opacity: 0.3;
+  background-color: rgb(209 213 219);
+}
