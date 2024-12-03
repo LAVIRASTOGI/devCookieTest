@@ -1,19 +1,13 @@
-// import Loading from "@/app/loading";
+import dynamic from "next/dynamic";
 
-import CoachingSection from "@/components/CoachingSection";
-import TechStack from "@/components/TechStack";
+const CoachingSection = dynamic(() => import("@/components/CoachingSection"), {
+  loading: () => <Loading />,
+});
 
-// import dynamic from "next/dynamic";
+const TechStack = dynamic(() => import("@/components/TechStack"), {
+  loading: () => <Loading />,
+});
 
-// const CoachingSection = dynamic(() => import("@/components/CoachingSection"), {
-//   loading: () => <Loading />,
-// });
-
-// const TechStack = dynamic(() => import("@/components/TechStack"), {
-//   loading: () => <Loading />,
-// });
-
-export const dynamic = "force-static";
 function MockInterview() {
   return (
     <>
