@@ -1,8 +1,3 @@
-// components/FormFields.jsx
-
-// Formfield.jsx
-import React from "react";
-
 export const FormField = ({ label, children, error }) => {
   return (
     <div className="form-control w-full">
@@ -91,8 +86,6 @@ export const SelectField = ({
     </select>
   </FormField>
 );
-
-// Add this new component alongside your existing components
 
 export const RadioField = ({
   register,
