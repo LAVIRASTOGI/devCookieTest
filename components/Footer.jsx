@@ -33,8 +33,10 @@ export default function Footer() {
 
           <FooterSection title="Quick Links">
             <ul className="text-sm">
-              <FooterLink href="/">Home</FooterLink>
-              <FooterLink href="/mock-interview">Mock Interview</FooterLink>
+              <FooterLink href="/terms">Terms and Conditions</FooterLink>
+              <FooterLink href="/privacy">Privacy Policy</FooterLink>
+              <FooterLink href="/refund">Refund Policy</FooterLink>
+              <FooterLink href="/contact">Contact Us</FooterLink>
             </ul>
           </FooterSection>
 
