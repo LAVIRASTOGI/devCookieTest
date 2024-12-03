@@ -13,7 +13,19 @@ export const EXPERIENCE_LEVELS = [
   { value: "Advanced (5+ years)", label: "Advanced (5+ years)" },
 ];
 
+export const SKILL_LEVELS = [
+  { value: "beginner", label: "Beginner" },
+  { value: "intermediate", label: "Intermediate" },
+  { value: "advanced", label: "Advanced" },
+];
 export const PLANS = [
   { value: 200, label: "Basic (Rs 200 - 1 Mock Interview Session)" },
   { value: 300, label: "Premium (Rs 300 - 2 Mock Interviews Sessions)" },
+];
+
+export const SPECIALIZATIONS = [
+  { value: "javascript", label: "JavaScript" },
+  { value: "html", label: "HTML" },
+  { value: "css", label: "CSS" },
+  { value: "react", label: "React" },
 ];

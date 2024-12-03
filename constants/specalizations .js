@@ -20,11 +20,11 @@ export const SPECIALIZATIONS = [
       "Build a strong foundation in semantic HTML, modern CSS techniques, responsive design, and popular CSS frameworks.",
     icon: "/images/HtmlCSS.jpg",
   },
-  {
-    id: "node",
-    title: "Node.js",
-    description:
-      "Master backend development with Node.js, Express, MongoDB and API design for scalable and efficient applications.",
-    icon: "/images/nodeJS.png",
-  },
+  // {
+  //   id: "node",
+  //   title: "Node.js",
+  //   description:
+  //     "Master backend development with Node.js, Express, MongoDB and API design for scalable and efficient applications.",
+  //   icon: "/images/nodeJS.png",
+  // },
 ];

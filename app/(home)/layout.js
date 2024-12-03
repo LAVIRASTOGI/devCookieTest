@@ -4,7 +4,7 @@ import Loading from "../loading";
 import dynamic from "next/dynamic";
 import { cookies } from "next/headers";
 
-const Navbar = dynamic(() => import("@/components/Navbar"), {
+const Navbar = dynamic(() => import("@/components/navbar/Navbar"), {
   loading: () => <Loading />,
 });
 const Footer = dynamic(() => import("@/components/Footer"), {

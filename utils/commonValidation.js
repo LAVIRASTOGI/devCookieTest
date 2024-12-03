@@ -152,3 +152,8 @@ export const experienceLevelValidation = {
 export const planAmountValidation = {
   required: "Plan amount is required",
 };
+export const checkboxSkillValidation = {
+  required: "Please select at least one skill",
+  validate: (value) =>
+    (value && value.length > 0) || "Please select at least one skill",
+};

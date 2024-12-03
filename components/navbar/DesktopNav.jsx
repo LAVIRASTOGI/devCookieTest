@@ -4,8 +4,7 @@ import { usePathname } from "next/navigation";
 import Link from "next/link";
 import { sidebarLinks } from "@/constants/links";
 import Image from "next/image";
-
-import ProfileDropdown from "./ProfileDropdown";
+import ProfileDropdown from "../ProfileDropdown";
 
 function DesktopNav() {
   const pathname = usePathname();

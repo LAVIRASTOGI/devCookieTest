@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import Image from "next/image";
-import ProfileDropdown from "./ProfileDropdown";
+import ProfileDropdown from "../ProfileDropdown";
 import MobileNav from "./MobileNav";
 
 function MobileNavigation() {
