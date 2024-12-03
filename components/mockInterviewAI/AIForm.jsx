@@ -33,35 +33,60 @@ function AIForm() {
 
   const [isLoading, setIsLoading] = useState(false);
 
-  const onSubmit = async (data) => {
-    if (!data.specializations || data.specializations.length === 0) {
-      toast.error("Please select at least one skill");
-      return;
-    }
-    // router.push(`/mock-interview-ai/instructions`);
-    setIsLoading(true);
-    try {
-      let mockid = await mockInterviewGenerate("", data, user);
-      mockid = mockid || 1234;
-      router.push(`/mock-interview-ai/${mockid}`);
-      toast.success("Starting your interview...");
-      reset();
-    } catch (error) {
-      console.error("Error submitting form:", error);
-      toast.error(
-        error.message ||
-          "Error occurred While Form Submission. Please Try After Sometime"
-      );
-    } finally {
-      setIsLoading(false);
-    }
-  };
+  // const onSubmit = async (data) => {
+  //   if (!data.specializations || data.specializations.length === 0) {
+  //     toast.error("Please select at least one skill");
+  //     return;
+  //   }
+  //   // router.push(`/mock-interview-ai/instructions`);
+  //   setIsLoading(true);
+  //   try {
+  //     let mockid = await mockInterviewGenerate("", data, user);
+  //     mockid = mockid || 1234;
+  //     router.push(`/mock-interview-ai/${mockid}`);
+  //     toast.success("Starting your interview...");
+  //     reset();
+  //   } catch (error) {
+  //     console.error("Error submitting form:", error);
+  //     toast.error(
+  //       error.message ||
+  //         "Error occurred While Form Submission. Please Try After Sometime"
+  //     );
+  //   } finally {
+  //     setIsLoading(false);
+  //   }
+  // };
 
   const onError = (errors) => {
     console.error("Form validation errors:", errors);
     toast.error("Please fill in all required fields correctly");
   };
 
+  const onSubmit = async (e) => {
+    // e.preventDefault();
+    //setResponse(""); // Reset response
+
+    try {
+      const res = await fetch("/api/chatGpt", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ prompt: "interviewQues react 5" }),
+      });
+
+      const data = await res.json();
+      console.log("data", data);
+      if (data.error) {
+        // setResponse(`Error: ${data.error}`);
+        console.log("error", erorr);
+      } else {
+        console.log("content", data.choices[0].message.content);
+      }
+    } catch (error) {
+      console.log("Failed to get response");
+    }
+  };
   return (
     <div className="max-w-md mx-auto p-6 bg-white rounded-lg shadow-md">
       <form
