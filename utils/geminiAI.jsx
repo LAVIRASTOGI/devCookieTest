@@ -18,3 +18,13 @@ const generationConfig = {
 export const chatSession = model.startChat({
   generationConfig,
 });
+
+export async function getResponse() {
+  console.log("camerher");
+  try {
+    const message = await model.generateContent("hi");
+    console.log("tetxt", message.response.text());
+  } catch (err) {
+    console.log("err", err);
+  }
+}
