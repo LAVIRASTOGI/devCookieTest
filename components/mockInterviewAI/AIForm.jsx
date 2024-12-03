@@ -72,10 +72,11 @@ function AIForm() {
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({ prompt: "interviewQues react 5" }),
+        body: JSON.stringify({ prompt: "what name?" }),
       });
 
       const data = await res.json();
+      toast.success(JSON.stringify(data));
       console.log("data", data);
       if (data.error) {
         // setResponse(`Error: ${data.error}`);

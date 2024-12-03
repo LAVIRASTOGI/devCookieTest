@@ -18,7 +18,9 @@ export async function POST(request) {
       "https://api.openai.com/v1/chat/completions",
       {
         model: "gpt-3.5-turbo", // or 'gpt-4' depending on your model
-        messages: [{ role: "user", content: prompt }],
+        messages: [
+          { role: "user", content: "2 interview ques of react in json format" },
+        ],
       },
       {
         headers: {
@@ -27,8 +29,12 @@ export async function POST(request) {
         },
       }
     );
+    console.log("datwwwwwwa", response.data);
+    const messageContent = response?.data?.choices[0].message.content;
 
-    return NextResponse.json(response.data);
+    console.log("messageContent", messageContent); // Output: "This is the
+
+    return NextResponse.json(response?.data?.choices[0].message.content;);
   } catch (error) {
     console.error("Error in API route:", error.message);
     console.error("Error details:", error.response?.data || error.message);
