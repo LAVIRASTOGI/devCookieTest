@@ -11,6 +11,7 @@ import {
 import { useUser } from "@/contexts/userContext";
 import { useRouter } from "next/navigation";
 import Button from "../uiComponents/Button";
+import { mockInterviewGenerate } from "@/lib/mockInterviewAIaction";
 
 function AIForm() {
   const { user } = useUser();
@@ -40,11 +41,10 @@ function AIForm() {
     // router.push(`/mock-interview-ai/instructions`);
     setIsLoading(true);
     try {
-      //   await mockInterviewInviteHandler(data, specializations);
-      await new Promise((resolve) => setTimeout(() => resolve("yes"), 2000));
-      router.push(`/mock-interview-ai/1234`);
+      let mockid = await mockInterviewGenerate("", data, user);
+      mockid = mockid || 1234;
+      router.push(`/mock-interview-ai/${mockid}`);
       toast.success("Starting your interview...");
-      //   onFormSubmit(data);
       reset();
     } catch (error) {
       console.error("Error submitting form:", error);
