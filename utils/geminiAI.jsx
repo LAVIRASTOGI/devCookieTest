@@ -11,7 +11,7 @@ const generationConfig = {
   responseMimeType: "text/plain",
 };
 
-export async function getResponse(message) {
+export async function getResponse(message = "hiiii") {
   try {
     const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
     const chat = model.startChat({ generationConfig }); // Start chat here
