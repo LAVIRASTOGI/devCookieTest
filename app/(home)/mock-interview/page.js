@@ -1,3 +1,4 @@
+import Loading from "@/app/loading";
 import dynamic from "next/dynamic";
 
 const CoachingSection = dynamic(() => import("@/components/CoachingSection"), {
