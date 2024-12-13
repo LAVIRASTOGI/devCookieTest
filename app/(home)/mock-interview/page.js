@@ -1,18 +1,12 @@
-import Loading from "@/app/loading";
-import dynamic from "next/dynamic";
+"use client";
 
-const CoachingSection = dynamic(() => import("@/components/CoachingSection"), {
-  loading: () => <Loading />,
-});
-
-const TechStack = dynamic(() => import("@/components/TechStack"), {
-  loading: () => <Loading />,
-});
+import CoachingSection from "@/components/mockInterviewForm/CoachingSection";
+import TechStack from "@/components/landingPageFeatures/TechStack";
 
 function MockInterview() {
   return (
     <>
-      <div className="mt-20">
+      <div className="mt-20 ">
         <CoachingSection />
         <TechStack />
       </div>

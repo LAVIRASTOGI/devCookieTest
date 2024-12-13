@@ -1,10 +1,11 @@
 "use client";
 import { useState } from "react";
-import CustomDialogue from "./CustomDialogue";
-import SpecializationModalContent from "./SpecializationModalContent";
 import Image from "next/image";
-import Button from "./uiComponents/Button";
+
 import { FaArrowRight } from "react-icons/fa";
+import SpecializationModalContent from "../SpecializationModalContent";
+import CustomDialogue from "../CustomDialogue";
+import Button from "../uiComponents/Button";
 
 const VideoEmbed = () => (
   <div className="lg:w-1/2 mt-8 lg:mt-0 transform hover:scale-[1.02] transition-transform duration-300">
@@ -51,9 +52,8 @@ const DescrptionText = () => {
         industry experts with over 10 years of experience.
       </h1>
       <p className="mb-4 leading-relaxed">
-        Choose your specialization, from front-end frameworks like React.js to
-        back-end technologies such as Node.js, and receive immediate,
-        constructive feedback.
+        Choose your specialization, from front-end frameworks like React.js and
+        receive immediate, constructive feedback.
       </p>
       <p className="leading-relaxed">
         Our mock interviews simulate real-world scenarios, helping you build
@@ -88,15 +88,17 @@ const CoachingSection = ({
         onButtonClick={openModal}
       />
       <VideoEmbed />
-      <CustomDialogue
-        idName="mockInterview"
-        title=""
-        description=""
-        isOpen={isOpen}
-        closeModal={closeModal}
-      >
-        <SpecializationModalContent closeModal={closeModal} isOpen={isOpen} />
-      </CustomDialogue>
+      {openModal && (
+        <CustomDialogue
+          idName="mockInterview"
+          title=""
+          description=""
+          isOpen={isOpen}
+          closeModal={closeModal}
+        >
+          <SpecializationModalContent closeModal={closeModal} isOpen={isOpen} />
+        </CustomDialogue>
+      )}
     </section>
   );
 };

@@ -7,9 +7,12 @@ import { cookies } from "next/headers";
 const Navbar = dynamic(() => import("@/components/navbar/Navbar"), {
   loading: () => <Loading />,
 });
-const Footer = dynamic(() => import("@/components/Footer"), {
-  loading: () => <Loading />,
-});
+const Footer = dynamic(
+  () => import("@/components/landingPageFeatures/Footer"),
+  {
+    loading: () => <Loading />,
+  }
+);
 
 async function HomeLayout({ children }) {
   const cookie = await cookies();

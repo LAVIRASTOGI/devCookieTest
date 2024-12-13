@@ -1,12 +1,13 @@
 "use client";
-import Features from "@/components/Features";
-import Hero from "@/components/Hero";
-import MockInterviewProcess from "@/components/MockInterviewProcess";
-import PricingPlan from "@/components/PricingPlan";
-import TechStack from "@/components/TechStack";
+import Features from "@/components/landingPageFeatures/Features";
+
+import TechStack from "@/components/landingPageFeatures/TechStack";
 import { useState } from "react";
 import dynamic from "next/dynamic";
 import Loading from "../loading";
+import Hero from "@/components/landingPageFeatures/Hero";
+import PricingPlan from "@/components/landingPageFeatures/PricingPlan";
+import MockInterviewProcess from "@/components/landingPageFeatures/MockInterviewProcess";
 
 const CustomDialogue = dynamic(() => import("@/components/CustomDialogue"), {
   loading: () => <Loading />,

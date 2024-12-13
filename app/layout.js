@@ -1,6 +1,8 @@
 import { UserProvider } from "@/contexts/userContext";
 import "./globals.css";
 import { Toaster } from "react-hot-toast";
+import "react-datepicker/dist/react-datepicker.css";
+import { ThemeProvider } from "@/contexts/ThemeProvider";
 
 export const metadata = {
   title: "DevReady Academy - Master Mock Interviews with Industry Experts",
@@ -40,22 +42,24 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en">
       <body className="relative">
-        <UserProvider>
-          {children}
-          <Toaster
-            position="top-right"
-            reverseOrder={false}
-            toastOptions={{
-              // Define default options
-              className: "",
-              duration: 2000,
-              style: {
-                background: "#363636",
-                color: "#fff",
-              },
-            }}
-          />
-        </UserProvider>
+        <ThemeProvider>
+          <UserProvider>
+            {children}
+            <Toaster
+              position="top-right"
+              reverseOrder={false}
+              toastOptions={{
+                // Define default options
+                className: "",
+                duration: 2000,
+                style: {
+                  background: "#363636",
+                  color: "#fff",
+                },
+              }}
+            />
+          </UserProvider>
+        </ThemeProvider>
       </body>
     </html>
   );

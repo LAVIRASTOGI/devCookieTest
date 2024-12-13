@@ -1,3 +1,7 @@
+import { Controller } from "react-hook-form";
+import DatePicker from "react-datepicker";
+import moment from "moment";
+
 export const FormField = ({ label, children, error }) => {
   return (
     <div className="form-control w-full">
@@ -78,8 +82,8 @@ export const SelectField = ({
       {...props}
     >
       <option value="">Select an option</option>
-      {options.map(({ value, label }) => (
-        <option key={value} value={value}>
+      {options.map(({ value, label, disabled = false }) => (
+        <option key={value} value={value} disabled={disabled}>
           {label}
         </option>
       ))}
@@ -149,3 +153,70 @@ export const CheckboxField = ({
     </div>
   </FormField>
 );
+export const DatePickerFeild = ({
+  register,
+  name,
+  label,
+  error,
+  className = "",
+  textareaClassName = "",
+  inputClassName = "",
+  min,
+  max,
+  control,
+  ...props
+}) => {
+  // Get today's date in YYYY-MM-DD format
+  const today = new Date().toISOString().split("T")[0];
+  const minDate = min || today;
+  const maxDate =
+    max ||
+    (() => {
+      // Default max date to 3 months from today if not provided
+      const date = new Date();
+      date.setMonth(date.getMonth() + 1);
+      return date.toISOString().split("T")[0];
+    })();
+
+  return (
+    <FormField label={label} error={error} className={className}>
+      <Controller
+        name="date"
+        control={control}
+        defaultValue={null}
+        rules={{ required: "Date is required" }}
+        render={({ field }) => {
+          const handleDateChange = (date) => {
+            if (date) {
+              // Example: format date
+              const formattedDate = moment(date).format("YYYY-MM-DD");
+              field.onChange(formattedDate);
+            } else {
+              field.onChange(date);
+            }
+          };
+
+          return (
+            <>
+              <DatePicker
+                placeholderText="Select a date"
+                selected={field.value}
+                onChange={handleDateChange}
+                minDate={minDate}
+                maxDate={maxDate}
+                className={`w-full px-4 py-2 text-gray-700 bg-white border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 transition-all duration-200 ease-in-out
+                ${
+                  error
+                    ? "border-red-500 focus:ring-red-500"
+                    : "border-gray-300 hover:border-gray-400"
+                }
+                disabled:bg-gray-100 disabled:cursor-not-allowed
+                pr-10`}
+              />
+            </>
+          );
+        }}
+      />
+    </FormField>
+  );
+};

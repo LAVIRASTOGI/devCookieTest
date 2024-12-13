@@ -1,11 +1,25 @@
 "use client";
 
-import { use, useCallback, useEffect, useMemo, useState } from "react";
-import SpecializationStep from "./SpecializationStep";
-import FormMockStep from "./FormMockStep";
-import PaymentStep from "./Payment";
+import { Suspense, useEffect, useMemo, useState } from "react";
 import { useUser } from "@/contexts/userContext";
+import { getInterviewerSlots } from "@/lib/userAction";
+import Loading from "@/app/loading";
+import dynamic from "next/dynamic";
 
+const FormMockStep = dynamic(() => import("./mockInterviewForm/FormMockStep"), {
+  loading: () => <Loading />,
+});
+
+const PaymentStep = dynamic(() => import("./mockInterviewForm/Payment"), {
+  loading: () => <Loading />,
+});
+
+const SpecializationStep = dynamic(
+  () => import("./mockInterviewForm/SpecializationStep"),
+  {
+    loading: () => <Loading />,
+  }
+);
 const initialFormData = {
   date: "",
   time: "",
@@ -27,7 +41,39 @@ const SpecializationModalContent = ({ closeModal, isOpen, planAmount }) => {
   const [activeIndex, setActiveIndex] = useState(0);
   const [selectedSpecializations, setSelectedSpecializations] = useState([]);
   const [formData, setFormData] = useState(initialFormData);
+  const [interviewerDetails, setInterviewerDetails] = useState({});
   const { user } = useUser();
+
+  // Reset form when modal opens
+  useEffect(() => {
+    if (isOpen) {
+      setSelectedSpecializations([]);
+      setFormData({
+        ...initialFormData,
+        planAmount: planAmount ? planAmount : 200,
+      });
+      setActiveIndex(0);
+    }
+  }, [isOpen, planAmount]);
+
+  const paymentSucessHandler = () => {
+    fetchInterviewerSlots();
+  };
+
+  const fetchInterviewerSlots = async () => {
+    try {
+      const response = await getInterviewerSlots();
+      if (response.success) {
+        const slots = response.data;
+        setInterviewerDetails(slots);
+      }
+    } catch (error) {
+      console.error("Error fetching interviewer slots:", error);
+    }
+  };
+  useEffect(() => {
+    fetchInterviewerSlots();
+  }, []);
 
   const yearsOfExperienceHandler = useMemo(() => {
     let experience = user?.yearsOfExperience;
@@ -116,16 +162,27 @@ const SpecializationModalContent = ({ closeModal, isOpen, planAmount }) => {
         );
       case 1:
         return (
-          <FormMockStep
-            specializations={selectedSpecializations}
-            formData={formData}
-            onFormSubmit={handleFormSubmit}
-            handleBack={handleBack}
-            closeModal={closeModal}
-          />
+          <Suspense fallback={<Loading />}>
+            <FormMockStep
+              specializations={selectedSpecializations}
+              formData={formData}
+              onFormSubmit={handleFormSubmit}
+              handleBack={handleBack}
+              closeModal={closeModal}
+              interviewerDetails={interviewerDetails}
+            />
+          </Suspense>
         );
       case 2:
-        return <PaymentStep amount={formData?.planAmount} />;
+        return (
+          <Suspense fallback={<Loading />}>
+            <PaymentStep
+              amount={formData?.planAmount}
+              user={{ ...formData, specializations: selectedSpecializations }}
+              paymentSucessHandler={paymentSucessHandler}
+            />
+          </Suspense>
+        );
       default:
         return null;
     }

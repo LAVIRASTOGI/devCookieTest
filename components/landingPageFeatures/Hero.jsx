@@ -1,7 +1,7 @@
 "use client";
 import Image from "next/image";
 import { motion } from "framer-motion";
-import Button from "./uiComponents/Button";
+import Button from "../uiComponents/Button";
 
 export default function Hero({ openModal }) {
   return (
