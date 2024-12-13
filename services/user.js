@@ -107,6 +107,7 @@ export const updateUserProfile = async (data, token) => {
 };
 export const getUserProfile = async (token) => {
   try {
+    console.log("token here", token);
     const response = await axiosInstance.get("/getUserProile", {
       token, // Pass the token here
     });
