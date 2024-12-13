@@ -1,6 +1,7 @@
 import { UserProvider } from "@/contexts/userContext";
 import "./globals.css";
 import { Toaster } from "react-hot-toast";
+import "react-datepicker/dist/react-datepicker.css";
 
 export const metadata = {
   title: "DevReady Academy - Master Mock Interviews with Industry Experts",

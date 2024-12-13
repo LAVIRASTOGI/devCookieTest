@@ -4,7 +4,7 @@ import { mockInterviewInviteHandler } from "@/lib/userAction";
 import { useForm } from "react-hook-form";
 import toast from "react-hot-toast";
 import React, { useState } from "react";
-import { InputField, SelectField } from "./Formfeild";
+import { DatePickerFeild, InputField, SelectField } from "./Formfeild";
 import {
   dateValidation,
   emailValidation,
@@ -14,6 +14,8 @@ import {
   planAmountValidation,
   timeValidation,
 } from "@/utils/commonValidation";
+import { maxDate, minDate } from "@/utils/commonFunction";
+import moment from "moment";
 
 function FormMockStep({
   specializations,
@@ -21,10 +23,13 @@ function FormMockStep({
   onFormSubmit,
   handleBack,
   closeModal,
+  interviewerDetails,
 }) {
   const {
     register,
     handleSubmit,
+    watch,
+    control,
     formState: { errors, isSubmitting },
     reset,
   } = useForm({
@@ -34,6 +39,32 @@ function FormMockStep({
   });
 
   const [isLoading, setIsLoading] = useState(false);
+  const selectedDate = watch("date");
+  const getDisabledTimeSlots = () => {
+    if (!selectedDate) return TIME_SLOTS;
+    const selectedDateTime = moment(selectedDate).format("YYYY-MM-DD");
+    const dateSlots =
+      interviewerDetails?.dateSlot &&
+      interviewerDetails?.dateSlot.find(
+        (item) => item.date === selectedDateTime
+      );
+    if (dateSlots) {
+      const timeSlots = TIME_SLOTS.map((slot) => {
+        let isDisabled = false;
+        if (dateSlots?.slot) {
+          dateSlots.slot.forEach((time) => {
+            if (time === slot.value) {
+              isDisabled = true;
+            }
+          });
+        }
+        return { ...slot, disabled: isDisabled };
+      });
+      return timeSlots;
+    }
+
+    return TIME_SLOTS;
+  };
 
   const onSubmit = async (data) => {
     setIsLoading(true);
@@ -116,14 +147,16 @@ function FormMockStep({
           {...register("phoneNumber", phoneValidation)}
         />
 
-        <InputField
+        <DatePickerFeild
           register={register}
           name="date"
           type="date"
           label="Preferred Date *"
           error={errors.date?.message}
           disabled={isLoading}
-          min={new Date().toISOString().split("T")[0]}
+          control={control}
+          min={minDate()}
+          max={maxDate(15)}
           {...register("date", dateValidation)}
         />
 
@@ -132,9 +165,20 @@ function FormMockStep({
           name="time"
           label="Preferred Time *"
           error={errors.time?.message}
-          options={TIME_SLOTS}
-          disabled={isLoading}
-          {...register("time", timeValidation)}
+          options={getDisabledTimeSlots()}
+          disabled={isLoading || !selectedDate}
+          {...register("time", {
+            ...timeValidation,
+            validate: (value) => {
+              const selectedSlot = getDisabledTimeSlots().find(
+                (slot) => slot.value === value
+              );
+              if (selectedSlot?.disabled) {
+                return "This time slot is not available";
+              }
+              return true;
+            },
+          })}
         />
 
         <SelectField
