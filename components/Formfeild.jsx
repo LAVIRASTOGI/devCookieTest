@@ -82,8 +82,8 @@ export const SelectField = ({
       {...props}
     >
       <option value="">Select an option</option>
-      {options.map(({ value, label }) => (
-        <option key={value} value={value}>
+      {options.map(({ value, label, disabled = false }) => (
+        <option key={value} value={value} disabled={disabled}>
           {label}
         </option>
       ))}
