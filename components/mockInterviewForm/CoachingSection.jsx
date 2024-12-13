@@ -1,10 +1,11 @@
 "use client";
 import { useState } from "react";
-import CustomDialogue from "./CustomDialogue";
-import SpecializationModalContent from "./SpecializationModalContent";
 import Image from "next/image";
-import Button from "./uiComponents/Button";
+
 import { FaArrowRight } from "react-icons/fa";
+import SpecializationModalContent from "../SpecializationModalContent";
+import CustomDialogue from "../CustomDialogue";
+import Button from "../uiComponents/Button";
 
 const VideoEmbed = () => (
   <div className="lg:w-1/2 mt-8 lg:mt-0 transform hover:scale-[1.02] transition-transform duration-300">

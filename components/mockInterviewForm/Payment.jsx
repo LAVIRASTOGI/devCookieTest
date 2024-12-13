@@ -2,7 +2,7 @@
 import { useState } from "react";
 
 import { mockInterviewMailUserHandler } from "@/lib/userAction";
-import PaymentRazorPay from "./payment/PaymentRazorPay";
+import PaymentRazorPay from "../payment/PaymentRazorPay";
 
 const PaymentStep = ({ amount, user, paymentSucessHandler }) => {
   const [isPayment, setIsPayment] = useState(false);

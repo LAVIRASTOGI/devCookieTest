@@ -6,17 +6,20 @@ import { getInterviewerSlots } from "@/lib/userAction";
 import Loading from "@/app/loading";
 import dynamic from "next/dynamic";
 
-const FormMockStep = dynamic(() => import("./FormMockStep"), {
+const FormMockStep = dynamic(() => import("./mockInterviewForm/FormMockStep"), {
   loading: () => <Loading />,
 });
 
-const PaymentStep = dynamic(() => import("./Payment"), {
+const PaymentStep = dynamic(() => import("./mockInterviewForm/Payment"), {
   loading: () => <Loading />,
 });
 
-const SpecializationStep = dynamic(() => import("./SpecializationStep"), {
-  loading: () => <Loading />,
-});
+const SpecializationStep = dynamic(
+  () => import("./mockInterviewForm/SpecializationStep"),
+  {
+    loading: () => <Loading />,
+  }
+);
 const initialFormData = {
   date: "",
   time: "",

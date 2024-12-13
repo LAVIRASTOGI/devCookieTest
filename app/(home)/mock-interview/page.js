@@ -1,5 +1,6 @@
 "use client";
-import CoachingSection from "@/components/CoachingSection";
+
+import CoachingSection from "@/components/mockInterviewForm/CoachingSection";
 import TechStack from "@/components/TechStack";
 
 function MockInterview() {
