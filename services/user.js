@@ -107,7 +107,6 @@ export const updateUserProfile = async (data, token) => {
 };
 export const getUserProfile = async (token) => {
   try {
-    console.log("token here", token);
     const response = await axiosInstance.get("/getUserProile", {
       token, // Pass the token here
     });
@@ -186,7 +185,6 @@ export const mockInterviewUserMail = async (data) => {
 };
 
 export const getInterviewerDetailsData = async () => {
-  console.log("came here ar get");
   try {
     const response = await axiosInstance.get("/getInterviewerDetails");
     console.log("response", response?.data);
