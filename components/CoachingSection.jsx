@@ -51,9 +51,8 @@ const DescrptionText = () => {
         industry experts with over 10 years of experience.
       </h1>
       <p className="mb-4 leading-relaxed">
-        Choose your specialization, from front-end frameworks like React.js to
-        back-end technologies such as Node.js, and receive immediate,
-        constructive feedback.
+        Choose your specialization, from front-end frameworks like React.js and
+        receive immediate, constructive feedback.
       </p>
       <p className="leading-relaxed">
         Our mock interviews simulate real-world scenarios, helping you build
