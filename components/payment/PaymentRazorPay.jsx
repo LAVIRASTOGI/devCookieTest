@@ -16,7 +16,7 @@ export default function PaymentRazorPay({ amount, user, handlePayment }) {
     });
     const res = await fetch("/api/createOrder", {
       method: "POST",
-      body: JSON.stringify({ amount: Number(amount) }),
+      body: JSON.stringify({ amount: Number(amount) * 100 }),
     });
     const data = await res.json();
     setIsLoading({
