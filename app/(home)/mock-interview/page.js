@@ -1,7 +1,7 @@
 "use client";
 
 import CoachingSection from "@/components/mockInterviewForm/CoachingSection";
-import TechStack from "@/components/TechStack";
+import TechStack from "@/components/landingPageFeatures/TechStack";
 
 function MockInterview() {
   return (

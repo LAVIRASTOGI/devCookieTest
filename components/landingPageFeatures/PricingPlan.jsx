@@ -3,7 +3,7 @@ import Image from "next/image";
 import React from "react";
 import { FaCheckCircle } from "react-icons/fa";
 import { motion } from "framer-motion";
-import Button from "./uiComponents/Button";
+import Button from "../uiComponents/Button";
 
 const PricingPlan = ({ openModal }) => {
   const plans = [

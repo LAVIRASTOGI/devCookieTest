@@ -4,7 +4,7 @@ import { createContext, useContext, useState, useEffect } from "react";
 const ThemeContext = createContext();
 
 export function ThemeProvider({ children }) {
-  const [theme, setTheme] = useState("light");
+  const [theme, setTheme] = useState("darl");
 
   useEffect(() => {
     const savedTheme = localStorage.getItem("theme") || "light";

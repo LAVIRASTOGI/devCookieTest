@@ -3,7 +3,7 @@ import React from "react";
 
 import { FaArrowRight } from "react-icons/fa";
 import { motion } from "framer-motion";
-import Button from "./uiComponents/Button";
+import Button from "../uiComponents/Button";
 
 const fadeInUp = {
   hidden: { opacity: 0, y: 20 },
