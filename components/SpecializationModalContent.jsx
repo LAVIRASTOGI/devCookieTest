@@ -1,7 +1,6 @@
 "use client";
 
 import { Suspense, useEffect, useMemo, useState } from "react";
-import SpecializationStep from "./SpecializationStep";
 import { useUser } from "@/contexts/userContext";
 import { getInterviewerSlots } from "@/lib/userAction";
 import Loading from "@/app/loading";
@@ -15,6 +14,9 @@ const PaymentStep = dynamic(() => import("./Payment"), {
   loading: () => <Loading />,
 });
 
+const SpecializationStep = dynamic(() => import("./SpecializationStep"), {
+  loading: () => <Loading />,
+});
 const initialFormData = {
   date: "",
   time: "",
