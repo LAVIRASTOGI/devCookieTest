@@ -1,3 +1,4 @@
+import moment from "moment";
 export const extractStartTime = (timeSlot) => {
   const match = timeSlot.match(/(\d{1,2}):(\d{2})\s*(AM|PM)/i);
   if (match) {
@@ -29,4 +30,14 @@ export function minDate() {
   const minDate = new Date(today);
   minDate.setDate(minDate.getDate() + 1);
   return minDate.toISOString().split("T")[0];
+}
+export function isDateValidWithMoment(dateToCheck, days = 15) {
+  const moment = require("moment");
+  const now = moment();
+  const fifteenDaysFromNow = moment().add(15, "days"); // 15 days from today
+
+  return (
+    moment(dateToCheck).isAfter(now) &&
+    moment(dateToCheck).isBefore(fifteenDaysFromNow)
+  );
 }
