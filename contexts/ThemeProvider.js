@@ -4,17 +4,17 @@ import { createContext, useContext, useState, useEffect } from "react";
 const ThemeContext = createContext();
 
 export function ThemeProvider({ children }) {
-  const [theme, setTheme] = useState("darl");
+  const [theme, setTheme] = useState("light");
 
   useEffect(() => {
-    const savedTheme = localStorage.getItem("theme") || "light";
+    const savedTheme = localStorage.getItem("themeValue") || "light";
     setTheme(savedTheme);
     document.documentElement.setAttribute("data-theme", savedTheme);
   }, []);
 
   const changeTheme = (newTheme) => {
     setTheme(newTheme);
-    localStorage.setItem("theme", newTheme);
+    localStorage.setItem("themeValue", newTheme);
     document.documentElement.setAttribute("data-theme", newTheme);
   };
 
