@@ -87,15 +87,17 @@ const CoachingSection = ({
         onButtonClick={openModal}
       />
       <VideoEmbed />
-      <CustomDialogue
-        idName="mockInterview"
-        title=""
-        description=""
-        isOpen={isOpen}
-        closeModal={closeModal}
-      >
-        <SpecializationModalContent closeModal={closeModal} isOpen={isOpen} />
-      </CustomDialogue>
+      {openModal && (
+        <CustomDialogue
+          idName="mockInterview"
+          title=""
+          description=""
+          isOpen={isOpen}
+          closeModal={closeModal}
+        >
+          <SpecializationModalContent closeModal={closeModal} isOpen={isOpen} />
+        </CustomDialogue>
+      )}
     </section>
   );
 };

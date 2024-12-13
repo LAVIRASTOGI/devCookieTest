@@ -1,4 +1,18 @@
-const PaymentStep = ({ amount }) => {
+"use client";
+import { useState } from "react";
+
+import { mockInterviewMailUserHandler } from "@/lib/userAction";
+import PaymentRazorPay from "./payment/PaymentRazorPay";
+
+const PaymentStep = ({ amount, user, paymentSucessHandler }) => {
+  const [isPayment, setIsPayment] = useState(false);
+
+  const handlePayment = async (isPaid) => {
+    setIsPayment(true);
+    await mockInterviewMailUserHandler(user, isPaid);
+    paymentSucessHandler();
+  };
+
   const sessionDetails =
     Number(amount) === 300
       ? {
@@ -83,50 +97,44 @@ const PaymentStep = ({ amount }) => {
             </li>
           </ul>
         </div>
-
-        {/* Payment Notice */}
-        <div className="bg-blue-50 p-4 rounded-lg text-blue-700 text-sm">
-          <svg
-            className="w-5 h-5 inline-block mr-2"
-            fill="none"
-            stroke="currentColor"
-            viewBox="0 0 24 24"
-          >
-            <path
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              strokeWidth="2"
-              d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
-            />
-          </svg>
-          Payment will be collected after our team contacts you
-        </div>
       </div>
-
-      {/* Confirmation Message */}
-      <div className="text-center space-y-6">
-        <div className="bg-green-50 p-6 rounded-xl">
-          <svg
-            className="w-12 h-12 text-green-500 mx-auto mb-4"
-            fill="none"
-            stroke="currentColor"
-            viewBox="0 0 24 24"
-          >
-            <path
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              strokeWidth="2"
-              d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"
-            />
-          </svg>
-          <h3 className=" text-lg md:text-2xl font-bold text-gray-800 mb-2">
-            Thank You for Your Submission!
-          </h3>
-          <p className="text-gray-600">
-            Our team will contact you shortly to schedule your interview session
-          </p>
+      {isPayment ? (
+        <>
+          {/* Confirmation Message */}
+          <div className="text-center space-y-6">
+            <div className="bg-green-50 p-6 rounded-xl">
+              <svg
+                className="w-12 h-12 text-green-500 mx-auto mb-4"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth="2"
+                  d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"
+                />
+              </svg>
+              <h3 className=" text-lg md:text-2xl font-bold text-gray-800 mb-2">
+                Thank You for Your Submission!
+              </h3>
+              <p className="text-gray-600">
+                Our team will contact you shortly to schedule your interview
+                session
+              </p>
+            </div>
+          </div>
+        </>
+      ) : (
+        <div className="flex justify-center">
+          <PaymentRazorPay
+            handlePayment={handlePayment}
+            amount={amount}
+            user={user}
+          />
         </div>
-      </div>
+      )}
     </div>
   );
 };

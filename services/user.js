@@ -1,31 +1,5 @@
 import axiosInstance from "@/lib/axiosInstance";
-import axios from "axios";
 
-export const mockInviteUser = async (data) => {
-  try {
-    const response = await axiosInstance.post("/mockInvite", data);
-    return response.data;
-  } catch (error) {
-    // Properly handle axios error object
-    const errorMessage =
-      error.response?.data?.error ||
-      error.message ||
-      "An unexpected error occurred during Form Submission";
-
-    console.error("Error during Form Submission:", {
-      message: errorMessage,
-      status: error.response?.status,
-      data: error.response?.data,
-    });
-
-    // Return a structured error response
-    return {
-      success: false,
-      error: errorMessage,
-      status: error.response?.status,
-    };
-  }
-};
 export const signInUser = async (data) => {
   try {
     const response = await axiosInstance.post("/signin", data, {
@@ -145,6 +119,85 @@ export const getUserProfile = async (token) => {
       "An unexpected error occurred during signup";
 
     console.error("Error:", {
+      message: errorMessage,
+      status: error.response?.status,
+      data: error.response?.data,
+    });
+
+    // Return a structured error response
+    return {
+      success: false,
+      error: errorMessage,
+      status: error.response?.status,
+    };
+  }
+};
+export const mockInviteUser = async (data) => {
+  try {
+    const response = await axiosInstance.post("/mockInvite", data);
+    return response.data;
+  } catch (error) {
+    // Properly handle axios error object
+    const errorMessage =
+      error.response?.data?.error ||
+      error.message ||
+      "An unexpected error occurred during Form Submission";
+
+    console.error("Error during Form Submission:", {
+      message: errorMessage,
+      status: error.response?.status,
+      data: error.response?.data,
+    });
+
+    // Return a structured error response
+    return {
+      success: false,
+      error: errorMessage,
+      status: error.response?.status,
+    };
+  }
+};
+
+export const mockInterviewUserMail = async (data) => {
+  try {
+    const response = await axiosInstance.post("/submitForm", data);
+    return response.data;
+  } catch (error) {
+    // Properly handle axios error object
+    const errorMessage =
+      error.response?.data?.error ||
+      error.message ||
+      "An unexpected error occurred during Sending mail";
+
+    console.error("Error:", {
+      message: errorMessage,
+      status: error.response?.status,
+      data: error.response?.data,
+    });
+
+    // Return a structured error response
+    return {
+      success: false,
+      error: errorMessage,
+      status: error.response?.status,
+    };
+  }
+};
+
+export const getInterviewerDetailsData = async () => {
+  console.log("came here ar get");
+  try {
+    const response = await axiosInstance.get("/getInterviewerDetails");
+    console.log("response", response?.data);
+    return response.data;
+  } catch (error) {
+    // Properly handle axios error object
+    const errorMessage =
+      error.response?.data?.error ||
+      error.message ||
+      "An unexpected error occurred during Fetching Details";
+
+    console.error("Fetching Details:", {
       message: errorMessage,
       status: error.response?.status,
       data: error.response?.data,
