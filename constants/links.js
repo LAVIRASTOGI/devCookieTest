@@ -1,10 +1,10 @@
 export const sidebarLinks = [
-  {
-    //   // imgURL: "/icons/upcoming.svg",
-    route: "/mock-interview-ai",
-    label: "AI Mock Interview",
-    isProtected: true,
-  },
+  // {
+  //   //   // imgURL: "/icons/upcoming.svg",
+  //   route: "/mock-interview-ai",
+  //   label: "AI Mock Interview",
+  //   isProtected: true,
+  // },
   {
     // imgURL: "/mockInterview",
     route: "/mock-interview",
