@@ -13,8 +13,8 @@ function QuizTopicCard({ topic }) {
             <Image
               src={topic?.icon}
               alt={topic.title}
-              width={32}
-              height={32}
+              width={40}
+              height={40}
               className="w-6 h-6 sm:w-8 sm:h-8 object-contain"
               priority
             />
