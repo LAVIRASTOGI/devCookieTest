@@ -2,6 +2,23 @@ import Image from "next/image";
 import QuizCardLearningButton from "./QuizCardLearningButton";
 
 function QuizTopicCard({ topic }) {
+  const calculateCompletionPercentage = () => {
+    // Get total completed quizzes (sum of completed quizzes from all difficulty levels)
+    const completedQuizzes = topic.completedQuizzes || 0;
+
+    // Get total quizzes
+    const totalQuizzes = topic.quizCount || 0;
+
+    // Calculate percentage
+    if (totalQuizzes === 0) return 0;
+    const percentage = (completedQuizzes / totalQuizzes) * 100;
+
+    // Round to 1 decimal place
+    return Math.round(percentage * 10) / 10;
+  };
+
+  // Calculate the completion percentage
+  const completionPercentage = calculateCompletionPercentage();
   return (
     <div className="group relative bg-white rounded-2xl p-4 sm:p-6 hover:shadow-2xl transition-all duration-300 border border-gray-100 overflow-hidden">
       {/* Content */}
@@ -40,65 +57,88 @@ function QuizTopicCard({ topic }) {
         </p>
 
         {/* Stats */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4 mb-6 sm:mb-8">
-          <div className="p-3 sm:p-4 bg-gray-50 rounded-lg">
-            <p className="text-sm text-gray-500 mb-2">Quiz Progression</p>
-            <div className="flex items-center gap-1 mb-2">
-              <div className="h-1.5 w-4 rounded bg-green-500"></div>
-              <div className="h-1.5 w-3 rounded bg-yellow-500"></div>
-              <div className="h-1.5 w-3 rounded bg-red-500"></div>
+        <div className="grid grid-cols-1 gap-3 sm:gap-4 mb-6 sm:mb-8">
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4">
+            <div className="p-3 sm:p-4 bg-gray-50 rounded-lg">
+              <p className="text-sm text-gray-500 mb-2">Quiz Progression</p>
+              <div className="flex items-center gap-1 mb-2">
+                <div className="h-1.5 w-4 rounded bg-green-500"></div>
+                <div className="h-1.5 w-3 rounded bg-yellow-500"></div>
+                <div className="h-1.5 w-3 rounded bg-red-500"></div>
+              </div>
+              <p className="text-xs text-gray-600">
+                <span className="block sm:inline">
+                  Beginner ({topic?.beginner})
+                </span>
+                <span className="hidden sm:inline"> → </span>
+                <span className="block sm:inline">
+                  Intermediate ({topic?.intermediate})
+                </span>
+                <span className="hidden sm:inline"> → </span>
+                <span className="block sm:inline">
+                  Advanced ({topic?.advanced})
+                </span>
+              </p>
             </div>
-            <p className="text-xs text-gray-600">
-              <span className="block sm:inline">
-                Beginner ({topic?.beginner})
-              </span>
-              <span className="hidden sm:inline"> → </span>
-              <span className="block sm:inline">
-                Intermediate ({topic?.intermediate})
-              </span>
-              <span className="hidden sm:inline"> → </span>
-              <span className="block sm:inline">
-                Advanced ({topic?.advanced})
-              </span>
-            </p>
+            <div className="p-3 sm:p-4 bg-gray-50 rounded-lg">
+              <p className="text-sm text-gray-500 mb-2">Course Details</p>
+              <div className="flex flex-row sm:flex-col gap-3 sm:gap-1">
+                <div className="flex items-center gap-2">
+                  <svg
+                    className="w-4 h-4 text-primary"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth="2"
+                      d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"
+                    />
+                  </svg>
+                  <p className="text-sm font-semibold text-gray-800">
+                    3-4 Hours
+                  </p>
+                </div>
+                <div className="flex items-center gap-2">
+                  <svg
+                    className="w-4 h-4 text-primary"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth="2"
+                      d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"
+                    />
+                  </svg>
+                  <p className="text-xs sm:text-sm text-gray-600">
+                    {topic.quizCount} Progressive Quizzes
+                  </p>
+                </div>
+              </div>
+            </div>
           </div>
+
+          {/* New Completion Progress div */}
           <div className="p-3 sm:p-4 bg-gray-50 rounded-lg">
-            <p className="text-sm text-gray-500 mb-2">Course Details</p>
-            <div className="flex flex-row sm:flex-col gap-3 sm:gap-1">
-              <div className="flex items-center gap-2">
-                <svg
-                  className="w-4 h-4 text-primary"
-                  fill="none"
-                  stroke="currentColor"
-                  viewBox="0 0 24 24"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth="2"
-                    d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"
-                  />
-                </svg>
-                <p className="text-sm font-semibold text-gray-800">3-4 Hours</p>
-              </div>
-              <div className="flex items-center gap-2">
-                <svg
-                  className="w-4 h-4 text-primary"
-                  fill="none"
-                  stroke="currentColor"
-                  viewBox="0 0 24 24"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth="2"
-                    d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"
-                  />
-                </svg>
-                <p className="text-xs sm:text-sm text-gray-600">
-                  {topic.quizCount} Progressive Quizzes
-                </p>
-              </div>
+            <p className="text-sm text-gray-500 mb-2">Completion Progress</p>
+            <div className="relative h-2 w-full bg-gray-200 rounded-full mb-2">
+              <div
+                className="absolute top-0 left-0 h-full bg-primary rounded-full transition-all duration-300"
+                style={{ width: `${completionPercentage || 0}%` }}
+              />
+            </div>
+            <div className="flex justify-between items-center">
+              <p className="text-sm font-semibold text-gray-800">
+                {completionPercentage}% Complete
+              </p>
+              <p className="text-xs text-gray-600">
+                {topic.completedQuizzes || 0}/{topic.quizCount} Quizzes
+              </p>
             </div>
           </div>
         </div>

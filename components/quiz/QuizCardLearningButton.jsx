@@ -5,7 +5,7 @@ import Button from "../uiComponents/Button";
 function QuizCardLearningButton({ topic }) {
   const router = useRouter();
   const handleStartLearning = () => {
-    router.push(`/quizzes/${topic?.id}`);
+    router.push(`${topic?.href}`);
   };
   return (
     <>

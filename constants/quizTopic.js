@@ -9,6 +9,8 @@ export const quizTopics = [
     intermediate: "4-6",
     advanced: "7-10",
     icon: "/images/HtmlCSS.jpg",
+    href: "/quizzes/html",
+    completedQuizzes: "1",
   },
   {
     id: "css",
@@ -20,6 +22,8 @@ export const quizTopics = [
     intermediate: "4-6",
     advanced: "7-10",
     icon: "/images/HtmlCSS.jpg",
+    href: "/quizzes/css",
+    completedQuizzes: "4",
   },
   {
     id: "javascript",
@@ -31,6 +35,8 @@ export const quizTopics = [
     beginner: "1-4",
     intermediate: "4-10",
     advanced: "10-15",
+    href: "/quizzes/javascript",
+    completedQuizzes: "2",
   },
   {
     id: "react",
@@ -42,5 +48,7 @@ export const quizTopics = [
     beginner: "1-4",
     intermediate: "4-10",
     advanced: "10-15",
+    href: "/quizzes/react",
+    completedQuizzes: "5",
   },
 ];
