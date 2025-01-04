@@ -107,7 +107,12 @@ function QuizSidebar({ quizTopicsDetails }) {
                 className={`h-full rounded-full transition-all duration-300 ${
                   isLocked ? "bg-gray-400" : "bg-primary"
                 }`}
-                style={{ width: `${levelData.overallProgress || 0}%` }}
+                style={{
+                  width: `${
+                    (Number(levelData.completedTopics) * 100) /
+                    Number(levelData.totalTopics)
+                  }%`,
+                }}
               ></div>
             </div>
 
@@ -122,10 +127,11 @@ function QuizSidebar({ quizTopicsDetails }) {
                 <div
                   key={index}
                   className={`bg-white rounded-lg p-2 lg:p-3 transition-all 
+                      ${quiz?.active ? "bg-blue-100" : ""}
                       ${
                         isLocked
                           ? "cursor-not-allowed opacity-75"
-                          : "hover:shadow-md cursor-pointer"
+                          : "hover:shadow-md cursor-pointer hover:bg-gray-300"
                       }`}
                 >
                   {/* Quiz Header */}
@@ -144,14 +150,23 @@ function QuizSidebar({ quizTopicsDetails }) {
                       className={`h-full rounded-full transition-all duration-300 ${
                         isLocked ? "bg-gray-400" : "bg-primary"
                       }`}
-                      style={{ width: `${quiz.progress || 0}%` }}
+                      style={{
+                        width: `${
+                          (Number(quiz.completedQuestions) * 100) /
+                          Number(quiz.totalQuestions)
+                        }%`,
+                      }}
                     ></div>
                   </div>
 
                   {/* Quiz Status */}
                   <div className="flex items-center justify-between mt-2">
                     <span className="text-[10px] lg:text-xs text-gray-500">
-                      {quiz.progress}% Complete
+                      {(
+                        (Number(quiz.completedQuestions) * 100) /
+                        Number(quiz.totalQuestions)
+                      ).toFixed(2)}
+                      % Complete
                     </span>
                     {isLocked ? (
                       <span className="inline-flex items-center px-1.5 lg:px-2 py-0.5 rounded text-[10px] lg:text-xs font-medium bg-gray-100 text-gray-800">
