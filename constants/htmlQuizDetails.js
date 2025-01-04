@@ -10,7 +10,7 @@ export const HTMLQuizDetails = {
         id: "quizFree1",
         totalQuestions: 15,
         completedQuestions: 0,
-        isCompleted: true,
+        isCompleted: false,
         progress: 0,
         active: true,
       },
