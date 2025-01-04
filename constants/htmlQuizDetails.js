@@ -1,4 +1,21 @@
 export const HTMLQuizDetails = {
+  FreeQuiz: {
+    description: "HTML concepts",
+    key: "free",
+    topic: [
+      {
+        quizName: "Basic HTML Assessment",
+        totalQuestions: 15,
+        completedQuestions: 0,
+        isCompleted: false,
+        progress: 0,
+      },
+    ],
+    totalTopics: 1,
+    completedTopics: 0,
+    overallProgress: 0,
+    subscribed: true,
+  },
   Beginner: {
     description: "Master fundamental HTML concepts",
     key: "beginner",
