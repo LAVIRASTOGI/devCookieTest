@@ -1,6 +1,6 @@
 function QuizTypeSelection({ quizTopicsDetails, currentLevel, quizDetails }) {
   const currentLevelData = quizTopicsDetails[currentLevel];
-  const currentTopic = quizTopicsDetails[currentLevel]?.topic.find(
+  const currentTopic = quizTopicsDetails[currentLevel]?.topics.find(
     (ele) => ele.active
   );
 
@@ -46,7 +46,7 @@ function QuizTypeSelection({ quizTopicsDetails, currentLevel, quizDetails }) {
                 {currentTopic.quizName || `${currentLevel} Assessment`}
               </h3>
               <p className="text-sm text-gray-600">
-                {currentLevelData?.description ||
+                {currentTopic?.description ||
                   "Test your knowledge and skills in this comprehensive assessment"}
               </p>
             </div>

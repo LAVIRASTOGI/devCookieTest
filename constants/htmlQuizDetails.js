@@ -1,10 +1,12 @@
 export const HTMLQuizDetails = {
   FreeQuiz: {
-    description: "HTML Concepts",
+    description: "Introduction to HTML Concepts",
     key: "free",
-    topic: [
+    topics: [
       {
         quizName: "Basic HTML Assessment",
+        description:
+          "A beginner-level quiz covering fundamental HTML concepts.",
         id: "quizFree1",
         totalQuestions: 15,
         completedQuestions: 0,
@@ -17,12 +19,15 @@ export const HTMLQuizDetails = {
     completedTopics: 0,
     subscribed: true,
   },
+
   Beginner: {
-    description: "Master fundamental HTML concepts",
+    description: "Master Fundamental HTML Concepts",
     key: "beginner",
-    topic: [
+    topics: [
       {
         quizName: "Intro to HTML",
+        description:
+          "An introduction to HTML, its structure, and essential tags.",
         id: "quizBeginner1",
         totalQuestions: 10,
         completedQuestions: 0,
@@ -32,6 +37,8 @@ export const HTMLQuizDetails = {
       },
       {
         quizName: "Basic HTML Elements",
+        description:
+          "Understanding the core HTML elements like headings, paragraphs, and links.",
         id: "quizBeginner2",
         totalQuestions: 10,
         completedQuestions: 0,
@@ -41,6 +48,8 @@ export const HTMLQuizDetails = {
       },
       {
         quizName: "Tables and Semantic HTML",
+        description:
+          "Learn about HTML tables, forms, and using semantic tags for better structure.",
         id: "quizBeginner3",
         totalQuestions: 10,
         completedQuestions: 0,
@@ -54,12 +63,15 @@ export const HTMLQuizDetails = {
     cost: 100,
     subscribed: true,
   },
+
   Intermediate: {
-    description: "Advance your HTML skills",
+    description: "Advance Your HTML Skills",
     key: "intermediate",
-    topic: [
+    topics: [
       {
         quizName: "Forms and User Inputs",
+        description:
+          "Deep dive into HTML forms, input fields, and form validation.",
         id: "quizIntermediate1",
         totalQuestions: 10,
         completedQuestions: 0,
@@ -69,6 +81,8 @@ export const HTMLQuizDetails = {
       },
       {
         quizName: "Multimedia and Interactive Elements",
+        description:
+          "Exploring multimedia elements (audio, video) and interactive elements (buttons, links).",
         id: "quizIntermediate2",
         totalQuestions: 10,
         completedQuestions: 0,
@@ -78,6 +92,8 @@ export const HTMLQuizDetails = {
       },
       {
         quizName: "Responsive Design and Accessibility",
+        description:
+          "Learn the principles of responsive design and how to improve accessibility in HTML.",
         id: "quizIntermediate3",
         totalQuestions: 10,
         completedQuestions: 0,
@@ -91,12 +107,15 @@ export const HTMLQuizDetails = {
     cost: 100,
     subscribed: true,
   },
+
   Advanced: {
-    description: "Become an HTML expert",
+    description: "Become an Expert in HTML",
     key: "advanced",
-    topic: [
+    topics: [
       {
         quizName: "SEO and Structured Data",
+        description:
+          "Understanding the impact of SEO and how to implement structured data in HTML.",
         id: "quizAdvanced1",
         totalQuestions: 10,
         completedQuestions: 0,
@@ -106,6 +125,8 @@ export const HTMLQuizDetails = {
       },
       {
         quizName: "HTML5 and Web Storage",
+        description:
+          "Master HTML5 features and learn how to work with web storage techniques.",
         id: "quizAdvanced2",
         totalQuestions: 10,
         completedQuestions: 0,
@@ -115,6 +136,8 @@ export const HTMLQuizDetails = {
       },
       {
         quizName: "Advanced HTML Features",
+        description:
+          "Exploring advanced HTML5 features like video, audio, and canvas elements.",
         id: "quizAdvanced3",
         totalQuestions: 10,
         completedQuestions: 0,
@@ -124,6 +147,8 @@ export const HTMLQuizDetails = {
       },
       {
         quizName: "Complete HTML Assessment",
+        description:
+          "A comprehensive quiz covering all aspects of HTML, from basic to advanced topics.",
         id: "quizAdvanced4",
         totalQuestions: 10,
         completedQuestions: 0,
@@ -137,33 +162,4 @@ export const HTMLQuizDetails = {
     cost: 100,
     subscribed: false,
   },
-};
-
-// Helper function to calculate overall progress
-export const calculateProgress = (level) => {
-  const totalQuestions = level.topic.reduce(
-    (sum, quiz) => sum + quiz.totalQuestions,
-    0
-  );
-  const completedQuestions = level.topic.reduce(
-    (sum, quiz) => sum + quiz.completedQuestions,
-    0
-  );
-  return totalQuestions > 0
-    ? Math.round((completedQuestions / totalQuestions) * 100)
-    : 0;
-};
-
-// Helper function to update quiz progress
-export const updateQuizProgress = (level, quizIndex, completedQuestions) => {
-  const quiz = level.topic[quizIndex];
-  quiz.completedQuestions = completedQuestions;
-  quiz.progress = Math.round((completedQuestions / quiz.totalQuestions) * 100);
-  quiz.isCompleted = quiz.completedQuestions === quiz.totalQuestions;
-
-  // Update level progress
-  level.completedTopics = level.topic.filter((quiz) => quiz.isCompleted).length;
-  level.overallProgress = calculateProgress(level);
-
-  return level;
 };

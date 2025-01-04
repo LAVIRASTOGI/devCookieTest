@@ -1,3 +1,4 @@
+import { cssQuizDetails } from "./cssQuizDetails";
 import { HTMLQuizDetails } from "./htmlQuizDetails";
 
 export const quizTopics = [
@@ -27,7 +28,7 @@ export const quizTopics = [
     icon: "/images/HtmlCSS.jpg",
     href: "/quizzes/css",
     completedQuizzes: "4",
-    quizTopicsDetails: HTMLQuizDetails,
+    quizTopicsDetails: cssQuizDetails,
   },
   {
     id: "javascript",

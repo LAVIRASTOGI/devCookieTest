@@ -16,7 +16,7 @@ function QuizSidebar({
   const activeCurrentQuizHandler = (quizId) => {
     let newQuizTopicDetails = { ...quizTopicsDetails };
     Object.keys(newQuizTopicDetails).forEach((level) => {
-      newQuizTopicDetails[level].topic.forEach((quiz) => {
+      newQuizTopicDetails[level].topics.forEach((quiz) => {
         if (quiz.id === quizId) {
           setCurrentLevel(level);
         }
@@ -139,7 +139,7 @@ function QuizSidebar({
 
             {/* Quiz Topics */}
             <div className="space-y-2">
-              {levelData.topic.map((quiz, index) => (
+              {levelData.topics.map((quiz, index) => (
                 <div
                   key={index}
                   onClick={
