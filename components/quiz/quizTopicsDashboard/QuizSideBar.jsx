@@ -13,7 +13,7 @@ function QuizSidebar({ quizTopicsDetails }) {
   };
 
   return (
-    <div className="menu bg-base-200 min-h-full w-[400px] p-4">
+    <div className="menu bg-base-200 min-h-full lg:w-[450px] p-4">
       {/* Header */}
       <div className="mb-6">
         <h2 className="text-2xl font-bold text-gray-800 mb-2">HTML Course</h2>
