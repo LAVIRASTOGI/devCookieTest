@@ -1,6 +1,5 @@
-import React from "react";
-import Button from "../uiComponents/Button";
 import Image from "next/image";
+import QuizCardLearningButton from "./QuizCardLearningButton";
 
 function QuizTopicCard({ topic }) {
   return (
@@ -105,24 +104,7 @@ function QuizTopicCard({ topic }) {
         </div>
 
         {/* Button */}
-        <Button className="w-full bg-primary hover:bg-primary/90 text-white font-semibold transition-all duration-300 py-2.5 sm:py-3 rounded-xl shadow-lg shadow-primary/25 hover:shadow-xl hover:shadow-primary/20 text-sm sm:text-base">
-          <div className="flex items-center justify-center gap-2">
-            <span>Start Learning</span>
-            <svg
-              className="w-3.5 h-3.5 sm:w-4 sm:h-4 transform transition-transform group-hover:translate-x-1"
-              fill="none"
-              stroke="currentColor"
-              viewBox="0 0 24 24"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth={2}
-                d="M9 5l7 7-7 7"
-              />
-            </svg>
-          </div>
-        </Button>
+        <QuizCardLearningButton topic={topic} />
       </div>
 
       {/* Progress indicator */}
