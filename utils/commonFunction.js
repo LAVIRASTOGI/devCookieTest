@@ -32,7 +32,6 @@ export function minDate() {
   return minDate.toISOString().split("T")[0];
 }
 export function isDateValidWithMoment(dateToCheck, days = 15) {
-  const moment = require("moment");
   const now = moment();
   const fifteenDaysFromNow = moment().add(15, "days"); // 15 days from today
 
@@ -40,4 +39,9 @@ export function isDateValidWithMoment(dateToCheck, days = 15) {
     moment(dateToCheck).isAfter(now) &&
     moment(dateToCheck).isBefore(fifteenDaysFromNow)
   );
+}
+
+// extract a particualar Object from array of objects
+export function extractObjectFromArray(array, key, value) {
+  return array.find((obj) => obj[key] === value);
 }

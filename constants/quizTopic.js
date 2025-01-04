@@ -1,3 +1,5 @@
+import { HTMLQuizDetails } from "./htmlQuizDetails";
+
 export const quizTopics = [
   {
     id: "html",
@@ -11,6 +13,7 @@ export const quizTopics = [
     icon: "/images/HtmlCSS.jpg",
     href: "/quizzes/html",
     completedQuizzes: "1",
+    quizTopicsDetails: HTMLQuizDetails,
   },
   {
     id: "css",
@@ -24,6 +27,7 @@ export const quizTopics = [
     icon: "/images/HtmlCSS.jpg",
     href: "/quizzes/css",
     completedQuizzes: "4",
+    quizTopicsDetails: HTMLQuizDetails,
   },
   {
     id: "javascript",
@@ -37,6 +41,7 @@ export const quizTopics = [
     advanced: "10-15",
     href: "/quizzes/javascript",
     completedQuizzes: "2",
+    quizTopicsDetails: HTMLQuizDetails,
   },
   {
     id: "react",
@@ -50,5 +55,6 @@ export const quizTopics = [
     advanced: "10-15",
     href: "/quizzes/react",
     completedQuizzes: "5",
+    quizTopicsDetails: HTMLQuizDetails,
   },
 ];
