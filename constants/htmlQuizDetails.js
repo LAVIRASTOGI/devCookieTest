@@ -1,6 +1,6 @@
 export const HTMLQuizDetails = {
   FreeQuiz: {
-    description: "HTML concepts",
+    description: "HTML Concepts",
     key: "free",
     topic: [
       {
@@ -8,7 +8,7 @@ export const HTMLQuizDetails = {
         id: "quizFree1",
         totalQuestions: 15,
         completedQuestions: 0,
-        isCompleted: false,
+        isCompleted: true,
         progress: 0,
         active: true,
       },

@@ -3,12 +3,14 @@ import { quizTopics } from "@/constants/quizTopic";
 import { extractObjectFromArray } from "@/utils/commonFunction";
 import QuizSidebar from "./QuizSideBar";
 import { useState } from "react";
+import QuizTypeSelection from "./QuizTypeSelection";
 
 function TopicsDashboard({ topic }) {
   const quizDetails = extractObjectFromArray(quizTopics, "id", topic);
   const [quizTopicsDetails, setQuizTopicsDetails] = useState(
     quizDetails?.quizTopicsDetails
   );
+  const [currentLevel, setCurrentLevel] = useState("FreeQuiz");
   return (
     <>
       <div className="flex  ">
@@ -35,16 +37,18 @@ function TopicsDashboard({ topic }) {
               <QuizSidebar
                 quizTopicsDetails={quizTopicsDetails}
                 setQuizTopicsDetails={setQuizTopicsDetails}
+                setCurrentLevel={setCurrentLevel}
               />
             )}
           </div>
         </div>
         <div className="flex-1 pt-10 ">
           <div className="flex flex-col gap-4 items-center">
-            <h1 className="text-3xl font-bold text-center text-primary">
-              {quizDetails?.title}
-            </h1>
-            <p className="text-lg text-gray-600">{quizDetails?.description}</p>
+            <QuizTypeSelection
+              quizTopicsDetails={quizTopicsDetails}
+              currentLevel={currentLevel}
+              quizDetails={quizDetails}
+            />
           </div>
         </div>
       </div>

@@ -1,4 +1,8 @@
-function QuizSidebar({ quizTopicsDetails, setQuizTopicsDetails }) {
+function QuizSidebar({
+  quizTopicsDetails,
+  setQuizTopicsDetails,
+  setCurrentLevel,
+}) {
   // Helper function to check if level should be locked
   const isLevelLocked = (level, quizTopicsDetails) => {
     const levels = ["FreeQuiz", "Beginner", "Intermediate", "Advanced"];
@@ -13,6 +17,9 @@ function QuizSidebar({ quizTopicsDetails, setQuizTopicsDetails }) {
     let newQuizTopicDetails = { ...quizTopicsDetails };
     Object.keys(newQuizTopicDetails).forEach((level) => {
       newQuizTopicDetails[level].topic.forEach((quiz) => {
+        if (quiz.id === quizId) {
+          setCurrentLevel(level);
+        }
         quiz.active = quiz.id === quizId;
       });
     });
