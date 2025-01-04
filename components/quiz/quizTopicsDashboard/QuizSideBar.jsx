@@ -1,4 +1,4 @@
-function QuizSidebar({ quizTopicsDetails }) {
+function QuizSidebar({ quizTopicsDetails, setQuizTopicsDetails }) {
   // Helper function to check if level should be locked
   const isLevelLocked = (level, quizTopicsDetails) => {
     const levels = ["FreeQuiz", "Beginner", "Intermediate", "Advanced"];
@@ -9,6 +9,15 @@ function QuizSidebar({ quizTopicsDetails }) {
     return !quizTopicsDetails["subscribed"];
   };
 
+  const activeCurrentQuizHandler = (quizId) => {
+    let newQuizTopicDetails = { ...quizTopicsDetails };
+    Object.keys(newQuizTopicDetails).forEach((level) => {
+      newQuizTopicDetails[level].topic.forEach((quiz) => {
+        quiz.active = quiz.id === quizId;
+      });
+    });
+    setQuizTopicsDetails(newQuizTopicDetails);
+  };
   return (
     <div className="menu bg-base-200 min-h-full w-full lg:w-[450px] p-3 lg:p-4">
       {/* Header with Subscription Status */}
@@ -126,6 +135,9 @@ function QuizSidebar({ quizTopicsDetails }) {
               {levelData.topic.map((quiz, index) => (
                 <div
                   key={index}
+                  onClick={
+                    !isLocked ? () => activeCurrentQuizHandler(quiz?.id) : null
+                  }
                   className={`bg-white rounded-lg p-2 lg:p-3 transition-all 
                       ${quiz?.active ? "bg-blue-100" : ""}
                       ${

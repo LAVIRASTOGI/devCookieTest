@@ -1,9 +1,14 @@
+"use client";
 import { quizTopics } from "@/constants/quizTopic";
 import { extractObjectFromArray } from "@/utils/commonFunction";
 import QuizSidebar from "./QuizSideBar";
+import { useState } from "react";
 
 function TopicsDashboard({ topic }) {
   const quizDetails = extractObjectFromArray(quizTopics, "id", topic);
+  const [quizTopicsDetails, setQuizTopicsDetails] = useState(
+    quizDetails?.quizTopicsDetails
+  );
   return (
     <>
       <div className="flex  ">
@@ -27,7 +32,10 @@ function TopicsDashboard({ topic }) {
             {/* Sidebar content here */}
 
             {quizDetails?.id && (
-              <QuizSidebar quizTopicsDetails={quizDetails?.quizTopicsDetails} />
+              <QuizSidebar
+                quizTopicsDetails={quizTopicsDetails}
+                setQuizTopicsDetails={setQuizTopicsDetails}
+              />
             )}
           </div>
         </div>

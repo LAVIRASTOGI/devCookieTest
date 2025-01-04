@@ -5,6 +5,7 @@ export const HTMLQuizDetails = {
     topic: [
       {
         quizName: "Basic HTML Assessment",
+        id: "quizFree1",
         totalQuestions: 15,
         completedQuestions: 0,
         isCompleted: false,
@@ -22,6 +23,7 @@ export const HTMLQuizDetails = {
     topic: [
       {
         quizName: "Intro to HTML",
+        id: "quizBeginner1",
         totalQuestions: 10,
         completedQuestions: 0,
         isCompleted: false,
@@ -30,6 +32,7 @@ export const HTMLQuizDetails = {
       },
       {
         quizName: "Basic HTML Elements",
+        id: "quizBeginner2",
         totalQuestions: 10,
         completedQuestions: 0,
         isCompleted: false,
@@ -38,6 +41,7 @@ export const HTMLQuizDetails = {
       },
       {
         quizName: "Tables and Semantic HTML",
+        id: "quizBeginner3",
         totalQuestions: 10,
         completedQuestions: 0,
         isCompleted: false,
@@ -48,7 +52,7 @@ export const HTMLQuizDetails = {
     totalTopics: 3,
     completedTopics: 0,
     cost: 100,
-    subscribed: false,
+    subscribed: true,
   },
   Intermediate: {
     description: "Advance your HTML skills",
@@ -56,6 +60,7 @@ export const HTMLQuizDetails = {
     topic: [
       {
         quizName: "Forms and User Inputs",
+        id: "quizIntermediate1",
         totalQuestions: 10,
         completedQuestions: 0,
         isCompleted: false,
@@ -64,6 +69,7 @@ export const HTMLQuizDetails = {
       },
       {
         quizName: "Multimedia and Interactive Elements",
+        id: "quizIntermediate2",
         totalQuestions: 10,
         completedQuestions: 0,
         isCompleted: false,
@@ -72,6 +78,7 @@ export const HTMLQuizDetails = {
       },
       {
         quizName: "Responsive Design and Accessibility",
+        id: "quizIntermediate3",
         totalQuestions: 10,
         completedQuestions: 0,
         isCompleted: false,
@@ -82,7 +89,7 @@ export const HTMLQuizDetails = {
     totalTopics: 3,
     completedTopics: 0,
     cost: 100,
-    subscribed: false,
+    subscribed: true,
   },
   Advanced: {
     description: "Become an HTML expert",
@@ -90,6 +97,7 @@ export const HTMLQuizDetails = {
     topic: [
       {
         quizName: "SEO and Structured Data",
+        id: "quizAdvanced1",
         totalQuestions: 10,
         completedQuestions: 0,
         isCompleted: false,
@@ -98,6 +106,7 @@ export const HTMLQuizDetails = {
       },
       {
         quizName: "HTML5 and Web Storage",
+        id: "quizAdvanced2",
         totalQuestions: 10,
         completedQuestions: 0,
         isCompleted: false,
@@ -106,6 +115,7 @@ export const HTMLQuizDetails = {
       },
       {
         quizName: "Advanced HTML Features",
+        id: "quizAdvanced3",
         totalQuestions: 10,
         completedQuestions: 0,
         isCompleted: false,
@@ -114,6 +124,7 @@ export const HTMLQuizDetails = {
       },
       {
         quizName: "Complete HTML Assessment",
+        id: "quizAdvanced4",
         totalQuestions: 10,
         completedQuestions: 0,
         isCompleted: false,
