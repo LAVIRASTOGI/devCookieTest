@@ -1,6 +1,6 @@
 export const cssQuizDetails = {
   FreeQuiz: {
-    description: "Introduction to CSS Concepts",
+    description: "A Beginner's Guide to CSS Fundamentals",
     key: "free",
     topics: [
       {
@@ -11,6 +11,7 @@ export const cssQuizDetails = {
         isCompleted: false,
         progress: 0,
         active: true,
+        duration: "15 minutes",
       },
     ],
     totalTopics: 1,
@@ -19,50 +20,54 @@ export const cssQuizDetails = {
   },
 
   Beginner: {
-    description: "Master Fundamental CSS Concepts",
+    description: "Grasp Essential CSS Concepts",
     key: "beginner",
     topics: [
       {
         quizName: "CSS Syntax and Selectors",
-        description: "Understanding basic CSS syntax and types of selectors.",
+        description: "Learn the basics of CSS syntax and various selectors.",
         id: "quizCSSBeginner1",
         totalQuestions: 10,
         completedQuestions: 0,
         isCompleted: false,
         progress: 0,
         active: false,
+        duration: "20 minutes",
       },
       {
         quizName: "Box Model and Box Sizing",
-        description: "Exploring margin, border, padding, and content.",
+        description:
+          "Dive into margin, border, padding, and content management.",
         id: "quizCSSBeginner2",
         totalQuestions: 10,
         completedQuestions: 0,
         isCompleted: false,
         progress: 0,
         active: false,
+        duration: "20 minutes",
       },
       {
         quizName: "Text Styling and Colors",
         description:
-          "Font properties, text alignment, color, text decoration, and color types (hex, RGB, named colors).",
+          "Explore font properties, text alignment, and color formats.",
         id: "quizCSSBeginner3",
         totalQuestions: 15,
         completedQuestions: 0,
         isCompleted: false,
         progress: 0,
         active: false,
+        duration: "25 minutes",
       },
       {
         quizName: "Backgrounds and Display",
-        description:
-          "Background properties (color, image, repeat, position) and display types (block, inline, inline-block, none).",
+        description: "Understand background properties and display types.",
         id: "quizCSSBeginner4",
         totalQuestions: 10,
         completedQuestions: 0,
         isCompleted: false,
         progress: 0,
         active: false,
+        duration: "20 minutes",
       },
     ],
     totalTopics: 4,
@@ -72,52 +77,54 @@ export const cssQuizDetails = {
   },
 
   Intermediate: {
-    description: "Advance Your CSS Skills",
+    description: "Enhance Your CSS Proficiency",
     key: "intermediate",
     topics: [
       {
         quizName: "Positioning",
         description:
-          "Understanding static, relative, absolute, fixed, sticky positioning with top, right, bottom, left, and z-index.",
+          "Master static, relative, absolute, fixed, and sticky positioning.",
         id: "quizCSSIntermediate1",
         totalQuestions: 10,
         completedQuestions: 0,
         isCompleted: false,
         progress: 0,
         active: false,
+        duration: "20 minutes",
       },
       {
         quizName: "Flexbox Layout",
-        description:
-          "Main flex properties for layout, such as justify-content, align-items, and flex-wrap.",
+        description: "Learn key Flexbox properties for efficient layouts.",
         id: "quizCSSIntermediate2",
         totalQuestions: 10,
         completedQuestions: 0,
         isCompleted: false,
         progress: 0,
         active: false,
+        duration: "20 minutes",
       },
       {
         quizName: "CSS Grid Layout",
-        description:
-          "Basic CSS Grid concepts like grid-template-rows, grid-template-columns, and gap.",
+        description: "Understand CSS Grid basics for advanced layouts.",
         id: "quizCSSIntermediate3",
         totalQuestions: 10,
         completedQuestions: 0,
         isCompleted: false,
         progress: 0,
         active: false,
+        duration: "20 minutes",
       },
       {
         quizName: "CSS Transitions and Animations",
         description:
-          "Understanding keyframes, and transition properties like duration, delay, and timing functions.",
+          "Explore keyframes, transitions, and animation properties.",
         id: "quizCSSIntermediate4",
         totalQuestions: 15,
         completedQuestions: 0,
         isCompleted: false,
         progress: 0,
         active: false,
+        duration: "30 minutes",
       },
     ],
     totalTopics: 4,
@@ -127,52 +134,54 @@ export const cssQuizDetails = {
   },
 
   Advanced: {
-    description: "Become an Expert in CSS",
+    description: "Achieve Mastery in CSS",
     key: "advanced",
     topics: [
       {
         quizName: "CSS Variables (Custom Properties)",
-        description:
-          "Defining and using variables, their scope, and fallbacks.",
+        description: "Learn about CSS variables, their scope, and fallbacks.",
         id: "quizCSSAdvanced1",
         totalQuestions: 10,
         completedQuestions: 0,
         isCompleted: false,
         progress: 0,
         active: false,
+        duration: "20 minutes",
       },
       {
         quizName: "Responsive Design",
         description:
-          "Implementing media queries and using relative units (%), em/rem, and viewport units (vw, vh).",
+          "Implement media queries and use responsive units effectively.",
         id: "quizCSSAdvanced2",
         totalQuestions: 10,
         completedQuestions: 0,
         isCompleted: false,
         progress: 0,
         active: false,
+        duration: "20 minutes",
       },
       {
         quizName: "Tailwind CSS",
         description:
-          "Understanding the utility-first CSS framework Tailwind CSS.",
+          "Understand the utility-first CSS framework, Tailwind CSS.",
         id: "quizCSSAdvanced3",
         totalQuestions: 20,
         completedQuestions: 0,
         isCompleted: false,
         progress: 0,
         active: false,
+        duration: "40 minutes",
       },
       {
         quizName: "Full CSS Assessment",
-        description:
-          "Comprehensive review of CSS concepts including variables, scope, fallbacks, and advanced techniques.",
+        description: "Comprehensive review of all CSS concepts and techniques.",
         id: "quizCSSAdvanced4",
         totalQuestions: 10,
         completedQuestions: 0,
         isCompleted: false,
         progress: 0,
         active: false,
+        duration: "30 minutes",
       },
     ],
     totalTopics: 4,

@@ -43,7 +43,7 @@ function QuizTypeSelection({ quizTopicsDetails, currentLevel, quizDetails }) {
             </div>
             <div>
               <h3 className="text-xl font-semibold text-gray-800 mb-1">
-                {currentTopic.quizName || `${currentLevel} Assessment`}
+                {currentTopic?.quizName || `${currentLevel} Assessment`}
               </h3>
               <p className="text-sm text-gray-600">
                 {currentTopic?.description ||
@@ -71,7 +71,7 @@ function QuizTypeSelection({ quizTopicsDetails, currentLevel, quizDetails }) {
                       d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"
                     />
                   </svg>
-                  Duration: {currentTopic.duration || "30"} minutes
+                  Duration: {currentTopic?.duration || "30"} minutes
                 </li>
                 <li className="flex items-center text-sm text-gray-600">
                   <svg
@@ -87,7 +87,7 @@ function QuizTypeSelection({ quizTopicsDetails, currentLevel, quizDetails }) {
                       d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"
                     />
                   </svg>
-                  Questions: {currentTopic.totalQuestions || 0} total
+                  Questions: {currentTopic?.totalQuestions || 0} total
                 </li>
                 <li className="flex items-center text-sm text-gray-600">
                   <svg
@@ -103,9 +103,9 @@ function QuizTypeSelection({ quizTopicsDetails, currentLevel, quizDetails }) {
                       d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"
                     />
                   </svg>
-                  Passing Score: {currentTopic.passingScore || 80}%
+                  Passing Score: {currentTopic?.passingScore || 80}%
                 </li>
-                {currentTopic.completedQuestions > 0 && (
+                {currentTopic?.completedQuestions > 0 && (
                   <li className="flex items-center text-sm text-green-600">
                     <svg
                       className="w-4 h-4 mr-2"
@@ -120,8 +120,8 @@ function QuizTypeSelection({ quizTopicsDetails, currentLevel, quizDetails }) {
                         d="M5 13l4 4L19 7"
                       />
                     </svg>
-                    Progress: {currentTopic.completedQuestions}/
-                    {currentTopic.quizQuestions} completed
+                    Progress: {currentTopic?.completedQuestions}/
+                    {currentTopic?.quizQuestions} completed
                   </li>
                 )}
               </ul>
@@ -130,7 +130,7 @@ function QuizTypeSelection({ quizTopicsDetails, currentLevel, quizDetails }) {
             <div className="space-y-3">
               <h4 className="font-medium text-gray-700">Features</h4>
               <ul className="space-y-2">
-                {currentTopic.features?.map((feature, index) => (
+                {currentTopic?.features?.map((feature, index) => (
                   <li
                     key={index}
                     className="flex items-center text-sm text-gray-600"
@@ -194,7 +194,7 @@ function QuizTypeSelection({ quizTopicsDetails, currentLevel, quizDetails }) {
           <div className="bg-gray-50 rounded-lg p-4 mb-6">
             <h4 className="font-medium text-gray-700 mb-2">Instructions</h4>
             <ul className="space-y-1">
-              {currentTopic.instructions?.map((instruction, index) => (
+              {currentTopic?.instructions?.map((instruction, index) => (
                 <li key={index} className="text-sm text-gray-600">
                   • {instruction}
                 </li>

@@ -1,5 +1,7 @@
 import { cssQuizDetails } from "./cssQuizDetails";
 import { HTMLQuizDetails } from "./htmlQuizDetails";
+import { javaScriptQuizDetails } from "./JavascriptQuizDetails";
+import { reactQuizDetails } from "./reactQuizDetails";
 
 export const quizTopics = [
   {
@@ -13,7 +15,7 @@ export const quizTopics = [
     advanced: "7-10",
     icon: "/images/HtmlCSS.jpg",
     href: "/quizzes/html",
-    completedQuizzes: "1",
+    completedQuizzes: 0,
     quizTopicsDetails: HTMLQuizDetails,
   },
   {
@@ -27,7 +29,7 @@ export const quizTopics = [
     advanced: "7-10",
     icon: "/images/HtmlCSS.jpg",
     href: "/quizzes/css",
-    completedQuizzes: "4",
+    completedQuizzes: 0,
     quizTopicsDetails: cssQuizDetails,
   },
   {
@@ -41,8 +43,8 @@ export const quizTopics = [
     intermediate: "4-10",
     advanced: "10-15",
     href: "/quizzes/javascript",
-    completedQuizzes: "2",
-    quizTopicsDetails: HTMLQuizDetails,
+    completedQuizzes: 0,
+    quizTopicsDetails: javaScriptQuizDetails,
   },
   {
     id: "react",
@@ -55,7 +57,7 @@ export const quizTopics = [
     intermediate: "4-10",
     advanced: "10-15",
     href: "/quizzes/react",
-    completedQuizzes: "5",
-    quizTopicsDetails: HTMLQuizDetails,
+    completedQuizzes: 0,
+    quizTopicsDetails: reactQuizDetails,
   },
 ];

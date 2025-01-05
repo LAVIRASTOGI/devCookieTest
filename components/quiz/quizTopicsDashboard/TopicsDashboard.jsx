@@ -22,7 +22,7 @@ function TopicsDashboard({ topic }) {
               htmlFor="my-drawer-2"
               className="btn btn-primary drawer-button lg:hidden"
             >
-              Open QuizDeatils
+              Open Quiz Details
             </label>
           </div>
           <div className="drawer-side">
