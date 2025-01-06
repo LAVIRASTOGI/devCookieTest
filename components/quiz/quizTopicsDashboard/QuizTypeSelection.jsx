@@ -9,8 +9,9 @@ function QuizTypeSelection({ quizTopicsDetails, currentLevel, quizDetails }) {
 
   const handleStartQuiz = () => {
     router.push(`/quizzes/${quizDetails?.id}/${currentTopic?.id}`);
-    // Handle quiz start logic here
-    console.log("Starting quiz for:", currentLevel, currentTopic);
+  };
+  const handleEvaluateQuiz = () => {
+    router.push(`/quizzes//${quizDetails?.id}/evaluate/${currentTopic?.id}`);
   };
 
   return (
@@ -225,7 +226,7 @@ function QuizTypeSelection({ quizTopicsDetails, currentLevel, quizDetails }) {
           {currentTopic?.isCompleted ? (
             <div className="flex gap-8 ">
               <button
-                onClick={handleStartQuiz}
+                onClick={handleEvaluateQuiz}
                 className="w-full sm:w-auto px-6 py-3 bg-primary text-white rounded-full 
                 hover:bg-primary/90 transition-all duration-300 flex items-center justify-center gap-2
                 font-medium text-sm"
