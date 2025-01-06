@@ -20,8 +20,8 @@ export const EXPERIENCE_LEVELS = [
 ];
 
 export const PLANS = [
-  { value: 200, label: "Basic (Rs 200 - 1 Mock Interview Session)" },
-  { value: 300, label: "Premium (Rs 300 - 2 Mock Interviews Sessions)" },
+  { value: 300, label: "Basic (Rs 300 - 1 Mock Interview Session)" },
+  { value: 500, label: "Premium (Rs 500 - 2 Mock Interviews Sessions)" },
 ];
 
 export const SKILL_LEVELS = [

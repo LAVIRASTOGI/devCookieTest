@@ -9,7 +9,7 @@ const PricingPlan = ({ openModal }) => {
   const plans = [
     {
       title: "Basic Plan",
-      price: "200",
+      price: "300",
       icon: "/images/price-basicicon.png",
       features: [
         "1 Mock Interview Session",
@@ -20,7 +20,7 @@ const PricingPlan = ({ openModal }) => {
     },
     {
       title: "Premium Plan",
-      price: "300",
+      price: "500",
       icon: "/images/price-businessicon.png",
       features: [
         "2 Mock Interview Sessions",

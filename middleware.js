@@ -22,7 +22,6 @@ export function middleware(request) {
 export const config = {
   matcher: [
     // Add your protected routes here
-    "/mock-interview-ai/:path*",
     "/quizzes/:path*",
     "/profile/:path*",
   ],

@@ -28,7 +28,7 @@ const initialFormData = {
   phoneNumber: "",
   email: "",
   name: "",
-  planAmount: 200,
+  planAmount: 300,
 };
 
 const headingsData = [
@@ -50,7 +50,7 @@ const SpecializationModalContent = ({ closeModal, isOpen, planAmount }) => {
       setSelectedSpecializations([]);
       setFormData({
         ...initialFormData,
-        planAmount: planAmount ? planAmount : 200,
+        planAmount: planAmount ? planAmount : 300,
       });
       setActiveIndex(0);
     }
@@ -119,7 +119,7 @@ const SpecializationModalContent = ({ closeModal, isOpen, planAmount }) => {
         name: user?.name ? user.name : "",
         email: user?.emailId ? user.emailId : "",
         phoneNumber: user?.phoneNumber ? user.phoneNumber : "",
-        planAmount: planAmount ? planAmount : 200,
+        planAmount: planAmount ? planAmount : 300,
         experienceLevel: yearsOfExperienceHandler,
       });
       setActiveIndex(0);
