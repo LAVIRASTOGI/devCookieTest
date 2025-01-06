@@ -146,7 +146,7 @@ function QuizSidebar({
                     !isLocked ? () => activeCurrentQuizHandler(quiz?.id) : null
                   }
                   className={`bg-white rounded-lg p-2 lg:p-3 transition-all 
-                      ${quiz?.active ? "bg-blue-100" : ""}
+                      ${quiz?.active ? "bg-blue-200" : ""}
                       ${
                         isLocked
                           ? "cursor-not-allowed opacity-75"
