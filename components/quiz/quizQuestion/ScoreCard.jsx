@@ -1,10 +1,15 @@
 import Button from "@/components/uiComponents/Button";
 
-function ScoreCard({ score, total, onRestart }) {
+function ScoreCard({ score, total, onRestart, timeExpired }) {
   const percentage = (score / total) * 100;
 
   return (
     <div className="bg-white rounded-xl shadow-lg p-8 text-center">
+      {timeExpired && (
+        <div className="mb-4 text-red-500 font-medium">
+          Time's up! Quiz automatically submitted.
+        </div>
+      )}
       <div className="mb-8">
         <h2 className="text-3xl font-bold text-gray-800 mb-4">
           Quiz Complete!
