@@ -44,7 +44,7 @@ function TopicsDashboard({ topic }) {
       </header>
 
       {/* Main Content Container */}
-      <div className="flex min-h-screen pt-[108px] lg:pt-0">
+      <div className="flex min-h-screen pt-16 lg:pt-0">
         {/* Sidebar */}
         <aside
           className={`fixed lg:sticky top-[108px] lg:top-0 left-0 h-[calc(100vh-108px)] lg:h-screen md:w-[450px] bg-white shadow-lg transform 
