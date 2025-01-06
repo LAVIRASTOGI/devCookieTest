@@ -82,100 +82,73 @@ function QuestionPage({
   };
 
   return (
-    <div className="min-h-screen flex">
-      {/* Sidebar for question navigation */}
-      <div className="hidden lg:block w-64 bg-white shadow-lg fixed h-full overflow-y-auto">
-        <div className="p-6">
-          <h3 className="text-lg font-semibold text-gray-700 mb-4">
-            Questions
-          </h3>
-          <div className="space-y-2">
-            {questions.map((_, index) => (
-              <button
-                key={index}
-                onClick={() =>
-                  setQuizState({ ...quizState, currentQuestionIndex: index })
-                }
-                className={`w-full p-3 text-left rounded-lg transition-colors
-                  ${
-                    index === quizState.currentQuestionIndex
-                      ? "bg-primary text-white"
-                      : quizState.answers[index]
-                      ? "bg-blue-50 text-primary"
-                      : "bg-gray-50 text-gray-600 hover:bg-gray-100"
-                  }
-                `}
-                disabled={isEvaluate}
-              >
-                Question {index + 1}
-                {quizState.answers[index] && (
-                  <span className="float-right">✓</span>
-                )}
-              </button>
-            ))}
+    <div className="min-h-screen bg-gradient-to-br from-blue-50 via-white to-blue-50">
+      <div className="relative min-h-screen">
+        {/* Timer */}
+        {!quizState.isComplete && !isEvaluate && (
+          <Timer duration={durationQuiz} onTimeUp={handleTimeUp} />
+        )}
+
+        {/* Background Effects */}
+        <div className="absolute inset-0 overflow-hidden pointer-events-none">
+          <div className="absolute -top-40 -right-40 w-80 h-80 bg-blue-100 rounded-full opacity-30 blur-3xl" />
+          <div className="absolute -bottom-40 -left-40 w-80 h-80 bg-purple-100 rounded-full opacity-30 blur-3xl" />
+          <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-full h-full">
+            <div className="w-full h-full bg-gradient-to-r from-transparent via-white/50 to-transparent opacity-50" />
           </div>
         </div>
-      </div>
 
-      {/* Main content */}
-      <div className="flex-1 lg:ml-64">
-        <div className=" relative bg-gradient-to-br from-blue-50 via-white to-blue-50">
-          {!quizState.isComplete && !isEvaluate && (
-            <Timer duration={durationQuiz} onTimeUp={handleTimeUp} />
-          )}
-
-          <div className="absolute inset-0 overflow-hidden pointer-events-none">
-            <div className="absolute -top-40 -right-40 w-80 h-80 bg-blue-100 rounded-full opacity-50 blur-3xl" />
-            <div className="absolute -bottom-40 -left-40 w-80 h-80 bg-purple-100 rounded-full opacity-50 blur-3xl" />
-            <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-full h-full">
-              <div className="w-full h-full bg-gradient-to-r from-transparent via-white/50 to-transparent opacity-80" />
+        {/* Main Content */}
+        <div className="relative z-10 container mx-auto px-4 py-8">
+          <div className="max-w-4xl mx-auto">
+            {/* Header */}
+            <div className="text-center pt-8 mt-16 md:mt-0 lg:pt-16">
+              <h1 className="text-4xl lg:text-5xl font-bold bg-gradient-to-r from-primary to-blue-600 bg-clip-text text-transparent">
+                Quiz Time!
+              </h1>
+              <p className="mt-4 text-gray-600 text-lg">
+                Test your knowledge and challenge yourself
+              </p>
             </div>
-          </div>
 
-          <div className="relative z-10 container mx-auto px-4 py-12">
-            <div className="max-w-4xl mx-auto">
-              <div className="text-center mb-12 mt-16 md:mt-0">
-                <h1 className="text-5xl font-bold bg-primary bg-clip-text text-transparent">
-                  Quiz Time!
-                </h1>
-                <p className="mt-4 text-gray-600">
-                  Test your knowledge and challenge yourself
-                </p>
-              </div>
-
-              {!quizState.isComplete || isEvaluate ? (
-                <div className="space-y-8">
+            {/* Quiz Content */}
+            {!quizState.isComplete || isEvaluate ? (
+              <div className="space-y-8 py-8">
+                {/* Progress Bar */}
+                <div className="bg-white rounded-lg p-4 shadow-sm">
                   <ProgressBar
                     current={quizState.currentQuestionIndex + 1}
                     total={questions.length}
                   />
-                  <div className="transform transition-all duration-300 hover:scale-[1.01]">
-                    <QuestionCard
-                      question={questions[quizState.currentQuestionIndex]}
-                      onAnswer={handleAnswer}
-                      onNext={handleNext}
-                      onPrevious={handlePrevious}
-                      showPrevious={quizState.currentQuestionIndex > 0}
-                      selectedAnswer={
-                        quizState.answers[quizState.currentQuestionIndex]
-                      }
-                      quizState={quizState}
-                      isEvaluate={isEvaluate}
-                    />
-                  </div>
                 </div>
-              ) : (
+
+                {/* Question Card */}
                 <div className="transform transition-all duration-300 hover:scale-[1.01]">
-                  <ScoreCard
-                    score={quizState.score}
-                    total={questions.length}
-                    onRestart={handleRestart}
-                    timeExpired={quizState.timeExpired}
-                    onEvaluate={evaluateHandler}
+                  <QuestionCard
+                    question={questions[quizState.currentQuestionIndex]}
+                    onAnswer={handleAnswer}
+                    onNext={handleNext}
+                    onPrevious={handlePrevious}
+                    showPrevious={quizState.currentQuestionIndex > 0}
+                    selectedAnswer={
+                      quizState.answers[quizState.currentQuestionIndex]
+                    }
+                    quizState={quizState}
+                    isEvaluate={isEvaluate}
                   />
                 </div>
-              )}
-            </div>
+              </div>
+            ) : (
+              <div className="transform transition-all duration-300 hover:scale-[1.01] py-8">
+                <ScoreCard
+                  score={quizState.score}
+                  total={questions.length}
+                  onRestart={handleRestart}
+                  timeExpired={quizState.timeExpired}
+                  onEvaluate={evaluateHandler}
+                />
+              </div>
+            )}
           </div>
         </div>
       </div>

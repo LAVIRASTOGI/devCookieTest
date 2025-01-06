@@ -20,11 +20,11 @@ function TopicsDashboard({ topic }) {
         <div className="flex items-center h-full px-4">
           <button
             onClick={() => setIsSidebarOpen(!isSidebarOpen)}
-            className="btn btn-ghost btn-circle btn-sm"
+            className="p-1 hover:bg-gray-100 rounded-lg transition-colors"
           >
             <svg
               xmlns="http://www.w3.org/2000/svg"
-              className="h-4 w-4"
+              className="h-4 w-4 text-gray-600"
               fill="none"
               viewBox="0 0 24 24"
               stroke="currentColor"
@@ -37,28 +37,31 @@ function TopicsDashboard({ topic }) {
               />
             </svg>
           </button>
-          <h1 className="text-sm font-semibold ml-2">Quiz Dashboard</h1>
+          <h1 className="text-sm font-semibold ml-2 text-gray-700">
+            Quiz Dashboard
+          </h1>
         </div>
       </header>
 
-      {/* Main Content Container - Added mt-[28px] for mobile */}
-      <div className="flex flex-col lg:flex-row mt-[108px] lg:mt-0">
+      {/* Main Content Container */}
+      <div className="flex min-h-screen pt-[108px] lg:pt-0">
         {/* Sidebar */}
-        <div
-          className={`fixed lg:static inset-0 z-40 transform ${
-            isSidebarOpen ? "translate-x-0" : "-translate-x-full"
-          } lg:translate-x-0 transition-transform duration-300 ease-in-out top-[108px] lg:top-0`}
+        <aside
+          className={`fixed lg:sticky top-[108px] lg:top-0 left-0 h-[calc(100vh-108px)] lg:h-screen md:w-[450px] bg-white shadow-lg transform 
+            ${isSidebarOpen ? "translate-x-0" : "-translate-x-full"} 
+            lg:translate-x-0 transition-transform duration-300 ease-in-out z-40 pb-12 lg:pb-0`}
         >
-          <div className="h-[calc(100vh-108px)] lg:h-screen bg-white shadow-lg overflow-y-auto">
-            {/* Close button for mobile */}
-            <div className="lg:hidden p-2 flex justify-end">
+          {/* Close button for mobile */}
+          <div className="lg:hidden p-4 border-b">
+            <div className="flex justify-between items-center">
+              <h2 className="font-semibold text-gray-700">Quiz Topics</h2>
               <button
                 onClick={() => setIsSidebarOpen(false)}
-                className="btn btn-ghost btn-circle btn-sm"
+                className="p-1 hover:bg-gray-100 rounded-lg transition-colors"
               >
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
-                  className="h-4 w-4"
+                  className="h-4 w-4 text-gray-600"
                   fill="none"
                   viewBox="0 0 24 24"
                   stroke="currentColor"
@@ -72,7 +75,10 @@ function TopicsDashboard({ topic }) {
                 </svg>
               </button>
             </div>
+          </div>
 
+          {/* Sidebar Content */}
+          <div className="overflow-y-auto h-full">
             {quizDetails?.id && (
               <QuizSidebar
                 quizTopicsDetails={quizTopicsDetails}
@@ -82,12 +88,12 @@ function TopicsDashboard({ topic }) {
               />
             )}
           </div>
-        </div>
+        </aside>
 
         {/* Main Content */}
-        <div className="flex-1 items-center px-4 md:px-6 lg:px-8 md:py-16 py-8">
+        <main className="flex-1 px-4 lg:px-8 lg:py-8">
           <div className="max-w-4xl mx-auto">
-            <div className="bg-white rounded-lg shadow-sm p-4 md:p-6">
+            <div className="bg-white rounded-lg shadow-sm p-4 lg:p-6">
               <QuizTypeSelection
                 quizTopicsDetails={quizTopicsDetails}
                 currentLevel={currentLevel}
@@ -95,13 +101,13 @@ function TopicsDashboard({ topic }) {
               />
             </div>
           </div>
-        </div>
+        </main>
       </div>
 
       {/* Overlay for mobile when sidebar is open */}
       {isSidebarOpen && (
         <div
-          className="fixed inset-0 bg-black bg-opacity-50 z-30 lg:hidden top-[28px]"
+          className="fixed inset-0 bg-black bg-opacity-50 z-30 lg:hidden top-[108px]"
           onClick={() => setIsSidebarOpen(false)}
         />
       )}
