@@ -11,27 +11,67 @@ function TopicsDashboard({ topic }) {
     quizDetails?.quizTopicsDetails
   );
   const [currentLevel, setCurrentLevel] = useState("FreeQuiz");
+  const [isSidebarOpen, setIsSidebarOpen] = useState(false);
+
   return (
-    <>
-      <div className="flex  ">
-        <div className="drawer lg:drawer-open w-auto ">
-          <input id="my-drawer-2" type="checkbox" className="drawer-toggle" />
-          <div className="drawer-content flex flex-col items-center justify-center md:hidden ">
-            {/* Page content here */}
-            <label
-              htmlFor="my-drawer-2"
-              className="btn btn-primary drawer-button lg:hidden"
+    <div className="min-h-screen bg-gray-50">
+      {/* Mobile Header with Menu Button */}
+      <header className="lg:hidden fixed top-[80px] left-0 right-0 z-50 bg-white shadow-md h-[28px]">
+        <div className="flex items-center h-full px-4">
+          <button
+            onClick={() => setIsSidebarOpen(!isSidebarOpen)}
+            className="btn btn-ghost btn-circle btn-sm"
+          >
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              className="h-4 w-4"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
             >
-              Open Quiz Details
-            </label>
-          </div>
-          <div className="drawer-side">
-            <label
-              htmlFor="my-drawer-2"
-              aria-label="close sidebar"
-              className="drawer-overlay"
-            ></label>
-            {/* Sidebar content here */}
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth={2}
+                d="M4 6h16M4 12h16M4 18h16"
+              />
+            </svg>
+          </button>
+          <h1 className="text-sm font-semibold ml-2">Quiz Dashboard</h1>
+        </div>
+      </header>
+
+      {/* Main Content Container - Added mt-[28px] for mobile */}
+      <div className="flex flex-col lg:flex-row mt-[108px] lg:mt-0">
+        {/* Sidebar */}
+        <div
+          className={`fixed lg:static inset-0 z-40 transform ${
+            isSidebarOpen ? "translate-x-0" : "-translate-x-full"
+          } lg:translate-x-0 transition-transform duration-300 ease-in-out top-[108px] lg:top-0`}
+        >
+          <div className="h-[calc(100vh-108px)] lg:h-screen bg-white shadow-lg overflow-y-auto">
+            {/* Close button for mobile */}
+            <div className="lg:hidden p-2 flex justify-end">
+              <button
+                onClick={() => setIsSidebarOpen(false)}
+                className="btn btn-ghost btn-circle btn-sm"
+              >
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  className="h-4 w-4"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M6 18L18 6M6 6l12 12"
+                  />
+                </svg>
+              </button>
+            </div>
 
             {quizDetails?.id && (
               <QuizSidebar
@@ -42,17 +82,29 @@ function TopicsDashboard({ topic }) {
             )}
           </div>
         </div>
-        <div className="flex-1 pt-10 ">
-          <div className="flex flex-col gap-4 items-center">
-            <QuizTypeSelection
-              quizTopicsDetails={quizTopicsDetails}
-              currentLevel={currentLevel}
-              quizDetails={quizDetails}
-            />
+
+        {/* Main Content */}
+        <div className="flex-1 items-center px-4 md:px-6 lg:px-8 py-4">
+          <div className="max-w-4xl mx-auto">
+            <div className="bg-white rounded-lg shadow-sm p-4 md:p-6">
+              <QuizTypeSelection
+                quizTopicsDetails={quizTopicsDetails}
+                currentLevel={currentLevel}
+                quizDetails={quizDetails}
+              />
+            </div>
           </div>
         </div>
       </div>
-    </>
+
+      {/* Overlay for mobile when sidebar is open */}
+      {isSidebarOpen && (
+        <div
+          className="fixed inset-0 bg-black bg-opacity-50 z-30 lg:hidden top-[28px]"
+          onClick={() => setIsSidebarOpen(false)}
+        />
+      )}
+    </div>
   );
 }
 

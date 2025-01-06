@@ -26,7 +26,7 @@ function QuizSidebar({
     setQuizTopicsDetails(newQuizTopicDetails);
   };
   return (
-    <div className="menu bg-base-200 min-h-full w-[75%] lg:w-[450px] p-3 lg:p-4">
+    <div className="menu bg-base-200 min-h-full w-full  p-3 lg:p-4">
       {/* Header with Subscription Status */}
       <div className="mb-4 lg:mb-6">
         <div className="flex items-center justify-between mb-2">

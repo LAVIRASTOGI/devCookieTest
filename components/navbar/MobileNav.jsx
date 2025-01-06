@@ -97,7 +97,7 @@ const MobileNav = () => {
                 // if (item?.isProtected && !user) {
                 //   return "";
                 // } else {
-                const isActive = pathname === item.route;
+                const isActive = pathname.includes(item.route);
                 return (
                   <Link
                     href={item.route}

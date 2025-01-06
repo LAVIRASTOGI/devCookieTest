@@ -23,7 +23,7 @@ export const config = {
   matcher: [
     // Add your protected routes here
     "/mock-interview-ai/:path*",
-    "/quizzes",
+    "/quizzes/:path*",
     "/profile/:path*",
   ],
 };
