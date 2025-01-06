@@ -224,7 +224,7 @@ function QuizTypeSelection({ quizTopicsDetails, currentLevel, quizDetails }) {
 
           {/* Action Button */}
           {currentTopic?.isCompleted ? (
-            <div className="flex gap-8 ">
+            <div className="flex flex-col md:flex-row gap-4 ">
               <button
                 onClick={handleEvaluateQuiz}
                 className="w-full sm:w-auto px-6 py-3 bg-primary text-white rounded-full 
