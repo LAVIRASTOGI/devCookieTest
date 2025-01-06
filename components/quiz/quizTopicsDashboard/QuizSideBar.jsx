@@ -2,6 +2,7 @@ function QuizSidebar({
   quizTopicsDetails,
   setQuizTopicsDetails,
   setCurrentLevel,
+  setIsSidebarOpen,
 }) {
   // Helper function to check if level should be locked
   const isLevelLocked = (level, quizTopicsDetails) => {
@@ -19,6 +20,7 @@ function QuizSidebar({
       newQuizTopicDetails[level].topics.forEach((quiz) => {
         if (quiz.id === quizId) {
           setCurrentLevel(level);
+          setIsSidebarOpen(false);
         }
         quiz.active = quiz.id === quizId;
       });

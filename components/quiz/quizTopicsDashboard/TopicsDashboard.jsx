@@ -78,13 +78,14 @@ function TopicsDashboard({ topic }) {
                 quizTopicsDetails={quizTopicsDetails}
                 setQuizTopicsDetails={setQuizTopicsDetails}
                 setCurrentLevel={setCurrentLevel}
+                setIsSidebarOpen={setIsSidebarOpen}
               />
             )}
           </div>
         </div>
 
         {/* Main Content */}
-        <div className="flex-1 items-center px-4 md:px-6 lg:px-8 py-16">
+        <div className="flex-1 items-center px-4 md:px-6 lg:px-8 md:py-16 py-8">
           <div className="max-w-4xl mx-auto">
             <div className="bg-white rounded-lg shadow-sm p-4 md:p-6">
               <QuizTypeSelection
