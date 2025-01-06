@@ -1,10 +1,14 @@
+import { useRouter } from "next/navigation";
+
 function QuizTypeSelection({ quizTopicsDetails, currentLevel, quizDetails }) {
+  const router = useRouter();
   const currentLevelData = quizTopicsDetails[currentLevel];
   const currentTopic = quizTopicsDetails[currentLevel]?.topics.find(
     (ele) => ele.active
   );
 
   const handleStartQuiz = () => {
+    router.push(`/quizzes/${quizDetails?.id}/${currentTopic?.id}`);
     // Handle quiz start logic here
     console.log("Starting quiz for:", currentLevel, currentTopic);
   };

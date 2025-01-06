@@ -50,6 +50,7 @@ const Button = ({
     success: "bg-success hover:bg-success-focus text-white border-none",
     warning: "bg-warning hover:bg-warning-focus text-white border-none",
     info: "bg-info hover:bg-info-focus text-white border-none",
+    gray: "bg-gray-500 hover:bg-gray-600 text-white border-none",
   };
 
   // Loading and disabled styles
