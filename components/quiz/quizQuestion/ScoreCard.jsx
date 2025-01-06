@@ -1,6 +1,6 @@
 import Button from "@/components/uiComponents/Button";
 
-function ScoreCard({ score, total, onRestart, timeExpired }) {
+function ScoreCard({ score, total, onRestart, timeExpired, onEvaluate }) {
   const percentage = (score / total) * 100;
 
   return (
@@ -90,7 +90,7 @@ function ScoreCard({ score, total, onRestart, timeExpired }) {
           mobileSize="xl"
           laptopSize="xl"
           className="text-white mt-8 "
-          onClick={onRestart}
+          onClick={onEvaluate}
         >
           <div className="flex gap-2 items-center">Evaluate Quiz</div>
         </Button>

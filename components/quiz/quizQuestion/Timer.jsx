@@ -21,7 +21,7 @@ const Timer = ({ duration, onTimeUp }) => {
   const seconds = timeLeft % 60;
 
   return (
-    <div className="fixed right-1/2 transform translate-x-1/2 top-24 md:top-28 md:right-10 md:transform-none bg-white rounded-lg shadow-lg p-4 z-50">
+    <div className="fixed right-1/2 transform translate-x-1/2 top-24 md:top-28 md:right-6 md:transform-none bg-white rounded-lg shadow-lg p-4 z-50">
       <div className="flex items-center space-x-3">
         <div className="flex items-center justify-center bg-gray-50 rounded-lg px-4 py-2">
           <svg

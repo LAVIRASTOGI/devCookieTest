@@ -1,10 +1,10 @@
 "use client";
 
-import { questions } from "@/lib/questions";
 import dynamic from "next/dynamic";
 
 import { useParams } from "next/navigation";
-import LoadingQuiz from "../../loadingQuiz";
+import LoadingQuiz from "../../../loadingQuiz";
+import { userQuizEvaluation } from "@/lib/userQuizEvaluation";
 
 const QuestionPage = dynamic(
   () => import("@/components/quiz/quizQuestion/QuestionPage"),
@@ -13,7 +13,7 @@ const QuestionPage = dynamic(
   }
 );
 
-function QuizPage() {
+function EvaluationPage() {
   const params = useParams();
   const topic = params?.topic;
   const quizId = params?.quizId;
@@ -21,13 +21,14 @@ function QuizPage() {
   return (
     <div className="mt-20">
       <QuestionPage
-        questions={questions}
+        questions={userQuizEvaluation}
         durationQuiz={durationQuiz}
         quizId={quizId}
         topic={topic}
+        isEvaluate={true}
       />
     </div>
   );
 }
 
-export default QuizPage;
+export default EvaluationPage;

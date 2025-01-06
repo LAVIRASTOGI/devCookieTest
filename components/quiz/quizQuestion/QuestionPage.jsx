@@ -1,17 +1,24 @@
 "use client";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import QuestionCard from "./QuestionCard";
 import ScoreCard from "./ScoreCard";
 import ProgressBar from "@/components/uiComponents/progress-bar";
 import Timer from "./Timer";
+import { useRouter } from "next/navigation";
 
-// Enhanced ProgressBar component
-
-function QuestionPage({ questions, durationQuiz }) {
+function QuestionPage({
+  questions,
+  durationQuiz,
+  quizId,
+  topic,
+  isEvaluate = false,
+}) {
+  const router = useRouter();
   const [quizState, setQuizState] = useState({
     currentQuestionIndex: 0,
     score: 0,
     answers: new Array(questions.length).fill(""),
+    isLast: false,
     isComplete: false,
     timeExpired: false,
   });
@@ -34,9 +41,14 @@ function QuestionPage({ questions, durationQuiz }) {
       }, 0);
       setQuizState({ ...quizState, score, isComplete: true });
     } else {
+      let isLast = false;
+      if (quizState.currentQuestionIndex === questions.length - 2) {
+        isLast = true;
+      }
       setQuizState({
         ...quizState,
         currentQuestionIndex: quizState.currentQuestionIndex + 1,
+        isLast: true,
       });
     }
   };
@@ -51,6 +63,7 @@ function QuestionPage({ questions, durationQuiz }) {
     setQuizState({
       ...quizState,
       currentQuestionIndex: quizState.currentQuestionIndex - 1,
+      isLast: false,
     });
   };
 
@@ -64,9 +77,13 @@ function QuestionPage({ questions, durationQuiz }) {
     });
   };
 
+  const evaluateHandler = () => {
+    router.push(`/quizzes/${topic}/evaluate/${quizId}`);
+    console.log("evaluateHandler");
+  };
   return (
     <div className="min-h-screen relative bg-gradient-to-br from-blue-50 via-white to-blue-50">
-      {!quizState.isComplete && (
+      {!quizState.isComplete && !isEvaluate && (
         <Timer duration={durationQuiz} onTimeUp={handleTimeUp} />
       )}
 
@@ -89,7 +106,7 @@ function QuestionPage({ questions, durationQuiz }) {
             </p>
           </div>
 
-          {!quizState.isComplete ? (
+          {!quizState.isComplete || isEvaluate ? (
             <div className="space-y-8">
               <ProgressBar
                 current={quizState.currentQuestionIndex + 1}
@@ -105,6 +122,8 @@ function QuestionPage({ questions, durationQuiz }) {
                   selectedAnswer={
                     quizState.answers[quizState.currentQuestionIndex]
                   }
+                  quizState={quizState}
+                  isEvaluate={isEvaluate}
                 />
               </div>
             </div>
@@ -115,6 +134,7 @@ function QuestionPage({ questions, durationQuiz }) {
                 total={questions.length}
                 onRestart={handleRestart}
                 timeExpired={quizState.timeExpired}
+                onEvaluate={evaluateHandler}
               />
             </div>
           )}
