@@ -1,4 +1,4 @@
-export const HTMLQuizDetails = {
+export let HTMLQuizDetails = {
   FreeQuiz: {
     description: "Introduction to Core HTML Concepts",
     key: "free",

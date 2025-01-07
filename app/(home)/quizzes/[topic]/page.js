@@ -14,6 +14,10 @@ const TopicsDashboard = dynamic(
 export default function TopicPage() {
   const params = useParams();
   const topic = params?.topic;
+  if (!topic) {
+    return <LoadingQuiz />;
+  }
+  
 
   return (
     <div className="mt-20">
