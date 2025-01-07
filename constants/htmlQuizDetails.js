@@ -9,7 +9,7 @@ export const HTMLQuizDetails = {
         id: "quizFree1",
         totalQuestions: 15,
         completedQuestions: 0,
-        isCompleted: true,
+        isCompleted: false,
         active: true,
         duration: "15 minutes",
       },
@@ -59,7 +59,7 @@ export const HTMLQuizDetails = {
     totalTopics: 3,
     completedTopics: 0,
     cost: 100,
-    subscribed: true,
+    subscribed: false,
   },
 
   Intermediate: {
@@ -103,7 +103,7 @@ export const HTMLQuizDetails = {
     totalTopics: 3,
     completedTopics: 0,
     cost: 100,
-    subscribed: true,
+    subscribed: false,
   },
 
   Advanced: {
