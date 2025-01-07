@@ -1,9 +1,13 @@
+import PaymentRazorPay from "@/components/payment/PaymentRazorPay";
+import { useUser } from "@/contexts/userContext";
+
 function QuizSidebar({
   quizTopicsDetails,
   setQuizTopicsDetails,
   setCurrentLevel,
   setIsSidebarOpen,
 }) {
+  const { user } = useUser();
   // Helper function to check if level should be locked
   const isLevelLocked = (level, quizTopicsDetails) => {
     const levels = ["FreeQuiz", "Beginner", "Intermediate", "Advanced"];
@@ -27,6 +31,33 @@ function QuizSidebar({
     });
     setQuizTopicsDetails(newQuizTopicDetails);
   };
+
+  const handleUnlockAll = () => {
+    // Add your payment/subscription logic here
+    console.log("Unlock all levels");
+  };
+
+  const paymentButtonName = (buttonName) => {
+    return (
+      <>
+        <svg
+          className="w-4 h-4"
+          fill="none"
+          stroke="currentColor"
+          viewBox="0 0 24 24"
+        >
+          <path
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            strokeWidth="2"
+            d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8V7a4 4 0 00-8 0v4h8z"
+          />
+        </svg>
+        <span className="mt-1">{buttonName}</span>
+      </>
+    );
+  };
+
   return (
     <div className="menu bg-base-200 min-h-full w-full  p-3 lg:p-4">
       {/* Header with Subscription Status */}
@@ -72,10 +103,27 @@ function QuizSidebar({
         <div className="h-1 w-16 lg:w-20 bg-primary rounded"></div>
       </div>
 
+      {/* Common Unlock Button - Only show if not subscribed */}
+      {!quizTopicsDetails["fullCourse"].subscribed && (
+        <div className="mb-6">
+          <PaymentRazorPay
+            handlePayment={() => handleUnlockAll()}
+            amount={quizTopicsDetails["fullCourse"].cost}
+            user={user}
+            buttonName={paymentButtonName(
+              `Unlock All Levels ₹${quizTopicsDetails["fullCourse"].cost}`
+            )}
+          />
+          <p className="text-center text-sm text-gray-600 mt-2">
+            Get unlimited access to all premium content
+          </p>
+        </div>
+      )}
+
       {/* Quiz Levels */}
       {Object.entries(quizTopicsDetails).map(([level, levelData]) => {
         const isLocked = isLevelLocked(level, levelData);
-
+        if (level === "fullCourse") return;
         return (
           <div
             key={level}
@@ -147,8 +195,8 @@ function QuizSidebar({
                   onClick={
                     !isLocked ? () => activeCurrentQuizHandler(quiz?.id) : null
                   }
-                  className={` rounded-lg p-2 lg:p-3 transition-all 
-                      ${quiz?.active ? "bg-blue-100" : "bg-white"}
+                  className={`bg-white rounded-lg p-2 lg:p-3 transition-all 
+                      ${quiz?.active ? "bg-blue-200" : ""}
                       ${
                         isLocked
                           ? "cursor-not-allowed opacity-75"
@@ -248,25 +296,12 @@ function QuizSidebar({
                       Unlock all premium features and quizzes
                     </p>
                   </div>
-                  <button
-                    className="w-full sm:w-auto px-3 py-1.5 bg-amber-600 text-white rounded-full hover:bg-amber-700 transition-colors text-xs lg:text-sm font-medium flex items-center justify-center gap-1"
-                    onClick={() => handlePayment(level)}
-                  >
-                    <svg
-                      className="w-4 h-4"
-                      fill="none"
-                      stroke="currentColor"
-                      viewBox="0 0 24 24"
-                    >
-                      <path
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        strokeWidth="2"
-                        d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8V7a4 4 0 00-8 0v4h8z"
-                      />
-                    </svg>
-                    Unlock Now
-                  </button>
+                  <PaymentRazorPay
+                    handlePayment={() => handleUnlockAll()}
+                    amount={levelData.cost}
+                    user={user}
+                    buttonName={paymentButtonName("Unlock Now")}
+                  />
                 </div>
               </div>
             )}

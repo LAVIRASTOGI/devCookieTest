@@ -3,6 +3,7 @@ import { useState } from "react";
 
 import { mockInterviewMailUserHandler } from "@/lib/userAction";
 import PaymentRazorPay from "../payment/PaymentRazorPay";
+import { useMemo } from "react";
 
 const PaymentStep = ({ amount, user, paymentSucessHandler }) => {
   const [isPayment, setIsPayment] = useState(false);
@@ -25,6 +26,8 @@ const PaymentStep = ({ amount, user, paymentSucessHandler }) => {
           duration: "60 minutes",
           totalTime: "60 minutes total",
         };
+
+  const paymentButtonName = useMemo(() => <span>Proceed to Payment</span>, []);
 
   return (
     <div className="max-w-2xl mx-auto p-6 space-y-8">
@@ -132,6 +135,7 @@ const PaymentStep = ({ amount, user, paymentSucessHandler }) => {
             handlePayment={handlePayment}
             amount={amount}
             user={user}
+            buttonName={paymentButtonName}
           />
         </div>
       )}

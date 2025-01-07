@@ -4,7 +4,12 @@ import Script from "next/script";
 import { useState } from "react";
 import toast from "react-hot-toast";
 
-export default function PaymentRazorPay({ amount, user, handlePayment }) {
+export default function PaymentRazorPay({
+  amount,
+  user,
+  handlePayment,
+  buttonName = "Pay Now",
+}) {
   const [isLoading, setIsLoading] = useState({
     loading: false,
     loadingMsg: "",
@@ -16,7 +21,7 @@ export default function PaymentRazorPay({ amount, user, handlePayment }) {
     });
     const res = await fetch("/api/createOrder", {
       method: "POST",
-      body: JSON.stringify({ amount: Number(amount) * 100 }),
+      body: JSON.stringify({ amount: Number(amount) }),
     });
     const data = await res.json();
     setIsLoading({
@@ -85,17 +90,17 @@ export default function PaymentRazorPay({ amount, user, handlePayment }) {
 
       {isLoading?.loading ? (
         <button
-          className="btn bg-primary text-white px-6 py-3 rounded-xl hover:bg-primary hover:scale-105 transform transition-transform duration-200"
+          className="btn bg-primary w-full text-white px-6 py-3 rounded-xl hover:bg-primary hover:scale-105 transform transition-transform duration-200"
           onClick={createOrder}
         >
           {isLoading?.loadingMsg}
         </button>
       ) : (
         <button
-          className="btn bg-primary text-white px-6 py-3 rounded-xl hover:bg-primary hover:scale-105 transform transition-transform duration-200"
+          className="btn bg-primary text-white flex w-full  gap-2  items-center rounded-xl hover:bg-primary hover:scale-105 transform transition-transform duration-200"
           onClick={createOrder}
         >
-          Proceed to Payment
+          {buttonName}
         </button>
       )}
     </div>

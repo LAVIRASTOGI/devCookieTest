@@ -158,4 +158,8 @@ export const HTMLQuizDetails = {
     cost: 100,
     subscribed: false,
   },
+  fullCourse: {
+    cost: 200,
+    subscribed: false,
+  },
 };
