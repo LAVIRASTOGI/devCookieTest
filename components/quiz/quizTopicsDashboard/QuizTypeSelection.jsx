@@ -8,10 +8,10 @@ function QuizTypeSelection({ quizTopicsDetails, currentLevel, topicId }) {
   );
 
   const handleStartQuiz = () => {
-    router.push(`/quizzes/${topicId?.id}/${currentTopic?.id}`);
+    router.push(`/quizzes/${topicId}/${currentTopic?.id}`);
   };
   const handleEvaluateQuiz = () => {
-    router.push(`/quizzes//${topicId?.id}/evaluate/${currentTopic?.id}`);
+    router.push(`/quizzes//${topicId}/evaluate/${currentTopic?.id}`);
   };
 
   return (

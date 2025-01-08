@@ -31,12 +31,12 @@ export default async function QuizzesPage() {
       <div className="min-h-screen bg-background p-8 mt-20 flex items-center justify-center">
         <div className="text-center">
           <p className="text-red-600 text-lg mb-4">Error: {error?.message}</p>
-          <button
-            onClick={() => window.location.reload()}
+          <a
+            href="/"
             className="bg-primary text-white px-4 py-2 rounded-lg hover:bg-primary-dark"
           >
-            Retry
-          </button>
+            Pleae retry after Sometime
+          </a>
         </div>
       </div>
     );
