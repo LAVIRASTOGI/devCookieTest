@@ -13,16 +13,15 @@ const TopicsDashboard = dynamic(
 
 export default function TopicPage() {
   const params = useParams();
-  const topic = params?.topic;
-  if (!topic) {
+  const topicId = params?.topic;
+  if (!topicId) {
     return <LoadingQuiz />;
   }
-  
 
   return (
     <div className="mt-20">
       <Suspense fallback={<LoadingQuiz />}>
-        <TopicsDashboard topic={topic} />
+        <TopicsDashboard topicId={topicId} />
       </Suspense>
     </div>
   );

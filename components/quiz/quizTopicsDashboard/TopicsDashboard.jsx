@@ -5,8 +5,8 @@ import QuizSidebar from "./QuizSideBar";
 import { useState } from "react";
 import QuizTypeSelection from "./QuizTypeSelection";
 
-function TopicsDashboard({ topic }) {
-  const quizDetails = extractObjectFromArray(quizTopics, "id", topic);
+function TopicsDashboard({ topicId }) {
+  const quizDetails = extractObjectFromArray(quizTopics, "id", topicId);
   const [quizTopicsDetails, setQuizTopicsDetails] = useState(
     quizDetails?.quizTopicsDetails
   );
