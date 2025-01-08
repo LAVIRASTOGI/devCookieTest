@@ -9,7 +9,7 @@ export let HTMLQuizDetails = {
         id: "quizFree1",
         totalQuestions: 15,
         completedQuestions: 0,
-        isCompleted: true,
+        isCompleted: false,
         active: true,
         duration: "15 minutes",
       },
