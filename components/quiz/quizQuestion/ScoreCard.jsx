@@ -61,7 +61,7 @@ function ScoreCard({ score, total, onRestart, timeExpired, onEvaluate }) {
         </p>
       </div>
 
-      <div className="flex items-center gap-4 justify-center">
+      <div className="flex flex-col md:flex-row items-center md:gap-4 justify-center">
         <Button
           variant="primary"
           mobileSize="xl"
