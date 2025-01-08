@@ -59,7 +59,7 @@ export let HTMLQuizDetails = {
     totalTopics: 3,
     completedTopics: 0,
     cost: 100,
-    subscribed: false,
+    subscribed: true,
   },
 
   Intermediate: {

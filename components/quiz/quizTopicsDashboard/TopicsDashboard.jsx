@@ -5,11 +5,8 @@ import QuizSidebar from "./QuizSideBar";
 import { useState } from "react";
 import QuizTypeSelection from "./QuizTypeSelection";
 
-function TopicsDashboard({ topicId }) {
-  const quizDetails = extractObjectFromArray(quizTopics, "id", topicId);
-  const [quizTopicsDetails, setQuizTopicsDetails] = useState(
-    quizDetails?.quizTopicsDetails
-  );
+function TopicsDashboard({ topicId, quizDetailsTopic }) {
+  const [quizTopicsDetails, setQuizTopicsDetails] = useState(quizDetailsTopic);
   const [currentLevel, setCurrentLevel] = useState("FreeQuiz");
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
 
@@ -79,7 +76,7 @@ function TopicsDashboard({ topicId }) {
 
           {/* Sidebar Content */}
           <div className="overflow-y-auto h-full">
-            {quizDetails?.id && (
+            {topicId && (
               <QuizSidebar
                 quizTopicsDetails={quizTopicsDetails}
                 setQuizTopicsDetails={setQuizTopicsDetails}
@@ -97,7 +94,7 @@ function TopicsDashboard({ topicId }) {
               <QuizTypeSelection
                 quizTopicsDetails={quizTopicsDetails}
                 currentLevel={currentLevel}
-                quizDetails={quizDetails}
+                topicId={topicId}
               />
             </div>
           </div>

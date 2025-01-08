@@ -1,6 +1,6 @@
 import { useRouter } from "next/navigation";
 
-function QuizTypeSelection({ quizTopicsDetails, currentLevel, quizDetails }) {
+function QuizTypeSelection({ quizTopicsDetails, currentLevel, topicId }) {
   const router = useRouter();
   const currentLevelData = quizTopicsDetails[currentLevel];
   const currentTopic = quizTopicsDetails[currentLevel]?.topics.find(
@@ -8,10 +8,10 @@ function QuizTypeSelection({ quizTopicsDetails, currentLevel, quizDetails }) {
   );
 
   const handleStartQuiz = () => {
-    router.push(`/quizzes/${quizDetails?.id}/${currentTopic?.id}`);
+    router.push(`/quizzes/${topicId?.id}/${currentTopic?.id}`);
   };
   const handleEvaluateQuiz = () => {
-    router.push(`/quizzes//${quizDetails?.id}/evaluate/${currentTopic?.id}`);
+    router.push(`/quizzes//${topicId?.id}/evaluate/${currentTopic?.id}`);
   };
 
   return (
@@ -21,9 +21,9 @@ function QuizTypeSelection({ quizTopicsDetails, currentLevel, quizDetails }) {
         <h1 className="text-2xl underline font-bold text-primary">
           {currentLevelData?.description}
         </h1>
-        <h2 className="text-xl font-bold text-gray-600">
+        {/* <h2 className="text-xl font-bold text-gray-600">
           {quizDetails?.description}
-        </h2>
+        </h2> */}
       </div>
 
       {/* Single Quiz Card */}
