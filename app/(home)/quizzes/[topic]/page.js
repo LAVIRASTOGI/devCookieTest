@@ -1,14 +1,12 @@
 import TopicsDashboard from "@/components/quiz/quizTopicsDashboard/TopicsDashboard";
 import { getQuizTopicDetails } from "@/lib/quizAction";
+export const dynamic = "force-dynamic";
 
 export default async function TopicPage({ params }) {
   try {
     const { topic } = await params;
-    console.log("topic", topic);
     const quizDetailsTopicData = await getQuizTopicDetails(topic);
-    console.log("quizDetailsTopicData", quizDetailsTopicData);
     const quizDetailsTopic = quizDetailsTopicData?.data || [];
-    console.log("quizDetailsTopic", quizDetailsTopic);
 
     if (!Object.keys(quizDetailsTopic)?.length) {
       return <div>No quizzes available.</div>;

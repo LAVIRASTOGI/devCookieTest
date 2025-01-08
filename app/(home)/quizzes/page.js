@@ -1,6 +1,7 @@
 import QuizTopicCard from "@/components/quiz/QuizTopicCard";
 import { getQuizDetails } from "@/lib/quizAction";
 
+export const dynamic = "force-dynamic";
 export default async function QuizzesPage() {
   try {
     const quizDetails = await getQuizDetails();
