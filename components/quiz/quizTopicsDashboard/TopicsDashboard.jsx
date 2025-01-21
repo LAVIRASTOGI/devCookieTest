@@ -10,7 +10,9 @@ function TopicsDashboard({ topicId, quizDetailsTopic }) {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   useEffect(() => {
     let quizDetailsTopicNew = { ...quizDetailsTopic };
-    quizDetailsTopicNew["freeQuiz"].topics[0].active = true;
+    if (quizDetailsTopicNew["freeQuiz"]) {
+      quizDetailsTopicNew["freeQuiz"].topics[0].active = true;
+    }
     setQuizTopicsDetails(createQuizStepsSkill(quizDetailsTopicNew, stepsArray));
   }, []);
 
