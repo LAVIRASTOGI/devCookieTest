@@ -50,27 +50,39 @@ function QuizSidebar({
     );
   }, []);
 
-  const activeCurrentQuizHandler = useCallback(
+  const activeCurrentQuizHandler = 
     (quizId) => {
       setQuizTopicsDetails((prev) => {
         const newQuizTopicDetails = { ...prev };
+
+        // First, set all quizzes in all levels to inactive
+        Object.keys(newQuizTopicDetails).forEach((level) => {
+          if (level !== "fullCourse") {
+            // Skip the fullCourse property
+            newQuizTopicDetails[level].topics.forEach((quiz) => {
+              quiz.active = false;
+            });
+          }
+        });
+
+        // Then find and activate the target quiz
         for (const level in newQuizTopicDetails) {
+          if (level === "fullCourse") continue; // Skip the fullCourse property
+
           const topics = newQuizTopicDetails[level].topics;
           const targetQuiz = topics.find((quiz) => quiz.toppicId === quizId);
+
           if (targetQuiz) {
             setCurrentLevel(level);
             setIsSidebarOpen(false);
-            topics.forEach((quiz) => {
-              quiz.active = quiz.toppicId === quizId;
-            });
+            targetQuiz.active = true;
             break;
           }
         }
+
         return newQuizTopicDetails;
       });
-    },
-    [setCurrentLevel, setIsSidebarOpen, setQuizTopicsDetails]
-  );
+    }
 
   const handleUnlockAll = useCallback(() => {
     console.log("Unlock all levels");
