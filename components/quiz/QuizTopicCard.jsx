@@ -71,7 +71,7 @@ function QuizTopicCard({ topic }) {
               </div>
               <p className="text-xs text-gray-600">
                 <span className="block sm:inline">
-                  {topic?.beginner?.length > 1 && (
+                  {topic?.beginner?.length && (
                     <span className="hidden sm:inline">
                       Beginner ({createQuizLevelDescription(topic?.beginner, 0)}
                       )
@@ -79,7 +79,7 @@ function QuizTopicCard({ topic }) {
                   )}
                 </span>
 
-                {topic?.intermediate?.length > 1 && (
+                {topic?.intermediate?.length && (
                   <>
                     <span className="hidden sm:inline"> → </span>
                     <span className="hidden sm:inline">
@@ -92,14 +92,14 @@ function QuizTopicCard({ topic }) {
                     </span>
                   </>
                 )}
-                {topic?.advanced?.length > 1 && (
+                {topic?.expert?.length && (
                   <>
                     <span className="hidden sm:inline"> → </span>
                     <span className="hidden sm:inline">
-                      Advanced (
+                      Expert (
                       {createQuizLevelDescription(
-                        topic?.advanced,
-                        topic?.intermediate?.length
+                        topic?.expert,
+                        topic?.beginner?.length + topic?.intermediate?.length
                       )}
                       )
                     </span>

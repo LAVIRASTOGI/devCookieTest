@@ -1,19 +1,13 @@
-import { HTMLQuizDetails } from "@/constants/htmlQuizDetails";
 import axiosInstance from "@/lib/axiosInstance";
 import { quizQuestion } from "@/lib/questions";
 import { userQuizEvaluation } from "@/lib/userQuizEvaluation";
 
-export const getQuizDetailsTopic = async (data, token) => {
+export const getQuizDetailsTopic = async (skill, token) => {
   try {
-    //   const response = await axiosInstance.post("/updateProfile", data, {
-    //     token,
-    //   });
-    //   return response.data;
-
-    return {
-      success: true,
-      result: HTMLQuizDetails,
-    };
+    const response = await axiosInstance.get(`/quiz/quizDescription/${skill}`, {
+      token,
+    });
+    return response.data;
   } catch (error) {
     // Properly handle axios error object
     const errorMessage =

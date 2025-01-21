@@ -47,7 +47,22 @@ export function extractObjectFromArray(array, key, value) {
 }
 
 export function createQuizLevelDescription(startLevelArray, startLevelNumber) {
+  if (startLevelArray?.length === 1)
+    return `${startLevelNumber + startLevelArray?.length}`;
   return `${startLevelNumber + 1} - ${
     startLevelNumber + startLevelArray?.length
   }`;
+}
+
+export function createQuizStepsSkill(
+  quizObj,
+  stepsArray = ["freeQuiz", "beginner", "intermediate", "expert"]
+) {
+  let newQuizObj = {};
+  stepsArray.forEach((step) => {
+    if (quizObj[step]) {
+      newQuizObj[step] = quizObj[step];
+    }
+  });
+  return newQuizObj;
 }
