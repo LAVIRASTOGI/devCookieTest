@@ -1,15 +1,18 @@
 "use client";
 import QuizSidebar from "./QuizSideBar";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { createQuizStepsSkill } from "@/utils/commonFunction";
 const stepsArray = ["freeQuiz", "beginner", "intermediate", "expert"];
 
 function TopicsDashboard({ topicId, quizDetailsTopic }) {
-  const [quizTopicsDetails, setQuizTopicsDetails] = useState(
-    createQuizStepsSkill(quizDetailsTopic, stepsArray)
-  );
+  const [quizTopicsDetails, setQuizTopicsDetails] = useState({});
   const [currentLevel, setCurrentLevel] = useState("freeQuiz");
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
+  useEffect(() => {
+    let quizDetailsTopicNew = { ...quizDetailsTopic };
+    quizDetailsTopicNew["freeQuiz"].topics[0].active = true;
+    setQuizTopicsDetails(createQuizStepsSkill(quizDetailsTopicNew, stepsArray));
+  }, []);
 
   return (
     <div className="min-h-screen bg-gray-50">

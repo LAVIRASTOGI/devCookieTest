@@ -56,12 +56,12 @@ function QuizSidebar({
         const newQuizTopicDetails = { ...prev };
         for (const level in newQuizTopicDetails) {
           const topics = newQuizTopicDetails[level].topics;
-          const targetQuiz = topics.find((quiz) => quiz.id === quizId);
+          const targetQuiz = topics.find((quiz) => quiz.toppicId === quizId);
           if (targetQuiz) {
             setCurrentLevel(level);
             setIsSidebarOpen(false);
             topics.forEach((quiz) => {
-              quiz.active = quiz.id === quizId;
+              quiz.active = quiz.toppicId === quizId;
             });
             break;
           }
