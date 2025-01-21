@@ -2,6 +2,7 @@
 import QuizSidebar from "./QuizSideBar";
 import { useEffect, useState } from "react";
 import { createQuizStepsSkill } from "@/utils/commonFunction";
+import QuizTypeSelection from "./QuizTypeSelection";
 const stepsArray = ["freeQuiz", "beginner", "intermediate", "expert"];
 
 function TopicsDashboard({ topicId, quizDetailsTopic }) {
@@ -93,8 +94,7 @@ function TopicsDashboard({ topicId, quizDetailsTopic }) {
             )}
           </div>
         </aside>
-
-        {/* Main Content
+        {/* Main Content */}
         <main className="flex-1 px-4 lg:px-8 lg:py-8">
           <div className="max-w-4xl mx-auto">
             <div className="bg-white rounded-lg shadow-sm p-4 lg:p-6">
@@ -105,7 +105,7 @@ function TopicsDashboard({ topicId, quizDetailsTopic }) {
               />
             </div>
           </div>
-        </main> */}
+        </main>
       </div>
 
       {/* Overlay for mobile when sidebar is open */}
