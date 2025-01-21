@@ -45,3 +45,9 @@ export function isDateValidWithMoment(dateToCheck, days = 15) {
 export function extractObjectFromArray(array, key, value) {
   return array.find((obj) => obj[key] === value);
 }
+
+export function createQuizLevelDescription(startLevelArray, startLevelNumber) {
+  return `${startLevelNumber + 1} - ${
+    startLevelNumber + startLevelArray?.length
+  }`;
+}

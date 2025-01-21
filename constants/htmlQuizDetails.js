@@ -56,8 +56,7 @@ export let HTMLQuizDetails = {
         duration: "20 minutes",
       },
     ],
-    totalTopics: 3,
-    completedTopics: 0,
+   
     cost: 100,
     subscribed: true,
   },

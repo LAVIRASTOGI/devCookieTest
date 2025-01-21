@@ -1,6 +1,4 @@
 "use client";
-import { quizTopics } from "@/constants/quizTopic";
-import { extractObjectFromArray } from "@/utils/commonFunction";
 import QuizSidebar from "./QuizSideBar";
 import { useState } from "react";
 import QuizTypeSelection from "./QuizTypeSelection";

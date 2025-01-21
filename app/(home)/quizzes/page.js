@@ -19,7 +19,7 @@ export default async function QuizzesPage() {
             </h1>
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-6">
               {quizTopics.map((topic) => (
-                <QuizTopicCard key={topic.id} topic={topic} />
+                <QuizTopicCard key={topic.skill} topic={topic} />
               ))}
             </div>
           </div>

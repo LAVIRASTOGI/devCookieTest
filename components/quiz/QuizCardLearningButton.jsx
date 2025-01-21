@@ -12,7 +12,7 @@ function QuizCardLearningButton({ topic }) {
   }, []);
   const handleStartLearning = () => {
     setIsLoading(true);
-    router.push(`/quizzes/${topic?.id}`);
+    router.push(`/quizzes/${topic?.skill}`);
   };
 
   return (

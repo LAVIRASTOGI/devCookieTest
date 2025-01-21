@@ -1,6 +1,8 @@
 "use client";
 import Image from "next/image";
 import QuizCardLearningButton from "./QuizCardLearningButton";
+import { quizTopicsDetails } from "@/constants/quizTopicsDetails";
+import { createQuizLevelDescription } from "@/utils/commonFunction";
 
 function QuizTopicCard({ topic }) {
   const calculateCompletionPercentage = () => {
@@ -28,8 +30,8 @@ function QuizTopicCard({ topic }) {
         <div className="flex flex-col sm:flex-row sm:items-center gap-3 sm:gap-4 mb-4 sm:mb-6">
           <div className="p-2 sm:p-3 bg-primary/10 rounded-xl text-primary transform transition-transform group-hover:scale-110 w-fit">
             <Image
-              src={topic?.icon}
-              alt={topic.title}
+              src={quizTopicsDetails[topic?.skill]?.icon}
+              alt={quizTopicsDetails[topic?.skill]?.title}
               width={40}
               height={40}
               className="w-6 h-6 sm:w-8 sm:h-8 object-contain"
@@ -38,7 +40,7 @@ function QuizTopicCard({ topic }) {
           </div>
           <div>
             <h2 className="text-xl sm:text-2xl font-bold text-gray-800 mb-1">
-              {topic.title}
+              {quizTopicsDetails[topic?.skill]?.title}
             </h2>
             <div className="flex flex-wrap items-center gap-2">
               <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-primary/10 text-primary">
@@ -54,7 +56,7 @@ function QuizTopicCard({ topic }) {
 
         {/* Description */}
         <p className="text-sm sm:text-base text-gray-600 mb-6 sm:mb-8 leading-relaxed">
-          {topic.description}
+          {quizTopicsDetails[topic?.skill]?.description}
         </p>
 
         {/* Stats */}
@@ -69,16 +71,40 @@ function QuizTopicCard({ topic }) {
               </div>
               <p className="text-xs text-gray-600">
                 <span className="block sm:inline">
-                  Beginner ({topic?.beginner})
+                  {topic?.beginner?.length > 1 && (
+                    <span className="hidden sm:inline">
+                      Beginner ({createQuizLevelDescription(topic?.beginner, 0)}
+                      )
+                    </span>
+                  )}
                 </span>
-                <span className="hidden sm:inline"> → </span>
-                <span className="block sm:inline">
-                  Intermediate ({topic?.intermediate})
-                </span>
-                <span className="hidden sm:inline"> → </span>
-                <span className="block sm:inline">
-                  Advanced ({topic?.advanced})
-                </span>
+
+                {topic?.intermediate?.length > 1 && (
+                  <>
+                    <span className="hidden sm:inline"> → </span>
+                    <span className="hidden sm:inline">
+                      Intermediate (
+                      {createQuizLevelDescription(
+                        topic?.intermediate,
+                        topic?.beginner?.length
+                      )}
+                      )
+                    </span>
+                  </>
+                )}
+                {topic?.advanced?.length > 1 && (
+                  <>
+                    <span className="hidden sm:inline"> → </span>
+                    <span className="hidden sm:inline">
+                      Advanced (
+                      {createQuizLevelDescription(
+                        topic?.advanced,
+                        topic?.intermediate?.length
+                      )}
+                      )
+                    </span>
+                  </>
+                )}
               </p>
             </div>
             <div className="p-3 sm:p-4 bg-gray-50 rounded-lg">
@@ -99,7 +125,7 @@ function QuizTopicCard({ topic }) {
                     />
                   </svg>
                   <p className="text-sm font-semibold text-gray-800">
-                    3-4 Hours
+                    {topic.totalduration} Minutes
                   </p>
                 </div>
                 <div className="flex items-center gap-2">
