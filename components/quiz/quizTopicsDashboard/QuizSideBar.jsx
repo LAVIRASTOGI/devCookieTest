@@ -50,39 +50,38 @@ function QuizSidebar({
     );
   }, []);
 
-  const activeCurrentQuizHandler = 
-    (quizId) => {
-      setQuizTopicsDetails((prev) => {
-        const newQuizTopicDetails = { ...prev };
+  const activeCurrentQuizHandler = (quizId) => {
+    setQuizTopicsDetails((prev) => {
+      const newQuizTopicDetails = { ...prev };
 
-        // First, set all quizzes in all levels to inactive
-        Object.keys(newQuizTopicDetails).forEach((level) => {
-          if (level !== "fullCourse") {
-            // Skip the fullCourse property
-            newQuizTopicDetails[level].topics.forEach((quiz) => {
-              quiz.active = false;
-            });
-          }
-        });
-
-        // Then find and activate the target quiz
-        for (const level in newQuizTopicDetails) {
-          if (level === "fullCourse") continue; // Skip the fullCourse property
-
-          const topics = newQuizTopicDetails[level].topics;
-          const targetQuiz = topics.find((quiz) => quiz.toppicId === quizId);
-
-          if (targetQuiz) {
-            setCurrentLevel(level);
-            setIsSidebarOpen(false);
-            targetQuiz.active = true;
-            break;
-          }
+      // First, set all quizzes in all levels to inactive
+      Object.keys(newQuizTopicDetails).forEach((level) => {
+        if (level !== "fullCourse") {
+          // Skip the fullCourse property
+          newQuizTopicDetails[level].topics.forEach((quiz) => {
+            quiz.active = false;
+          });
         }
-
-        return newQuizTopicDetails;
       });
-    }
+
+      // Then find and activate the target quiz
+      for (const level in newQuizTopicDetails) {
+        if (level === "fullCourse") continue; // Skip the fullCourse property
+
+        const topics = newQuizTopicDetails[level].topics;
+        const targetQuiz = topics.find((quiz) => quiz.toppicId === quizId);
+
+        if (targetQuiz) {
+          setCurrentLevel(level);
+          setIsSidebarOpen(false);
+          targetQuiz.active = true;
+          break;
+        }
+      }
+
+      return newQuizTopicDetails;
+    });
+  };
 
   const handleUnlockAll = useCallback(() => {
     console.log("Unlock all levels");
@@ -203,6 +202,40 @@ function QuizSidebar({
                   />
                 ))}
             </div>
+
+            {/* Payment Section for Locked Levels */}
+            {isLocked && level !== "FreeQuiz" && (
+              <div className="mt-2 space-y-2">
+                <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2 bg-amber-50 p-2 lg:p-3 rounded-lg">
+                  <div className="space-y-1">
+                    <div className="flex items-center gap-2">
+                      <span className="text-amber-600 text-sm lg:text-base font-medium">
+                        ₹{levelData.cost}
+                      </span>
+                      <span className="text-xs lg:text-sm text-gray-600">
+                        for lifetime access
+                      </span>
+                    </div>
+                    <p className="text-xs text-gray-500">
+                      Unlock all premium features and quizzes
+                    </p>
+                  </div>
+                  <PaymentRazorPay
+                    handlePayment={() => handleUnlockAll()}
+                    amount={levelData.cost}
+                    user={user}
+                    buttonName={
+                      <PaymentButton
+                        buttonName={`Unlock All Levels ₹${
+                          quizTopicsDetails["fullCourse"]?.cost || 200
+                        }`}
+                      />
+                    }
+                    // buttonName={paymentButtonName("Unlock Now")}
+                  />
+                </div>
+              </div>
+            )}
           </div>
         );
       })}
