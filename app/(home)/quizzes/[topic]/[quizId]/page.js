@@ -8,18 +8,18 @@ export default async function QuizPage({ params }) {
     const { topic, quizId } = await params;
     const quizDetailsTopicData = await getQuestionQuizId(quizId, topic);
     console.log(quizDetailsTopicData);
-    const quizQuestion = quizDetailsTopicData?.data || [];
+    const quizQuestion = quizDetailsTopicData?.data || {};
 
-    if (!Object.keys(quizQuestion?.questions)?.length) {
+    if (!quizQuestion?.questionnaire?.length) {
       return <div>Quiz for this topic will be available soon.</div>;
     }
     return (
       <>
         <main className="min-h-screen bg-background  mt-20">
           <QuestionPage
-            questions={quizQuestion?.questions}
+            questions={quizQuestion?.questionnaire}
             durationQuiz={quizQuestion?.duration}
-            quizId={quizQuestion?.id}
+            quizId={quizQuestion?.toppicId}
             topic={topic}
           />
         </main>

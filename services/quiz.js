@@ -1,5 +1,4 @@
 import axiosInstance from "@/lib/axiosInstance";
-import { quizQuestion } from "@/lib/questions";
 import { userQuizEvaluation } from "@/lib/userQuizEvaluation";
 
 export const getQuizDetailsTopic = async (skill, token) => {
@@ -67,15 +66,10 @@ export const getQuizData = async (token) => {
 
 export const getQuizIdQuestions = async (data, token) => {
   try {
-    //   const response = await axiosInstance.post("/updateProfile", data, {
-    //     token,
-    //   });
-    //   return response.data;
-
-    return {
-      success: true,
-      result: quizQuestion,
-    };
+    const response = await axiosInstance.post("/quiz/getQuestions", data, {
+      token,
+    });
+    return response.data;
   } catch (error) {
     // Properly handle axios error object
     const errorMessage =
