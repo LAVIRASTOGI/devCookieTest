@@ -17,11 +17,11 @@ export default function PaymentRazorPay({
   const createOrder = async () => {
     setIsLoading({
       loading: true,
-      loadingMsg: "Proceeding for payment ...",
+      loadingMsg: "Proceeding for Payment ...",
     });
     const res = await fetch("/api/createOrder", {
       method: "POST",
-      body: JSON.stringify({ amount: Number(amount) }),
+      body: JSON.stringify({ amount: Number(amount) * 100 }),
     });
     const data = await res.json();
     setIsLoading({
@@ -90,14 +90,14 @@ export default function PaymentRazorPay({
 
       {isLoading?.loading ? (
         <button
-          className="btn bg-primary w-full text-white px-6 py-3 rounded-xl hover:bg-primary hover:scale-105 transform transition-transform duration-200"
+          className="btn bg-primary w-full text-white px-6 py-2 rounded-xl hover:bg-primary hover:scale-105 transform transition-transform duration-200"
           onClick={createOrder}
         >
           {isLoading?.loadingMsg}
         </button>
       ) : (
         <button
-          className="btn bg-primary text-white flex w-full  gap-2  items-center rounded-xl hover:bg-primary hover:scale-105 transform transition-transform duration-200"
+          className="btn bg-primary text-white flex w-full  gap-2 px-5 items-center rounded-xl hover:bg-primary hover:scale-105 transform transition-transform duration-200"
           onClick={createOrder}
         >
           {buttonName}
