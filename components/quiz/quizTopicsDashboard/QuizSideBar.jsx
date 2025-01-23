@@ -59,6 +59,17 @@ function QuizSidebar({
     },
     []
   );
+  const allLevelLocked = () => {
+    if (Object.keys(quizTopicsDetails)?.length) {
+      let newquizTopicsDetails = { ...quizTopicsDetails };
+      delete newquizTopicsDetails["freeQuiz"];
+      delete newquizTopicsDetails["fullCourse"];
+      let value = Object.keys(newquizTopicsDetails)?.every(
+        (level) => !newquizTopicsDetails[level].subscribed
+      );
+      return value;
+    }
+  };
 
   const isCompletedQuiz = useCallback((quizTopicsArr) => {
     return (
@@ -166,7 +177,12 @@ function QuizSidebar({
           <h2 className="text-xl lg:text-2xl font-bold text-gray-800">
             HTML Course
           </h2>
-          {quizTopicsDetails.subscribed ? (
+          {allLevelLocked() ? (
+            <span className="inline-flex items-center px-2.5 py-1 rounded-full text-xs lg:text-sm font-medium bg-amber-100 text-amber-800">
+              <LockIcon />
+              Free Trial
+            </span>
+          ) : (
             <span className="inline-flex items-center px-2.5 py-1 rounded-full text-xs lg:text-sm font-medium bg-green-100 text-green-800">
               <svg
                 className="w-3 h-3 lg:w-4 lg:h-4 mr-1"
@@ -181,17 +197,12 @@ function QuizSidebar({
               </svg>
               Subscribed
             </span>
-          ) : (
-            <span className="inline-flex items-center px-2.5 py-1 rounded-full text-xs lg:text-sm font-medium bg-amber-100 text-amber-800">
-              <LockIcon />
-              Free Trial
-            </span>
           )}
         </div>
         <div className="h-1 w-16 lg:w-20 bg-primary rounded" />
       </div>
 
-      {!quizTopicsDetails["fullCourse"]?.subscribed && (
+      {allLevelLocked() && (
         <div className="mb-6">
           <PaymentRazorPay
             handlePayment={(isPayment) =>

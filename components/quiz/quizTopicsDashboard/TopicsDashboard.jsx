@@ -13,6 +13,7 @@ function TopicsDashboard({ topicId, quizDetailsTopic }) {
     let quizDetailsTopicNew = { ...quizDetailsTopic };
     if (quizDetailsTopicNew["freeQuiz"]) {
       quizDetailsTopicNew["freeQuiz"].topics[0].active = true;
+      quizDetailsTopicNew["freeQuiz"].subscribed = true;
     }
     setQuizTopicsDetails(createQuizStepsSkill(quizDetailsTopicNew, stepsArray));
   }, []);
