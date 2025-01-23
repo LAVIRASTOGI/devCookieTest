@@ -1,4 +1,4 @@
-import LockIcon from "./LockIcon";
+import LockIcon from "../quiz/Icons/LockIcon";
 
 const { memo } = require("react");
 

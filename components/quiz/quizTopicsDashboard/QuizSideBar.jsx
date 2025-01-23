@@ -4,7 +4,7 @@ import { useUser } from "@/contexts/userContext";
 import QuizTopic from "./QuizTopic";
 import { quizDetails } from "@/constants/quizDetails";
 import { subscribeQuiz } from "@/lib/quizAction";
-import LockIcon from "@/components/uiComponents/LockIcon";
+import LockIcon from "@/components/quiz/Icons/LockIcon";
 import PaymentButton from "@/components/uiComponents/PaymentButton";
 
 const QuizLevelHeader = memo(({ level, isLocked, levelData }) => (
