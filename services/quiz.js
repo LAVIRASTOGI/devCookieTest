@@ -124,3 +124,34 @@ export const getQuizIdEvaluate = async (data, token) => {
     };
   }
 };
+export const postQuizSubscription = async (data, token) => {
+  try {
+    // const response = await axiosInstance.post("/quiz/quizSubscription", data, {
+    //   token,
+    // });
+    // return response.data;
+    return {
+      status: "success",
+      result: "subscribed",
+    };
+  } catch (error) {
+    // Properly handle axios error object
+    const errorMessage =
+      error.response?.data?.error ||
+      error.message ||
+      "An unexpected error occurred during Fetching Quiz Data";
+
+    console.error("Error:", {
+      message: errorMessage,
+      status: error.response?.status,
+      data: error.response?.data,
+    });
+
+    // Return a structured error response
+    return {
+      success: false,
+      error: errorMessage,
+      status: error.response?.status,
+    };
+  }
+};

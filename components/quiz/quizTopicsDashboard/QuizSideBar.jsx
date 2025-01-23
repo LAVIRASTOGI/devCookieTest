@@ -4,6 +4,7 @@ import PaymentRazorPay from "@/components/payment/PaymentRazorPay";
 import { useUser } from "@/contexts/userContext";
 import QuizTopic from "./QuizTopic";
 import { quizDetails } from "@/constants/quizDetails";
+import { subscribeQuiz } from "@/lib/quizAction";
 
 const LockIcon = memo(() => (
   <svg
@@ -102,9 +103,28 @@ function QuizSidebar({
     });
   };
 
-  const handleUnlockAll = useCallback(() => {
-    console.log("Unlock all levels");
-  }, []);
+  const handleUnlockAll = async (isPayment, level) => {
+    let levelSubscribed = [];
+    if (isPayment) {
+      if (level == "fullCourse") {
+        levelSubscribed = Object.keys(quizTopicsDetails).filter(
+          (level) => level !== "freeQuiz" || level !== "fullCourse"
+        );
+      } else {
+        levelSubscribed = [level];
+      }
+      const subscribedData = await subscribeQuiz(topicId, levelSubscribed);
+      if (subscribedData?.success) {
+        setQuizTopicsDetails((prev) => {
+          const newQuizTopicDetails = { ...prev };
+          levelSubscribed.forEach((level) => {
+            newQuizTopicDetails[level].subscribed = true;
+          });
+          return newQuizTopicDetails;
+        });
+      }
+    }
+  };
 
   const PaymentButton = memo(({ buttonName }) => (
     <>
@@ -174,7 +194,12 @@ function QuizSidebar({
       {!quizTopicsDetails["fullCourse"]?.subscribed && (
         <div className="mb-6">
           <PaymentRazorPay
-            handlePayment={handleUnlockAll}
+            handlePayment={(isPayment) =>
+              handleUnlockAll(isPayment, "fullCourse")
+            }
+            sucessMsg={
+              "Quiz Subscribed Successfully . Please Start giving quiz."
+            }
             amount={quizTopicsDetails["fullCourse"]?.cost || 200}
             user={user}
             buttonName={
@@ -240,7 +265,12 @@ function QuizSidebar({
                     </p>
                   </div>
                   <PaymentRazorPay
-                    handlePayment={() => handleUnlockAll()}
+                    handlePayment={(isPayment) =>
+                      handleUnlockAll(isPayment, level)
+                    }
+                    sucessMsg={
+                      "Quiz Subscribed Successfully . Please Start giving Quizzes."
+                    }
                     amount={levelData.cost}
                     user={user}
                     buttonName={paymentButtonName("Unlock Now")}

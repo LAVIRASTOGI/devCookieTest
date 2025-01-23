@@ -9,6 +9,7 @@ export default function PaymentRazorPay({
   user,
   handlePayment,
   buttonName = "Pay Now",
+  sucessMsg = "Payment successful",
 }) {
   const [isLoading, setIsLoading] = useState({
     loading: false,
@@ -21,7 +22,7 @@ export default function PaymentRazorPay({
     });
     const res = await fetch("/api/createOrder", {
       method: "POST",
-      body: JSON.stringify({ amount: Number(amount) * 100 }),
+      body: JSON.stringify({ amount: Number(amount) }),
     });
     const data = await res.json();
     setIsLoading({
@@ -53,7 +54,7 @@ export default function PaymentRazorPay({
         const data = await res.json();
         if (data.isOk) {
           handlePayment(true);
-          toast.success("Payment successful");
+          toast.success(sucessMsg);
         } else {
           toast.error("Payment failed. Please try again");
         }
