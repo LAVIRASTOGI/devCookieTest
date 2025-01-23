@@ -57,6 +57,10 @@ const QuestionPage = memo(
     }, [calculateScore, quizState.answers]);
 
     const handleNext = useCallback(() => {
+      const isLast = quizState.currentQuestionIndex === questions.length - 1;
+      if (isLast) {
+        setIsLoading(true);
+      }
       setQuizState((prev) => {
         if (prev.currentQuestionIndex === questions.length - 1) {
           const score = calculateScore(prev.answers);

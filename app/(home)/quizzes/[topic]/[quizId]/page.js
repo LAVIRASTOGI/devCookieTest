@@ -16,12 +16,16 @@ export default async function QuizPage({ params }) {
     return (
       <>
         <main className="min-h-screen bg-background  mt-20">
-          <QuestionPage
-            questions={quizQuestion?.questionnaire}
-            durationQuiz={quizQuestion?.duration}
-            quizId={quizQuestion?.toppicId}
-            topic={topic}
-          />
+          {quizQuestion?.questionnaire?.length && (
+            <QuestionPage
+              questions={quizQuestion?.questionnaire.sort(
+                (a, b) => a.serial_no - b.serial_no
+              )}
+              durationQuiz={quizQuestion?.duration}
+              quizId={quizQuestion?.toppicId}
+              topic={topic}
+            />
+          )}
         </main>
       </>
     );
