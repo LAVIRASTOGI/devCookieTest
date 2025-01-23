@@ -3,9 +3,15 @@ import QuizSidebar from "./QuizSideBar";
 import { useEffect, useState } from "react";
 import { createQuizStepsSkill } from "@/utils/commonFunction";
 import QuizTypeSelection from "./QuizTypeSelection";
-const stepsArray = ["freeQuiz", "beginner", "intermediate", "expert"];
+const stepsArray = [
+  "freeQuiz",
+  "beginner",
+  "intermediate",
+  "expert",
+  "fullCourse",
+];
 
-function TopicsDashboard({ topicId, quizDetailsTopic }) {
+function TopicsDashboard({ topicId, quizDetailsTopic, quizSubscription }) {
   const [quizTopicsDetails, setQuizTopicsDetails] = useState({});
   const [currentLevel, setCurrentLevel] = useState("freeQuiz");
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
@@ -15,7 +21,9 @@ function TopicsDashboard({ topicId, quizDetailsTopic }) {
       quizDetailsTopicNew["freeQuiz"].topics[0].active = true;
       quizDetailsTopicNew["freeQuiz"].subscribed = true;
     }
-    setQuizTopicsDetails(createQuizStepsSkill(quizDetailsTopicNew, stepsArray));
+    setQuizTopicsDetails(
+      createQuizStepsSkill(quizDetailsTopicNew, stepsArray, quizSubscription)
+    );
   }, []);
 
   return (

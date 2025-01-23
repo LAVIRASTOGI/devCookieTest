@@ -1,11 +1,12 @@
 import TopicsDashboard from "@/components/quiz/quizTopicsDashboard/TopicsDashboard";
-import { getQuizTopicDetails } from "@/lib/quizAction";
+import { getQuizSubscription, getQuizTopicDetails } from "@/lib/quizAction";
 export const dynamic = "force-dynamic";
 
 export default async function TopicPage({ params }) {
   try {
     const { topic } = await params;
     const quizDetailsTopicData = await getQuizTopicDetails(topic);
+    const quizSubscription = await getQuizSubscription(topic);
     const quizDetailsTopic = quizDetailsTopicData?.data || [];
 
     if (!Object.keys(quizDetailsTopic)?.length) {
@@ -14,10 +15,13 @@ export default async function TopicPage({ params }) {
     return (
       <>
         <main className="min-h-screen bg-background  mt-20">
-          <TopicsDashboard
-            topicId={topic}
-            quizDetailsTopic={quizDetailsTopic}
-          />
+          {Object.keys(quizDetailsTopic)?.length && (
+            <TopicsDashboard
+              topicId={topic}
+              quizDetailsTopic={quizDetailsTopic}
+              quizSubscription={quizSubscription?.data}
+            />
+          )}
         </main>
       </>
     );

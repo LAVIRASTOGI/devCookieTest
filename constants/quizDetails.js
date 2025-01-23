@@ -16,23 +16,6 @@ export const quizDetails = {
       description: "Master Advanced HTML Techniques",
     },
   },
-  html: {
-    freeQuiz: {
-      description: "Introduction to Core HTML Concepts",
-    },
-
-    beginner: {
-      description: "Master the Basics of HTML",
-    },
-
-    intermediate: {
-      description: "Enhance Your HTML Skills",
-    },
-
-    expert: {
-      description: "Master Advanced HTML Techniques",
-    },
-  },
   css: {
     freeQuiz: {
       description: "Introduction to Core CSS Concepts",
@@ -82,6 +65,34 @@ export const quizDetails = {
 
     expert: {
       description: "Master Advanced React Techniques",
+    },
+  },
+};
+
+export const quizSubscription = {
+  html: {
+    freeQuiz: {
+      cost: 100,
+      subscribed: true,
+    },
+
+    beginner: {
+      cost: 100,
+      subscribed: false,
+    },
+
+    intermediate: {
+      cost: 100,
+      subscribed: false,
+    },
+
+    expert: {
+      cost: 100,
+      subscribed: false,
+    },
+    fullCourse: {
+      cost: 200,
+      subscribed: false,
     },
   },
 };
