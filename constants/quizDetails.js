@@ -95,4 +95,79 @@ export const quizSubscription = {
       subscribed: false,
     },
   },
+  css: {
+    freeQuiz: {
+      cost: 100,
+      subscribed: true,
+    },
+
+    beginner: {
+      cost: 100,
+      subscribed: false,
+    },
+
+    intermediate: {
+      cost: 100,
+      subscribed: false,
+    },
+
+    expert: {
+      cost: 100,
+      subscribed: false,
+    },
+    fullCourse: {
+      cost: 200,
+      subscribed: false,
+    },
+  },
+  javascript: {
+    freeQuiz: {
+      cost: 100,
+      subscribed: true,
+    },
+
+    beginner: {
+      cost: 100,
+      subscribed: false,
+    },
+
+    intermediate: {
+      cost: 100,
+      subscribed: false,
+    },
+
+    expert: {
+      cost: 100,
+      subscribed: false,
+    },
+    fullCourse: {
+      cost: 200,
+      subscribed: false,
+    },
+  },
+  react: {
+    freeQuiz: {
+      cost: 100,
+      subscribed: true,
+    },
+
+    beginner: {
+      cost: 100,
+      subscribed: false,
+    },
+
+    intermediate: {
+      cost: 100,
+      subscribed: false,
+    },
+
+    expert: {
+      cost: 100,
+      subscribed: false,
+    },
+    fullCourse: {
+      cost: 200,
+      subscribed: false,
+    },
+  },
 };

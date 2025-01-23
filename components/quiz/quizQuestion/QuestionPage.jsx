@@ -1,5 +1,5 @@
 "use client";
-import { useEffect, useState } from "react";
+import { memo, useCallback, useEffect, useMemo, useState } from "react";
 import QuestionCard from "./QuestionCard";
 import ScoreCard from "./ScoreCard";
 import ProgressBar from "@/components/uiComponents/progress-bar";
@@ -7,162 +7,222 @@ import Timer from "./Timer";
 import { useRouter } from "next/navigation";
 import LoadingQuiz from "@/app/(home)/quizzes/loadingQuiz";
 
-function QuestionPage({
-  questions,
-  durationQuiz,
-  quizId,
-  topic,
-  isEvaluate = false,
-}) {
-  const router = useRouter();
-  const [isLoading, setIsLoading] = useState(false);
-  useEffect(() => {
-    setIsLoading(false);
-  }, []);
-  const [quizState, setQuizState] = useState({
-    currentQuestionIndex: 0,
-    score: 0,
-    answers: new Array(questions.length).fill(""),
-    isLast: false,
-    isComplete: false,
-    timeExpired: false,
-  });
+const QuestionPage = memo(
+  ({ questions, durationQuiz, quizId, topic, isEvaluate = false }) => {
+    const router = useRouter();
 
-  const handleTimeUp = () => {
-    const score = questions.reduce((acc, question, index) => {
-      return (
-        acc + (quizState.answers[index] === question.correctAnswer ? 1 : 0)
-      );
-    }, 0);
-    setQuizState({ ...quizState, score, isComplete: true, timeExpired: true });
-  };
+    // Memoize initial state
+    const initialState = useMemo(
+      () => ({
+        currentQuestionIndex: 0,
+        score: 0,
+        answers: new Array(questions.length).fill(""),
+        isLast: false,
+        isComplete: false,
+        timeExpired: false,
+      }),
+      [questions.length]
+    );
 
-  const handleNext = () => {
-    if (quizState.currentQuestionIndex === questions.length - 1) {
-      const score = questions.reduce((acc, question, index) => {
-        return (
-          acc + (quizState.answers[index] === question.correctAnswer ? 1 : 0)
+    // Use state with memoized initial value
+    const [quizState, setQuizState] = useState(initialState);
+    const [isLoading, setIsLoading] = useState(false);
+
+    // Reset loading state on mount
+    useEffect(() => {
+      setIsLoading(false);
+    }, []);
+
+    // Memoize score calculation
+    const calculateScore = useCallback(
+      (answers) => {
+        return questions.reduce(
+          (acc, question, index) =>
+            acc + (answers[index] === question.correctAnswer ? 1 : 0),
+          0
         );
-      }, 0);
-      setQuizState({ ...quizState, score, isComplete: true });
-    } else {
-      let isLast = false;
-      if (quizState.currentQuestionIndex === questions.length - 2) {
-        isLast = true;
-      }
-      setQuizState({
-        ...quizState,
-        currentQuestionIndex: quizState.currentQuestionIndex + 1,
-        isLast: isLast,
+      },
+      [questions]
+    );
+
+    // Optimize handlers with useCallback
+    const handleTimeUp = useCallback(() => {
+      const score = calculateScore(quizState.answers);
+      setQuizState((prev) => ({
+        ...prev,
+        score,
+        isComplete: true,
+        timeExpired: true,
+      }));
+    }, [calculateScore, quizState.answers]);
+
+    const handleNext = useCallback(() => {
+      setQuizState((prev) => {
+        if (prev.currentQuestionIndex === questions.length - 1) {
+          const score = calculateScore(prev.answers);
+          return { ...prev, score, isComplete: true };
+        }
+
+        const isLast = prev.currentQuestionIndex === questions.length - 2;
+        return {
+          ...prev,
+          currentQuestionIndex: prev.currentQuestionIndex + 1,
+          isLast,
+        };
       });
-    }
-  };
+    }, [questions.length, calculateScore]);
 
-  const handleAnswer = (answer) => {
-    const newAnswers = [...quizState.answers];
-    newAnswers[quizState.currentQuestionIndex] = answer;
-    setQuizState({ ...quizState, answers: newAnswers });
-  };
+    const handleAnswer = useCallback((answer) => {
+      setQuizState((prev) => {
+        const newAnswers = [...prev.answers];
+        newAnswers[prev.currentQuestionIndex] = answer;
+        return { ...prev, answers: newAnswers };
+      });
+    }, []);
 
-  const handlePrevious = () => {
-    setQuizState({
-      ...quizState,
-      currentQuestionIndex: quizState.currentQuestionIndex - 1,
-      isLast: false,
-    });
-  };
+    const handlePrevious = useCallback(() => {
+      setQuizState((prev) => ({
+        ...prev,
+        currentQuestionIndex: prev.currentQuestionIndex - 1,
+        isLast: false,
+      }));
+    }, []);
 
-  const handleRestart = () => {
-    setQuizState({
-      currentQuestionIndex: 0,
-      score: 0,
-      answers: new Array(questions.length).fill(""),
-      isComplete: false,
-      timeExpired: false,
-    });
-  };
+    const handleRestart = useCallback(() => {
+      setQuizState(initialState);
+    }, [initialState]);
 
-  const evaluateHandler = () => {
-    setIsLoading(true);
-    router.push(`/quizzes/${topic}/evaluate/${quizId}`);
-  };
+    const evaluateHandler = useCallback(() => {
+      setIsLoading(true);
+      router.push(`/quizzes/${topic}/evaluate/${quizId}`);
+    }, [router, topic, quizId]);
 
-  return (
-    <>
-      {isLoading && <LoadingQuiz />}
-      <div className="min-h-screen bg-gradient-to-br from-blue-50 via-white to-blue-50">
-        <div className="relative min-h-screen">
-          {/* Timer */}
-          {!quizState.isComplete && !isEvaluate && (
-            <Timer duration={durationQuiz} onTimeUp={handleTimeUp} />
-          )}
+    // Memoize current question
+    const currentQuestion = useMemo(
+      () => questions[quizState.currentQuestionIndex],
+      [questions, quizState.currentQuestionIndex]
+    );
 
-          {/* Background Effects */}
-          <div className="absolute inset-0 overflow-hidden pointer-events-none">
-            <div className="absolute -top-40 -right-40 w-80 h-80 bg-blue-100 rounded-full opacity-30 blur-3xl" />
-            <div className="absolute -bottom-40 -left-40 w-80 h-80 bg-purple-100 rounded-full opacity-30 blur-3xl" />
-            <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-full h-full">
-              <div className="w-full h-full bg-gradient-to-r from-transparent via-white/50 to-transparent opacity-50" />
-            </div>
-          </div>
+    // Memoize progress props
+    const progressProps = useMemo(
+      () => ({
+        current: quizState.currentQuestionIndex + 1,
+        total: questions.length,
+      }),
+      [quizState.currentQuestionIndex, questions.length]
+    );
 
-          {/* Main Content */}
-          <div className="relative z-10 container mx-auto px-4 py-2">
-            <div className="max-w-4xl mx-auto">
-              {/* Header */}
-              <div className="text-center mt-4">
-                <h1 className="text-4xl lg:text-5xl font-bold bg-gradient-to-r from-primary to-blue-600 bg-clip-text text-transparent">
-                  Quiz Time!
-                </h1>
-                <p className="mt-4 text-gray-600 text-lg">
-                  Test your knowledge and challenge yourself
-                </p>
+    // Memoize question card props
+    const questionCardProps = useMemo(
+      () => ({
+        question: currentQuestion,
+        onAnswer: handleAnswer,
+        onNext: handleNext,
+        onPrevious: handlePrevious,
+        showPrevious: quizState.currentQuestionIndex > 0,
+        selectedAnswer: quizState.answers[quizState.currentQuestionIndex],
+        quizState,
+        isEvaluate,
+      }),
+      [
+        currentQuestion,
+        handleAnswer,
+        handleNext,
+        handlePrevious,
+        quizState,
+        isEvaluate,
+      ]
+    );
+
+    // Memoize score card props
+    const scoreCardProps = useMemo(
+      () => ({
+        score: quizState.score,
+        total: questions.length,
+        onRestart: handleRestart,
+        timeExpired: quizState.timeExpired,
+        onEvaluate: evaluateHandler,
+      }),
+      [
+        quizState.score,
+        questions.length,
+        handleRestart,
+        quizState.timeExpired,
+        evaluateHandler,
+      ]
+    );
+
+    return (
+      <>
+        {isLoading && <LoadingQuiz />}
+        <div className="min-h-screen bg-gradient-to-br from-blue-50 via-white to-blue-50">
+          <div className="relative min-h-screen">
+            {/* Timer */}
+            {!quizState.isComplete && !isEvaluate && (
+              <Timer duration={durationQuiz} onTimeUp={handleTimeUp} />
+            )}
+
+            {/* Background Effects */}
+            <BackgroundEffects />
+
+            {/* Main Content */}
+            <div className="relative z-10 container mx-auto px-4 py-2">
+              <div className="max-w-4xl mx-auto">
+                {/* Header */}
+                <QuizHeader />
+
+                {/* Quiz Content */}
+                {!quizState.isComplete || isEvaluate ? (
+                  <div className="space-y-8 py-8">
+                    {/* Progress Bar */}
+                    <div className="bg-white rounded-lg p-4 shadow-sm">
+                      <ProgressBar {...progressProps} />
+                    </div>
+
+                    {/* Question Card */}
+                    <div className="transform transition-all duration-300 hover:scale-[1.01]">
+                      <QuestionCard {...questionCardProps} />
+                    </div>
+                  </div>
+                ) : (
+                  <div className="transform transition-all duration-300 hover:scale-[1.01] py-8">
+                    <ScoreCard {...scoreCardProps} />
+                  </div>
+                )}
               </div>
-
-              {/* Quiz Content */}
-              {!quizState.isComplete || isEvaluate ? (
-                <div className="space-y-8 py-8">
-                  {/* Progress Bar */}
-                  <div className="bg-white rounded-lg p-4 shadow-sm">
-                    <ProgressBar
-                      current={quizState.currentQuestionIndex + 1}
-                      total={questions.length}
-                    />
-                  </div>
-
-                  {/* Question Card */}
-                  <div className="transform transition-all duration-300 hover:scale-[1.01]">
-                    <QuestionCard
-                      question={questions[quizState.currentQuestionIndex]}
-                      onAnswer={handleAnswer}
-                      onNext={handleNext}
-                      onPrevious={handlePrevious}
-                      showPrevious={quizState.currentQuestionIndex > 0}
-                      selectedAnswer={
-                        quizState.answers[quizState.currentQuestionIndex]
-                      }
-                      quizState={quizState}
-                      isEvaluate={isEvaluate}
-                    />
-                  </div>
-                </div>
-              ) : (
-                <div className="transform transition-all duration-300 hover:scale-[1.01] py-8">
-                  <ScoreCard
-                    score={quizState.score}
-                    total={questions.length}
-                    onRestart={handleRestart}
-                    timeExpired={quizState.timeExpired}
-                    onEvaluate={evaluateHandler}
-                  />
-                </div>
-              )}
             </div>
           </div>
         </div>
-      </div>
-    </>
-  );
-}
+      </>
+    );
+  }
+);
+
+// Memoized background effects component
+const BackgroundEffects = memo(() => (
+  <div className="absolute inset-0 overflow-hidden pointer-events-none">
+    <div className="absolute -top-40 -right-40 w-80 h-80 bg-blue-100 rounded-full opacity-30 blur-3xl" />
+    <div className="absolute -bottom-40 -left-40 w-80 h-80 bg-purple-100 rounded-full opacity-30 blur-3xl" />
+    <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-full h-full">
+      <div className="w-full h-full bg-gradient-to-r from-transparent via-white/50 to-transparent opacity-50" />
+    </div>
+  </div>
+));
+
+// Memoized quiz header component
+const QuizHeader = memo(() => (
+  <div className="text-center mt-4">
+    <h1 className="text-4xl lg:text-5xl font-bold bg-gradient-to-r from-primary to-blue-600 bg-clip-text text-transparent">
+      Quiz Time!
+    </h1>
+    <p className="mt-4 text-gray-600 text-lg">
+      Test your knowledge and challenge yourself
+    </p>
+  </div>
+));
+
+QuestionPage.displayName = "QuestionPage";
+BackgroundEffects.displayName = "BackgroundEffects";
+QuizHeader.displayName = "QuizHeader";
 
 export default QuestionPage;
