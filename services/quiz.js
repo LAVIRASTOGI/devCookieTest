@@ -152,15 +152,10 @@ export const submitQuizData = async (data, token) => {
 };
 export const getQuizIdEvaluate = async (data, token) => {
   try {
-    //   const response = await axiosInstance.post("/updateProfile", data, {
-    //     token,
-    //   });
-    //   return response.data;
-
-    return {
-      success: true,
-      result: userQuizEvaluation,
-    };
+    const response = await axiosInstance.post("/quiz/evaluateQuiz", data, {
+      token,
+    });
+    return response.data;
   } catch (error) {
     // Properly handle axios error object
     const errorMessage =

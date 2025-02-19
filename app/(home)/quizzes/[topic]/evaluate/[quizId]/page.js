@@ -8,9 +8,8 @@ export default async function EvaluationPage({ params }) {
     const { topic, quizId } = await params;
     const quizDetailsTopicData = await getEvaluateQuizId(quizId, topic);
     const quizEvaluation = quizDetailsTopicData?.data || [];
-
     if (!Object.keys(quizEvaluation?.answer)?.length) {
-      return <div>No Evaluation for Quiz. It will be available soon.</div>;
+      return <div className="mt-20 text-center">No Evaluation for Quiz. .</div>;
     }
     return (
       <>
@@ -18,9 +17,10 @@ export default async function EvaluationPage({ params }) {
           <QuestionPage
             questions={quizEvaluation?.answer}
             durationQuiz={quizEvaluation?.duration}
-            quizId={quizEvaluation?.id}
+            quizId={quizId}
             topic={topic}
             isEvaluate={true}
+            quizInfo={quizEvaluation}
           />
         </main>
       </>

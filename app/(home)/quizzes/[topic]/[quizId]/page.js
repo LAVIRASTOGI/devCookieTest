@@ -10,7 +10,7 @@ export default async function QuizPage({ params }) {
     const quizQuestion = quizDetailsTopicData?.data || {};
     if (!quizQuestion?.questionnaire?.length) {
       return (
-        <div className="min-h-screen bg-background mt-20">
+        <div className="min-h-screen bg-background mt-20 text-center">
           Quiz for this topic will be available soon.
         </div>
       );

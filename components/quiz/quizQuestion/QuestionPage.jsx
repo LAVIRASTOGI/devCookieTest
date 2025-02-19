@@ -10,7 +10,14 @@ import { submitQuiz } from "@/lib/quizAction";
 import toast from "react-hot-toast";
 
 const QuestionPage = memo(
-  ({ questions, durationQuiz, quizId, topic, isEvaluate = false }) => {
+  ({
+    questions,
+    durationQuiz,
+    quizId,
+    topic,
+    isEvaluate = false,
+    quizInfo,
+  }) => {
     const router = useRouter();
 
     // Memoize initial state
@@ -29,6 +36,7 @@ const QuestionPage = memo(
     // Use state with memoized initial value
     const [quizState, setQuizState] = useState(initialState);
     const [isLoading, setIsLoading] = useState(false);
+    const [isQuizDisplay, setIsQuizDisplay] = useState(true);
 
     // Reset loading state on mount
     useEffect(() => {
@@ -76,8 +84,9 @@ const QuestionPage = memo(
       };
       try {
         const submitQuizData = await submitQuiz(inputData);
-        if (submitQuizData?.success) toast.success(submitQuizData?.message);
-        else
+        if (submitQuizData?.success) {
+          toast.success(submitQuizData?.message);
+        } else
           toast.error(
             "Error occured While Submitting Quiz. Please Try After Sometime."
           );
@@ -96,15 +105,26 @@ const QuestionPage = memo(
       const isLastQues =
         quizState.currentQuestionIndex === questions.length - 1;
       if (isLastQues) {
-        const score = calculateScore(quizState.answers);
-        finishQuizHandler(score);
-        setQuizState((prev) => ({
-          ...prev,
-          score,
-          isComplete: true,
-        }));
-
-        return;
+        if (!isEvaluate) {
+          const score = calculateScore(quizState.answers);
+          finishQuizHandler(score);
+          setQuizState((prev) => ({
+            ...prev,
+            score,
+            isComplete: true,
+          }));
+          setIsQuizDisplay(false);
+          return;
+        }
+        if (isEvaluate) {
+          setQuizState((prev) => ({
+            ...prev,
+            score: quizInfo?.totalMarks,
+            isComplete: true,
+          }));
+          setIsQuizDisplay(false);
+          return;
+        }
       }
       setQuizState((prev) => {
         const isLast = prev.currentQuestionIndex === questions.length - 2;
@@ -133,7 +153,7 @@ const QuestionPage = memo(
     }, []);
 
     const handleRestart = useCallback(() => {
-      setQuizState(initialState);
+      router.push(`/quizzes/${topic}/${quizId}`);
     }, [initialState]);
 
     const evaluateHandler = useCallback(() => {
@@ -186,6 +206,7 @@ const QuestionPage = memo(
         onRestart: handleRestart,
         timeExpired: quizState.timeExpired,
         onEvaluate: evaluateHandler,
+        isEvaluate: isEvaluate,
       }),
       [
         quizState.score,
@@ -193,6 +214,7 @@ const QuestionPage = memo(
         handleRestart,
         quizState.timeExpired,
         evaluateHandler,
+        isEvaluate,
       ]
     );
 
@@ -216,7 +238,7 @@ const QuestionPage = memo(
                 <QuizHeader />
 
                 {/* Quiz Content */}
-                {!quizState.isComplete || isEvaluate ? (
+                {isQuizDisplay ? (
                   <div className="space-y-8 py-8">
                     {/* Progress Bar */}
                     <div className="bg-white rounded-lg p-4 shadow-sm">

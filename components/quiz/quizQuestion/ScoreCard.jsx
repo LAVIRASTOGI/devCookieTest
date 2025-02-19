@@ -1,6 +1,13 @@
 import Button from "@/components/uiComponents/Button";
 
-function ScoreCard({ score, total, onRestart, timeExpired, onEvaluate }) {
+function ScoreCard({
+  score,
+  total,
+  onRestart,
+  timeExpired,
+  onEvaluate,
+  isEvaluate,
+}) {
   const percentage = (score / total) * 100;
 
   return (

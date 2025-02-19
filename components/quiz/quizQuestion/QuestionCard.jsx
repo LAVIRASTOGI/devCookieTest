@@ -24,17 +24,17 @@ const QuestionCard = memo(
             : "border-gray-200 hover:border-gray-300 hover:bg-gray-50";
         }
 
-        if (option === question.correctAnswer) {
+        if (option === question?.correctAnswer) {
           return "border-green-500 bg-green-50";
         }
 
-        if (selectedAnswer === option && option !== question.correctAnswer) {
+        if (selectedAnswer === option && option !== question?.correctAnswer) {
           return "border-red-500 bg-red-50";
         }
 
         return "border-gray-200";
       },
-      [isEvaluate, selectedAnswer, question.correctAnswer]
+      [isEvaluate, selectedAnswer, question?.correctAnswer]
     );
 
     const getTextStyle = useCallback(
@@ -47,13 +47,13 @@ const QuestionCard = memo(
           return "text-green-700";
         }
 
-        if (selectedAnswer === option && option !== question.correctAnswer) {
+        if (selectedAnswer === option && option !== question?.correctAnswer) {
           return "text-red-700";
         }
 
         return "text-gray-700";
       },
-      [isEvaluate, selectedAnswer, question.correctAnswer]
+      [isEvaluate, selectedAnswer, question?.correctAnswer]
     );
 
     // Memoize option click handler
@@ -76,7 +76,7 @@ const QuestionCard = memo(
             // const isCorrect = option === question.correctAnswer;
             const isCorrect = index + 1 === question.correctAnswer;
             const isWrong =
-              isEvaluate && selectedAnswer === index + 1 && !isCorrect;
+              isEvaluate && question.userAnswer === index + 1 && !isCorrect;
             // const isWrong =
             //   isEvaluate && selectedAnswer === option && !isCorrect;
 
