@@ -6,6 +6,8 @@ import ProgressBar from "@/components/uiComponents/progress-bar";
 import Timer from "./Timer";
 import { useRouter } from "next/navigation";
 import LoadingQuiz from "@/app/(home)/quizzes/loadingQuiz";
+import { submitQuiz } from "@/lib/quizAction";
+import toast from "react-hot-toast";
 
 const QuestionPage = memo(
   ({ questions, durationQuiz, quizId, topic, isEvaluate = false }) => {
@@ -56,17 +58,55 @@ const QuestionPage = memo(
       }));
     }, [calculateScore, quizState.answers]);
 
+    // submit quiz
+    const finishQuizHandler = async (score) => {
+      setIsLoading(true);
+      const finalAnswer = quizState.answers.map((answer, index) => {
+        return {
+          serial_no: index + 1,
+          option: answer,
+        };
+      });
+      let inputData = {
+        questionId: quizId,
+        skill: topic,
+        answer: finalAnswer,
+        is_completed: true,
+        totalMarks: score,
+      };
+      try {
+        const submitQuizData = await submitQuiz(inputData);
+        if (submitQuizData?.success) toast.success(submitQuizData?.message);
+        else
+          toast.error(
+            "Error occured While Submitting Quiz. Please Try After Sometime."
+          );
+      } catch (error) {
+        console.error("Error occured While Submitting Quiz:", error);
+        toast.error(
+          error.message ||
+            "Error occured While Submitting Quiz. Please Try After Sometime."
+        );
+      } finally {
+        setIsLoading(false);
+      }
+    };
+
     const handleNext = useCallback(() => {
-      const isLast = quizState.currentQuestionIndex === questions.length - 1;
-      if (isLast) {
-        setIsLoading(true);
+      const isLastQues =
+        quizState.currentQuestionIndex === questions.length - 1;
+      if (isLastQues) {
+        const score = calculateScore(quizState.answers);
+        finishQuizHandler(score);
+        setQuizState((prev) => ({
+          ...prev,
+          score,
+          isComplete: true,
+        }));
+
+        return;
       }
       setQuizState((prev) => {
-        if (prev.currentQuestionIndex === questions.length - 1) {
-          const score = calculateScore(prev.answers);
-          return { ...prev, score, isComplete: true };
-        }
-
         const isLast = prev.currentQuestionIndex === questions.length - 2;
         return {
           ...prev,
@@ -74,12 +114,12 @@ const QuestionPage = memo(
           isLast,
         };
       });
-    }, [questions.length, calculateScore]);
+    }, [questions.length, calculateScore, quizState]);
 
-    const handleAnswer = useCallback((answer) => {
+    const handleAnswer = useCallback((answer, indexAnswer) => {
       setQuizState((prev) => {
         const newAnswers = [...prev.answers];
-        newAnswers[prev.currentQuestionIndex] = answer;
+        newAnswers[prev.currentQuestionIndex] = indexAnswer;
         return { ...prev, answers: newAnswers };
       });
     }, []);
@@ -224,9 +264,5 @@ const QuizHeader = memo(() => (
     </p>
   </div>
 ));
-
-QuestionPage.displayName = "QuestionPage";
-BackgroundEffects.displayName = "BackgroundEffects";
-QuizHeader.displayName = "QuizHeader";
 
 export default QuestionPage;

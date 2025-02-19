@@ -6,8 +6,9 @@ export default async function TopicPage({ params }) {
   try {
     const { topic } = await params;
     const quizDetailsTopicData = await getQuizTopicDetails(topic);
-    const quizSubscription = await getQuizSubscription(topic);
+    const quizSubscription = await getQuizSubscription("quiz", topic);
     const quizDetailsTopic = quizDetailsTopicData?.data || [];
+    console.log("quizSubscription", quizSubscription);
 
     if (!Object.keys(quizDetailsTopic)?.length) {
       return <div>No quizzes available.</div>;

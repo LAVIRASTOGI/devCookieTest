@@ -58,9 +58,9 @@ const QuestionCard = memo(
 
     // Memoize option click handler
     const handleOptionClick = useCallback(
-      (option) => {
+      (option, index) => {
         if (!isEvaluate) {
-          onAnswer(option);
+          onAnswer(option, index);
         }
       },
       [isEvaluate, onAnswer]
@@ -73,21 +73,26 @@ const QuestionCard = memo(
       () => (
         <div className="space-y-4">
           {question.options.map((option, index) => {
-            const isCorrect = option === question.correctAnswer;
+            // const isCorrect = option === question.correctAnswer;
+            const isCorrect = index + 1 === question.correctAnswer;
             const isWrong =
-              isEvaluate && selectedAnswer === option && !isCorrect;
+              isEvaluate && selectedAnswer === index + 1 && !isCorrect;
+            // const isWrong =
+            //   isEvaluate && selectedAnswer === option && !isCorrect;
 
             return (
               <div
                 key={`${option}-${index}`}
-                onClick={() => handleOptionClick(option)}
+                onClick={() => handleOptionClick(option, index + 1)}
                 className={`p-4 rounded-lg border-2 transition-all
-              ${isWrong ? "border-red-500 bg-red-50" : getOptionStyle(option)}
+              ${
+                isWrong ? "border-red-500 bg-red-50" : getOptionStyle(index + 1)
+              }
               ${isEvaluate ? "cursor-not-allowed" : "cursor-pointer"}
             `}
               >
                 <div className="flex items-center justify-between">
-                  <span className={`text-lg ${getTextStyle(option)}`}>
+                  <span className={`text-lg ${getTextStyle(index + 1)}`}>
                     {option}
                   </span>
                   {isEvaluate ? (
@@ -97,7 +102,7 @@ const QuestionCard = memo(
                       <WrongIcon />
                     ) : null
                   ) : (
-                    selectedAnswer === option && <SelectedIcon />
+                    selectedAnswer === index + 1 && <SelectedIcon />
                   )}
                 </div>
               </div>

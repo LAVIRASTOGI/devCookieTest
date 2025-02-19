@@ -7,11 +7,13 @@ export default async function QuizPage({ params }) {
   try {
     const { topic, quizId } = await params;
     const quizDetailsTopicData = await getQuestionQuizId(quizId, topic);
-    console.log(quizDetailsTopicData);
     const quizQuestion = quizDetailsTopicData?.data || {};
-
     if (!quizQuestion?.questionnaire?.length) {
-      return <div>Quiz for this topic will be available soon.</div>;
+      return (
+        <div className="min-h-screen bg-background mt-20">
+          Quiz for this topic will be available soon.
+        </div>
+      );
     }
     return (
       <>
@@ -22,7 +24,7 @@ export default async function QuizPage({ params }) {
                 (a, b) => a.serial_no - b.serial_no
               )}
               durationQuiz={quizQuestion?.duration}
-              quizId={quizQuestion?.toppicId}
+              quizId={quizId}
               topic={topic}
             />
           )}

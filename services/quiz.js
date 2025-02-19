@@ -38,17 +38,12 @@ export const getQuizData = async (token) => {
     });
     console.log("response", token);
     return response.data;
-
-    // return {
-    //   success: true,
-    //   result: quizTopics,
-    // };
   } catch (error) {
     // Properly handle axios error object
     const errorMessage =
       error.response?.data?.error ||
       error.message ||
-      "An unexpected error occurred during signup";
+      "An unexpected error occurred during fetching Data";
 
     console.error("Error:", {
       message: errorMessage,
@@ -64,22 +59,22 @@ export const getQuizData = async (token) => {
     };
   }
 };
-export const fetchQuizSubscription = async (topicId, token) => {
+export const fetchQuizSubscription = async (module, token) => {
+  console.log("module", module);
   try {
-    // const response = await axiosInstance.get("/quiz/quizDetailsForUser", {
-    //   token,
-    // });
-    // return response.data;
-    return {
-      status: "success",
-      result: quizSubscription["html"],
-    };
+    const response = await axiosInstance.get(
+      `/getUserSubscriptionValue/${module}`,
+      {
+        token,
+      }
+    );
+    return response?.data;
   } catch (error) {
     // Properly handle axios error object
     const errorMessage =
       error.response?.data?.error ||
       error.message ||
-      "An unexpected error occurred during signup";
+      "An unexpected error occurred while fetching Data";
 
     console.error("Error:", {
       message: errorMessage,
@@ -124,6 +119,37 @@ export const getQuizIdQuestions = async (data, token) => {
   }
 };
 
+export const submitQuizData = async (data, token) => {
+  try {
+    const response = await axiosInstance.post(
+      "/quiz/insertUserQuizResponse",
+      data,
+      {
+        token,
+      }
+    );
+    return response.data;
+  } catch (error) {
+    // Properly handle axios error object
+    const errorMessage =
+      error.response?.data?.error ||
+      error.message ||
+      "An unexpected error occurred during Submitting Quiz Data";
+
+    console.error("Error:", {
+      message: errorMessage,
+      status: error.response?.status,
+      data: error.response?.data,
+    });
+
+    // Return a structured error response
+    return {
+      success: false,
+      error: errorMessage,
+      status: error.response?.status,
+    };
+  }
+};
 export const getQuizIdEvaluate = async (data, token) => {
   try {
     //   const response = await axiosInstance.post("/updateProfile", data, {
