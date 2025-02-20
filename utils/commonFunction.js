@@ -56,7 +56,7 @@ export function createQuizLevelDescription(startLevelArray, startLevelNumber) {
 
 export function createQuizStepsSkill(
   quizObj,
-  stepsArray = ["freeQuiz", "beginner", "intermediate", "expert"],
+  stepsArray = ["free", "beginner", "intermediate", "expert"],
   quizSubscription
 ) {
   let newQuizObj = {};

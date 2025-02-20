@@ -1,6 +1,6 @@
 export const quizDetails = {
   html: {
-    freeQuiz: {
+    free: {
       description: "Introduction to Core HTML Concepts",
     },
 
@@ -17,7 +17,7 @@ export const quizDetails = {
     },
   },
   css: {
-    freeQuiz: {
+    free: {
       description: "Introduction to Core CSS Concepts",
     },
 
@@ -34,7 +34,7 @@ export const quizDetails = {
     },
   },
   javascript: {
-    freeQuiz: {
+    free: {
       description: "Introduction to Core JavaScript Concepts",
     },
 
@@ -51,7 +51,7 @@ export const quizDetails = {
     },
   },
   react: {
-    freeQuiz: {
+    free: {
       description: "Introduction to Core React Concepts",
     },
 
@@ -71,7 +71,7 @@ export const quizDetails = {
 
 export const quizSubscription = {
   html: {
-    freeQuiz: {
+    free: {
       cost: 100,
       subscribed: true,
     },
@@ -96,7 +96,7 @@ export const quizSubscription = {
     },
   },
   css: {
-    freeQuiz: {
+    free: {
       cost: 100,
       subscribed: true,
     },
@@ -121,7 +121,7 @@ export const quizSubscription = {
     },
   },
   javascript: {
-    freeQuiz: {
+    free: {
       cost: 100,
       subscribed: true,
     },
@@ -146,7 +146,7 @@ export const quizSubscription = {
     },
   },
   react: {
-    freeQuiz: {
+    free: {
       cost: 100,
       subscribed: true,
     },

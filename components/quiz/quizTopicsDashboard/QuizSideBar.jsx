@@ -13,7 +13,7 @@ const QuizLevelHeader = memo(({ level, isLocked, levelData }) => (
       <h3 className="text-base lg:text-lg font-semibold text-gray-700 capitalize">
         {level}
       </h3>
-      {level !== "FreeQuiz" && (
+      {level !== "free" && (
         <span
           className={`inline-flex items-center px-2 py-0.5 rounded-full text-[10px] lg:text-xs font-medium ${
             isLocked
@@ -43,7 +43,7 @@ function QuizSidebar({
 
   const isLevelLocked = useMemo(() => {
     return (level, quizTopicsDetails) => {
-      if (level === "freeQuiz") return false;
+      if (level === "free") return false;
       return !quizTopicsDetails?.["subscribed"];
     };
   }, []);
@@ -52,8 +52,9 @@ function QuizSidebar({
     return () => {
       if (!Object.keys(quizTopicsDetails)?.length) return false;
       const relevantLevels = Object.entries(quizTopicsDetails).filter(
-        ([key]) => !["freeQuiz", "fullCourse"].includes(key)
+        ([key]) => !["free", "fullCourse"].includes(key)
       );
+      console.log("relevantLevels", relevantLevels);
       return relevantLevels.every(([_, data]) => !data.subscribed);
     };
   }, [quizTopicsDetails]);
@@ -98,12 +99,22 @@ function QuizSidebar({
       const levelSubscribed =
         level === "fullCourse"
           ? Object.keys(quizTopicsDetails).filter(
-              (l) => l !== "freeQuiz" && l !== "fullCourse"
+              (l) => l !== "free" && l !== "fullCourse"
             )
           : [level];
 
       try {
-        const subscribedData = await subscribeQuiz(topicId, levelSubscribed);
+        let subscriptions = [levelSubscribed];
+        if (levelSubscribed == "fullCourse") {
+          subscriptions = ["beginner", "intermediate", "expert"];
+        }
+        let inputData = {
+          role: "user",
+          skills: [topicId],
+          section: "quiz",
+          subscriptions,
+        };
+        const subscribedData = await subscribeQuiz(inputData);
         if (subscribedData?.success) {
           setQuizTopicsDetails((prev) => ({
             ...prev,
@@ -215,7 +226,7 @@ function QuizSidebar({
                 ))}
               </div>
 
-              {isLocked && level !== "FreeQuiz" && (
+              {isLocked && level !== "free" && (
                 <div className="mt-2 space-y-2">
                   <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2 bg-amber-50 p-2 lg:p-3 rounded-lg">
                     <div className="space-y-1">

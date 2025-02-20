@@ -179,14 +179,14 @@ export const getQuizIdEvaluate = async (data, token) => {
 };
 export const postQuizSubscription = async (data, token) => {
   try {
-    // const response = await axiosInstance.post("/quiz/quizSubscription", data, {
-    //   token,
-    // });
-    // return response.data;
-    return {
-      status: "success",
-      result: "subscribed",
-    };
+    const response = await axiosInstance.post(
+      "/insertUserSubscriptionValue",
+      data,
+      {
+        token,
+      }
+    );
+    return response.data;
   } catch (error) {
     // Properly handle axios error object
     const errorMessage =
