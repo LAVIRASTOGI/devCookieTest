@@ -13,7 +13,6 @@ function TopicsDashboard({ topicId, quizDetailsTopic, quizSubscription }) {
     let quizDetailsTopicNew = { ...quizDetailsTopic };
     if (quizDetailsTopicNew["free"]) {
       quizDetailsTopicNew["free"].topics[0].active = true;
-      quizDetailsTopicNew["free"].subscribed = true;
     }
     setQuizTopicsDetails(
       createQuizStepsSkill(quizDetailsTopicNew, stepsArray, quizSubscription)

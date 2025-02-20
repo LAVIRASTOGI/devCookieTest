@@ -104,15 +104,17 @@ function QuizSidebar({
           : [level];
 
       try {
-        let subscriptions = [levelSubscribed];
-        if (levelSubscribed == "fullCourse") {
-          subscriptions = ["beginner", "intermediate", "expert"];
+        let subscriptions = [];
+        if (level == "fullCourse") {
+          subscriptions.push("beginner", "intermediate", "expert");
+        } else {
+          subscriptions.push(level);
         }
         let inputData = {
           role: "user",
           skills: [topicId],
           section: "quiz",
-          subscriptions,
+          subscriptions: [...subscriptions],
         };
         const subscribedData = await subscribeQuiz(inputData);
         if (subscribedData?.success) {
@@ -176,12 +178,12 @@ function QuizSidebar({
               handleUnlockAll(isPayment, "fullCourse")
             }
             sucessMsg="Quiz Subscribed Successfully. Please Start giving quiz."
-            amount={quizTopicsDetails["fullCourse"]?.cost || 400}
+            amount={quizTopicsDetails["fullCourse"]?.cost || 100}
             user={user}
             buttonName={
               <PaymentButton
                 buttonName={`Unlock All Levels ₹${
-                  quizTopicsDetails["fullCourse"]?.cost || 400
+                  quizTopicsDetails["fullCourse"]?.cost || 100
                 }`}
               />
             }

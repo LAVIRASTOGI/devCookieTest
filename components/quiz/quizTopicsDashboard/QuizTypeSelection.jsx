@@ -1,4 +1,4 @@
-import { memo, useCallback, useMemo } from "react";
+import { memo, useCallback, useEffect, useMemo, useState } from "react";
 import LoadingQuiz from "@/app/(home)/quizzes/loadingQuiz";
 import { quizDetails } from "@/constants/quizDetails";
 import { useRouter } from "next/navigation";
@@ -9,23 +9,24 @@ import CheckIcon from "../Icons/CheckIcon";
 
 // Memoized SVG components
 
-function QuizTypeSelection({
-  quizTopicsDetails,
-  currentLevel,
-  topicId,
-  isLoading,
-}) {
+function QuizTypeSelection({ quizTopicsDetails, currentLevel, topicId }) {
   const router = useRouter();
   const currentTopic = useMemo(
     () => quizTopicsDetails[currentLevel]?.topics.find((ele) => ele.active),
     [quizTopicsDetails, currentLevel]
   );
+  const [isLoading, setIsLoading] = useState(false);
+  useEffect(() => {
+    setIsLoading(false);
+  }, []);
 
   const handleStartQuiz = useCallback(() => {
+    setIsLoading(true);
     router.push(`/quizzes/${topicId}/${currentTopic?.toppicId}`);
   }, [router, topicId, currentTopic?.toppicId]);
 
   const handleEvaluateQuiz = useCallback(() => {
+    setIsLoading(true);
     router.push(`/quizzes//${topicId}/evaluate/${currentTopic?.toppicId}`);
   }, [router, topicId, currentTopic?.toppicId]);
 
@@ -35,6 +36,7 @@ function QuizTypeSelection({
 
   return (
     <>
+      {isLoading && <LoadingQuiz />}
       <div className="w-full max-w-4xl">
         <div className="flex flex-col gap-4 items-center mb-10">
           <h1 className="text-2xl underline font-bold text-primary">
