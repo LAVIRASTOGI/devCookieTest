@@ -6,6 +6,7 @@ import { useRouter } from "next/navigation";
 import toast from "react-hot-toast";
 
 function AppWrapper({ cookie }) {
+  console.log("run first");
   const { user, login } = useUser();
   const router = useRouter();
 
@@ -15,16 +16,25 @@ function AppWrapper({ cookie }) {
       if (userResponse?.success) {
         login(userResponse?.data);
       } else {
-        toast.error(
-          userResponse?.message || "User not Found.Please login again"
-        );
-
-        router.push("/");
+        if (
+          window.location.pathname !== "/" &&
+          window.location.pathname !== "/mock-interview"
+        ) {
+          router.push("/sign-in");
+          toast.error(
+            userResponse?.message || "User not Found. Please login again"
+          );
+        }
       }
     } catch (error) {
       console.log(error);
-      toast.error(`User not Found.Please login again`);
-      router.push("/");
+      if (
+        window.location.pathname !== "/" &&
+        window.location.pathname !== "/mock-interview"
+      ) {
+        router.push("/sign-in");
+        toast.error(`User not Found.Please login again`);
+      }
     }
   };
   useEffect(() => {

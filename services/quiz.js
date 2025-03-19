@@ -15,7 +15,7 @@ export const getQuizDetailsTopic = async (skill, token) => {
       error.message ||
       "An unexpected error occurred during signup";
 
-    console.error("Error:", {
+    console.log("Error:", {
       message: errorMessage,
       status: error.response?.status,
       data: error.response?.data,
@@ -25,27 +25,27 @@ export const getQuizDetailsTopic = async (skill, token) => {
     return {
       success: false,
       error: errorMessage,
-      status: error.response?.status,
+      statusCode: error.response?.status,
     };
   }
 };
 
 export const getQuizData = async (token) => {
   try {
-    console.log("responseee", token);
     const response = await axiosInstance.get("/quiz/quizDetailsForUser", {
       token,
     });
-    console.log("response", token);
+
     return response.data;
   } catch (error) {
+    console.log("error", error);
     // Properly handle axios error object
     const errorMessage =
       error.response?.data?.error ||
-      error.message ||
+      error?.message ||
       "An unexpected error occurred during fetching Data";
 
-    console.error("Error:", {
+    console.log("Error:", {
       message: errorMessage,
       status: error.response?.status,
       data: error.response?.data,
@@ -55,7 +55,8 @@ export const getQuizData = async (token) => {
     return {
       success: false,
       error: errorMessage,
-      status: error.response?.status,
+      statusCode: error.response?.status,
+      data: error.response?.data,
     };
   }
 };
@@ -76,7 +77,7 @@ export const fetchQuizSubscription = async (module, token) => {
       error.message ||
       "An unexpected error occurred while fetching Data";
 
-    console.error("Error:", {
+    console.log("Error:", {
       message: errorMessage,
       status: error.response?.status,
       data: error.response?.data,
@@ -86,7 +87,7 @@ export const fetchQuizSubscription = async (module, token) => {
     return {
       success: false,
       error: errorMessage,
-      status: error.response?.status,
+      statusCode: error.response?.status,
     };
   }
 };
@@ -104,7 +105,7 @@ export const getQuizIdQuestions = async (data, token) => {
       error.message ||
       "An unexpected error occurred during Fetching Quiz Data";
 
-    console.error("Error:", {
+    console.log("Error:", {
       message: errorMessage,
       status: error.response?.status,
       data: error.response?.data,
@@ -136,7 +137,7 @@ export const submitQuizData = async (data, token) => {
       error.message ||
       "An unexpected error occurred during Submitting Quiz Data";
 
-    console.error("Error:", {
+    console.log("Error:", {
       message: errorMessage,
       status: error.response?.status,
       data: error.response?.data,
@@ -163,7 +164,7 @@ export const getQuizIdEvaluate = async (data, token) => {
       error.message ||
       "An unexpected error occurred during Fetching Quiz Data";
 
-    console.error("Error:", {
+    console.log("Error:", {
       message: errorMessage,
       status: error.response?.status,
       data: error.response?.data,
@@ -194,7 +195,7 @@ export const postQuizSubscription = async (data, token) => {
       error.message ||
       "An unexpected error occurred during Fetching Quiz Data";
 
-    console.error("Error:", {
+    console.log("Error:", {
       message: errorMessage,
       status: error.response?.status,
       data: error.response?.data,

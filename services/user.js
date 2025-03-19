@@ -110,6 +110,7 @@ export const getUserProfile = async (token) => {
     const response = await axiosInstance.get("/getUserProile", {
       token, // Pass the token here
     });
+
     return response.data;
   } catch (error) {
     // Properly handle axios error object
@@ -129,6 +130,7 @@ export const getUserProfile = async (token) => {
       success: false,
       error: errorMessage,
       status: error.response?.status,
+      data: error.response?.data,
     };
   }
 };

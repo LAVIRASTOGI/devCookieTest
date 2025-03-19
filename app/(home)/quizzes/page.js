@@ -1,5 +1,6 @@
 import QuizTopicCard from "@/components/quiz/QuizTopicCard";
 import { getQuizDetails } from "@/lib/quizAction";
+import { redirect } from "next/navigation";
 
 export const dynamic = "force-dynamic";
 export default async function QuizzesPage() {
@@ -8,7 +9,9 @@ export default async function QuizzesPage() {
     const quizTopics = quizDetails?.data || [];
 
     if (!quizTopics.length) {
-      return <div>No quizzes available.</div>;
+      return (
+        <div className="mt-40 text-center mb-32">No quizzes available.</div>
+      );
     }
     return (
       <>
@@ -27,6 +30,9 @@ export default async function QuizzesPage() {
       </>
     );
   } catch (error) {
+    if (error?.cause?.status === 401) {
+      redirect("/sign-in");
+    }
     return (
       <div className="min-h-screen bg-background p-8 mt-20 flex items-center justify-center">
         <div className="text-center">
