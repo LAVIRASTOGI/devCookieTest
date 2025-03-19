@@ -3,7 +3,7 @@ import Image from "next/image";
 import QuizCardLearningButton from "./QuizCardLearningButton";
 import { quizTopicsDetails } from "@/constants/quizTopicsDetails";
 import { createQuizLevelDescription } from "@/utils/commonFunction";
-import { memo, useMemo } from 'react';
+import { memo, useMemo } from "react";
 
 // Memoized SVG components
 const ProgressBar = memo(({ completionPercentage }) => (
@@ -33,17 +33,32 @@ const QuizTopicCard = memo(({ topic }) => {
   }, [topic.completedQuizzes, topic.quizCount]);
 
   // Memoize topic details
-  const topicDetails = useMemo(() => 
-    quizTopicsDetails[topic?.skill] || {}, 
+  const topicDetails = useMemo(
+    () => quizTopicsDetails[topic?.skill] || {},
     [topic?.skill]
   );
 
   // Memoize level descriptions
-  const levelDescriptions = useMemo(() => ({
-    beginner: topic?.beginner?.length ? createQuizLevelDescription(topic.beginner, 0) : null,
-    intermediate: topic?.intermediate?.length ? createQuizLevelDescription(topic.intermediate, topic?.beginner?.length || 0) : null,
-    expert: topic?.expert?.length ? createQuizLevelDescription(topic.expert, (topic?.beginner?.length || 0) + (topic?.intermediate?.length || 0)) : null
-  }), [topic?.beginner, topic?.intermediate, topic?.expert]);
+  const levelDescriptions = useMemo(
+    () => ({
+      beginner: topic?.beginner?.length
+        ? createQuizLevelDescription(topic.beginner, 0)
+        : null,
+      intermediate: topic?.intermediate?.length
+        ? createQuizLevelDescription(
+            topic.intermediate,
+            topic?.beginner?.length || 0
+          )
+        : null,
+      expert: topic?.expert?.length
+        ? createQuizLevelDescription(
+            topic.expert,
+            (topic?.beginner?.length || 0) + (topic?.intermediate?.length || 0)
+          )
+        : null,
+    }),
+    [topic?.beginner, topic?.intermediate, topic?.expert]
+  );
 
   return (
     <div className="group relative bg-white rounded-2xl p-4 sm:p-6 hover:shadow-2xl transition-all duration-300 border border-gray-100 overflow-hidden">
@@ -51,14 +66,15 @@ const QuizTopicCard = memo(({ topic }) => {
         {/* Header */}
         <div className="flex flex-col sm:flex-row sm:items-center gap-3 sm:gap-4 mb-4 sm:mb-6">
           <div className="p-2 sm:p-3 bg-primary/10 rounded-xl text-primary transform transition-transform group-hover:scale-110 w-fit">
-            <Image
-              src={topicDetails.icon}
-              alt={topicDetails.title}
-              width={40}
-              height={40}
-              className="w-6 h-6 sm:w-8 sm:h-8 object-contain"
-              priority
-            />
+            {topicDetails?.icon && (
+              <Image
+                src={topicDetails.icon}
+                alt={topicDetails.title}
+                width={40}
+                height={40}
+                className="w-6 h-6 sm:w-8 sm:h-8 object-contain"
+              />
+            )}
           </div>
           <div>
             <h2 className="text-xl sm:text-2xl font-bold text-gray-800 mb-1">
@@ -182,6 +198,6 @@ const QuizTopicCard = memo(({ topic }) => {
   );
 });
 
-QuizTopicCard.displayName = 'QuizTopicCard';
+QuizTopicCard.displayName = "QuizTopicCard";
 
 export default QuizTopicCard;
